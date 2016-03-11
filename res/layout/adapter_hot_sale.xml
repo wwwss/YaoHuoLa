@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginRight="@dimen/margin_nomarl"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/pic"
+        android:layout_width="160dp"
+        android:layout_height="140dp"
+        android:layout_margin="@dimen/margin_nomarl"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_product_icon" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginLeft="@dimen/margin_nomarl"
+        android:layout_marginTop="@dimen/margin_nomarl"
+        android:gravity="center_vertical"
+        android:textColor="@color/text_color_dark"
+        android:textSize="@dimen/text_size_normal" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginLeft="@dimen/margin_nomarl"
+        android:layout_marginTop="@dimen/margin_nomarl"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textColor="@color/text_color_dark"
+        android:textSize="@dimen/text_size_small" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_nomarl"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/red"
+            android:textSize="@dimen/text_size_normal" />
+
+        <ImageView
+            android:id="@+id/addToCart"
+            android:layout_width="44dp"
+            android:layout_height="33dp"
+            android:layout_gravity="bottom|right"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/shopping_cart" />
+    </LinearLayout>
+
+</LinearLayout>

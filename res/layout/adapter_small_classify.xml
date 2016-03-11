@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="9dp"
+            android:layout_height="9dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/red_circle_iocn" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_nomarl"
+            android:layout_weight="1"
+            android:textColor="@color/text_color_dark"
+            android:textSize="@dimen/text_size_normal" />
+
+        <TextView
+            android:id="@+id/all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_nomarl"
+            android:drawablePadding="@dimen/margin_small"
+            android:drawableRight="@drawable/grey_enter_icon"
+            android:text="@string/all"
+            android:textColor="@color/text_color_shallow"
+            android:textSize="@dimen/text_size_small" />
+    </LinearLayout>
+
+    <com.library.view.SAGridView
+        android:id="@+id/productGridView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:cacheColorHint="#00000000"
+        android:listSelector="#00000000"
+        android:numColumns="3"
+        android:paddingTop="@dimen/margin_nomarl"
+        android:scrollbars="none" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/margin_smaller"
+        android:layout_marginTop="20dp"
+        android:background="@color/line_bg" />
+
+</LinearLayout>

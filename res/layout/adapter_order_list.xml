@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="@dimen/margin_nomarl"
+    android:paddingRight="@dimen/margin_nomarl"
+    android:paddingTop="10dp" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="26dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/oderNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/orderStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/text_color_shallow"
+            android:textSize="@dimen/text_size_small" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/createTime"
+        android:layout_width="fill_parent"
+        android:layout_height="26dp"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_small" />
+
+    <TextView
+        android:id="@+id/consignee"
+        android:layout_width="fill_parent"
+        android:layout_height="26dp"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_small" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="26dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/productNumber"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/againToBuy"
+            android:layout_width="66dp"
+            android:layout_height="26dp"
+            android:background="@color/red"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/a_single_again"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_small" />
+    </LinearLayout>
+
+</LinearLayout>

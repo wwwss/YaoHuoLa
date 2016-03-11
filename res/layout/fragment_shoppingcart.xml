@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/shopping_cart"
+            android:textColor="@color/text_color_dark"
+            android:textSize="@dimen/text_size_slightlybigger" />
+
+        <TextView
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/margin_nomarl"
+            android:text="@string/edit"
+            android:textColor="@color/text_color_dark"
+            android:textSize="@dimen/text_size_normal"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <include layout="@layout/view_wide_line" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@color/line_bg"
+        android:dividerHeight="1dp"
+        android:fadingEdge="none"
+        android:scrollbars="none" />
+
+    <LinearLayout
+        android:id="@+id/footView"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@color/translucence_back"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="invisible" >
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            android:src="@drawable/shopping_cart_all_selector_bg"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/allSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:drawableLeft="@drawable/shopping_cart_item_selector_bg"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_nomarl"
+            android:text="@string/all_select"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_normal" />
+
+        <TextView
+            android:id="@+id/orderNow"
+            android:layout_width="100dp"
+            android:layout_height="fill_parent"
+            android:background="@color/red"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/submit_order"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_normal"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/orderNow_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:singleLine="true"
+            android:layout_marginRight="@dimen/margin_nomarl"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            android:textSize="@dimen/text_size_small" />
+    </LinearLayout>
+
+</LinearLayout>

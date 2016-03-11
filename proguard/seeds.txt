@@ -1,0 +1,847 @@
+android.support.v4.app.BackStackState
+android.support.v4.app.BackStackState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.Fragment$SavedState
+android.support.v4.app.Fragment$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.FragmentActivity
+android.support.v4.app.FragmentActivity: FragmentActivity()
+android.support.v4.app.FragmentManagerState
+android.support.v4.app.FragmentManagerState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.FragmentState
+android.support.v4.app.FragmentState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.FragmentTabHost
+android.support.v4.app.FragmentTabHost: FragmentTabHost(android.content.Context,android.util.AttributeSet)
+android.support.v4.app.FragmentTabHost: void setOnTabChangedListener(android.widget.TabHost$OnTabChangeListener)
+android.support.v4.app.FragmentTabHost$SavedState
+android.support.v4.app.FragmentTabHost$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.NotificationCompatSideChannelService
+android.support.v4.content.FileProvider
+android.support.v4.content.ModernAsyncTask$Status: android.support.v4.content.ModernAsyncTask$Status[] values()
+android.support.v4.content.ModernAsyncTask$Status: android.support.v4.content.ModernAsyncTask$Status valueOf(java.lang.String)
+android.support.v4.content.WakefulBroadcastReceiver
+android.support.v4.media.MediaDescriptionCompat
+android.support.v4.media.MediaDescriptionCompat: android.os.Parcelable$Creator CREATOR
+android.support.v4.media.MediaMetadataCompat
+android.support.v4.media.MediaMetadataCompat: android.os.Parcelable$Creator CREATOR
+android.support.v4.media.RatingCompat
+android.support.v4.media.RatingCompat: android.os.Parcelable$Creator CREATOR
+android.support.v4.media.session.MediaSessionCompat$QueueItem
+android.support.v4.media.session.MediaSessionCompat$QueueItem: android.os.Parcelable$Creator CREATOR
+android.support.v4.media.session.MediaSessionCompat$ResultReceiverWrapper
+android.support.v4.media.session.MediaSessionCompat$ResultReceiverWrapper: android.os.Parcelable$Creator CREATOR
+android.support.v4.media.session.MediaSessionCompat$Token
+android.support.v4.media.session.MediaSessionCompat$Token: android.os.Parcelable$Creator CREATOR
+android.support.v4.media.session.ParcelableVolumeInfo
+android.support.v4.media.session.ParcelableVolumeInfo: android.os.Parcelable$Creator CREATOR
+android.support.v4.media.session.PlaybackStateCompat
+android.support.v4.media.session.PlaybackStateCompat: android.os.Parcelable$Creator CREATOR
+android.support.v4.media.session.PlaybackStateCompat$CustomAction
+android.support.v4.media.session.PlaybackStateCompat$CustomAction: android.os.Parcelable$Creator CREATOR
+android.support.v4.view.PagerTabStrip
+android.support.v4.view.PagerTabStrip: PagerTabStrip(android.content.Context,android.util.AttributeSet)
+android.support.v4.view.PagerTabStrip: void setTabIndicatorColor(int)
+android.support.v4.view.PagerTabStrip: void setTabIndicatorColorResource(int)
+android.support.v4.view.PagerTabStrip: int getTabIndicatorColor()
+android.support.v4.view.PagerTabStrip: void setTextSpacing(int)
+android.support.v4.view.PagerTabStrip: void setBackgroundDrawable(android.graphics.drawable.Drawable)
+android.support.v4.view.PagerTabStrip: void setBackgroundColor(int)
+android.support.v4.view.PagerTabStrip: void setBackgroundResource(int)
+android.support.v4.view.PagerTabStrip: void setDrawFullUnderline(boolean)
+android.support.v4.view.PagerTabStrip: boolean getDrawFullUnderline()
+android.support.v4.view.PagerTabStrip: int getMinHeight()
+android.support.v4.view.PagerTitleStrip
+android.support.v4.view.PagerTitleStrip: void setSingleLineAllCaps(android.widget.TextView)
+android.support.v4.view.PagerTitleStrip: PagerTitleStrip(android.content.Context,android.util.AttributeSet)
+android.support.v4.view.PagerTitleStrip: void setTextSpacing(int)
+android.support.v4.view.PagerTitleStrip: int getTextSpacing()
+android.support.v4.view.PagerTitleStrip: void setNonPrimaryAlpha(float)
+android.support.v4.view.PagerTitleStrip: void setTextColor(int)
+android.support.v4.view.PagerTitleStrip: void setGravity(int)
+android.support.v4.view.PagerTitleStrip: int getMinHeight()
+android.support.v4.view.ViewPager
+android.support.v4.view.ViewPager: ViewPager(android.content.Context)
+android.support.v4.view.ViewPager: ViewPager(android.content.Context,android.util.AttributeSet)
+android.support.v4.view.ViewPager: void setScrollState(int)
+android.support.v4.view.ViewPager: void setAdapter(android.support.v4.view.PagerAdapter)
+android.support.v4.view.ViewPager: android.support.v4.view.PagerAdapter getAdapter()
+android.support.v4.view.ViewPager: void setOnAdapterChangeListener(android.support.v4.view.ViewPager$OnAdapterChangeListener)
+android.support.v4.view.ViewPager: int getClientWidth()
+android.support.v4.view.ViewPager: void setCurrentItem(int)
+android.support.v4.view.ViewPager: int getCurrentItem()
+android.support.v4.view.ViewPager: void setOnPageChangeListener(android.support.v4.view.ViewPager$OnPageChangeListener)
+android.support.v4.view.ViewPager: void setChildrenDrawingOrderEnabledCompat(boolean)
+android.support.v4.view.ViewPager: int getOffscreenPageLimit()
+android.support.v4.view.ViewPager: void setOffscreenPageLimit(int)
+android.support.v4.view.ViewPager: void setPageMargin(int)
+android.support.v4.view.ViewPager: int getPageMargin()
+android.support.v4.view.ViewPager: void setPageMarginDrawable(android.graphics.drawable.Drawable)
+android.support.v4.view.ViewPager: void setPageMarginDrawable(int)
+android.support.v4.view.ViewPager: void setScrollingCacheEnabled(boolean)
+android.support.v4.view.ViewPager$LayoutParams
+android.support.v4.view.ViewPager$LayoutParams: ViewPager$LayoutParams(android.content.Context,android.util.AttributeSet)
+android.support.v4.view.ViewPager$SavedState
+android.support.v4.view.ViewPager$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.widget.ContentLoadingProgressBar
+android.support.v4.widget.ContentLoadingProgressBar: ContentLoadingProgressBar(android.content.Context,android.util.AttributeSet)
+android.support.v4.widget.DrawerLayout
+android.support.v4.widget.DrawerLayout: DrawerLayout(android.content.Context,android.util.AttributeSet)
+android.support.v4.widget.DrawerLayout: DrawerLayout(android.content.Context,android.util.AttributeSet,int)
+android.support.v4.widget.DrawerLayout: void setScrimColor(int)
+android.support.v4.widget.DrawerLayout: void setDrawerListener(android.support.v4.widget.DrawerLayout$DrawerListener)
+android.support.v4.widget.DrawerLayout: void setDrawerLockMode(int)
+android.support.v4.widget.DrawerLayout: void setStatusBarBackground(android.graphics.drawable.Drawable)
+android.support.v4.widget.DrawerLayout: android.graphics.drawable.Drawable getStatusBarBackgroundDrawable()
+android.support.v4.widget.DrawerLayout: void setStatusBarBackground(int)
+android.support.v4.widget.DrawerLayout: void setStatusBarBackgroundColor(int)
+android.support.v4.widget.DrawerLayout$LayoutParams
+android.support.v4.widget.DrawerLayout$LayoutParams: DrawerLayout$LayoutParams(android.content.Context,android.util.AttributeSet)
+android.support.v4.widget.DrawerLayout$SavedState
+android.support.v4.widget.DrawerLayout$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.widget.NestedScrollView
+android.support.v4.widget.NestedScrollView: NestedScrollView(android.content.Context,android.util.AttributeSet)
+android.support.v4.widget.NestedScrollView: NestedScrollView(android.content.Context,android.util.AttributeSet,int)
+android.support.v4.widget.NestedScrollView: void setNestedScrollingEnabled(boolean)
+android.support.v4.widget.NestedScrollView: int getNestedScrollAxes()
+android.support.v4.widget.NestedScrollView: float getTopFadingEdgeStrength()
+android.support.v4.widget.NestedScrollView: float getBottomFadingEdgeStrength()
+android.support.v4.widget.NestedScrollView: int getMaxScrollAmount()
+android.support.v4.widget.NestedScrollView: void setFillViewport(boolean)
+android.support.v4.widget.NestedScrollView: void setSmoothScrollingEnabled(boolean)
+android.support.v4.widget.NestedScrollView: float getVerticalScrollFactorCompat()
+android.support.v4.widget.NestedScrollView: int getScrollRange()
+android.support.v4.widget.NestedScrollView$SavedState
+android.support.v4.widget.NestedScrollView$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.widget.SlidingPaneLayout
+android.support.v4.widget.SlidingPaneLayout: SlidingPaneLayout(android.content.Context,android.util.AttributeSet)
+android.support.v4.widget.SlidingPaneLayout: SlidingPaneLayout(android.content.Context,android.util.AttributeSet,int)
+android.support.v4.widget.SlidingPaneLayout: void setParallaxDistance(int)
+android.support.v4.widget.SlidingPaneLayout: int getParallaxDistance()
+android.support.v4.widget.SlidingPaneLayout: void setSliderFadeColor(int)
+android.support.v4.widget.SlidingPaneLayout: int getSliderFadeColor()
+android.support.v4.widget.SlidingPaneLayout: void setCoveredFadeColor(int)
+android.support.v4.widget.SlidingPaneLayout: int getCoveredFadeColor()
+android.support.v4.widget.SlidingPaneLayout: void setPanelSlideListener(android.support.v4.widget.SlidingPaneLayout$PanelSlideListener)
+android.support.v4.widget.SlidingPaneLayout: void setShadowDrawable(android.graphics.drawable.Drawable)
+android.support.v4.widget.SlidingPaneLayout: void setShadowDrawableLeft(android.graphics.drawable.Drawable)
+android.support.v4.widget.SlidingPaneLayout: void setShadowDrawableRight(android.graphics.drawable.Drawable)
+android.support.v4.widget.SlidingPaneLayout: void setShadowResource(int)
+android.support.v4.widget.SlidingPaneLayout: void setShadowResourceLeft(int)
+android.support.v4.widget.SlidingPaneLayout: void setShadowResourceRight(int)
+android.support.v4.widget.SlidingPaneLayout$LayoutParams
+android.support.v4.widget.SlidingPaneLayout$LayoutParams: SlidingPaneLayout$LayoutParams(android.content.Context,android.util.AttributeSet)
+android.support.v4.widget.SlidingPaneLayout$SavedState
+android.support.v4.widget.SlidingPaneLayout$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.widget.Space
+android.support.v4.widget.Space: Space(android.content.Context,android.util.AttributeSet,int)
+android.support.v4.widget.Space: Space(android.content.Context,android.util.AttributeSet)
+android.support.v4.widget.SwipeRefreshLayout
+android.support.v4.widget.SwipeRefreshLayout: void setColorViewAlpha(int)
+android.support.v4.widget.SwipeRefreshLayout: void setSize(int)
+android.support.v4.widget.SwipeRefreshLayout: SwipeRefreshLayout(android.content.Context,android.util.AttributeSet)
+android.support.v4.widget.SwipeRefreshLayout: void setOnRefreshListener(android.support.v4.widget.SwipeRefreshLayout$OnRefreshListener)
+android.support.v4.widget.SwipeRefreshLayout: void setRefreshing(boolean)
+android.support.v4.widget.SwipeRefreshLayout: void setAnimationProgress(float)
+android.support.v4.widget.SwipeRefreshLayout: void setProgressBackgroundColor(int)
+android.support.v4.widget.SwipeRefreshLayout: void setProgressBackgroundColorSchemeResource(int)
+android.support.v4.widget.SwipeRefreshLayout: void setProgressBackgroundColorSchemeColor(int)
+android.support.v4.widget.SwipeRefreshLayout: void setColorScheme(int[])
+android.support.v4.widget.SwipeRefreshLayout: void setColorSchemeResources(int[])
+android.support.v4.widget.SwipeRefreshLayout: void setColorSchemeColors(int[])
+android.support.v4.widget.SwipeRefreshLayout: void setDistanceToTriggerSync(int)
+android.support.v4.widget.SwipeRefreshLayout: int getProgressCircleDiameter()
+com.android.yaohuola.R$anim: int activity_close
+com.android.yaohuola.R$anim: int activity_open
+com.android.yaohuola.R$anim: int welcome_alpha
+com.android.yaohuola.R$attr: int max
+com.android.yaohuola.R$attr: int pstsDividerColor
+com.android.yaohuola.R$attr: int pstsDividerPadding
+com.android.yaohuola.R$attr: int pstsIndicatorColor
+com.android.yaohuola.R$attr: int pstsIndicatorHeight
+com.android.yaohuola.R$attr: int pstsScrollOffset
+com.android.yaohuola.R$attr: int pstsShouldExpand
+com.android.yaohuola.R$attr: int pstsTabBackground
+com.android.yaohuola.R$attr: int pstsTabPaddingLeftRight
+com.android.yaohuola.R$attr: int pstsTextAllCaps
+com.android.yaohuola.R$attr: int pstsUnderlineColor
+com.android.yaohuola.R$attr: int pstsUnderlineHeight
+com.android.yaohuola.R$attr: int roundColor
+com.android.yaohuola.R$attr: int roundProgressColor
+com.android.yaohuola.R$attr: int roundWidth
+com.android.yaohuola.R$attr: int sriv_border_color
+com.android.yaohuola.R$attr: int sriv_border_width
+com.android.yaohuola.R$attr: int sriv_left_bottom_corner_radius
+com.android.yaohuola.R$attr: int sriv_left_top_corner_radius
+com.android.yaohuola.R$attr: int sriv_oval
+com.android.yaohuola.R$attr: int sriv_right_bottom_corner_radius
+com.android.yaohuola.R$attr: int sriv_right_top_corner_radius
+com.android.yaohuola.R$attr: int style
+com.android.yaohuola.R$attr: int textColor
+com.android.yaohuola.R$attr: int textIsDisplayable
+com.android.yaohuola.R$attr: int textSize
+com.android.yaohuola.R$color: int black
+com.android.yaohuola.R$color: int blue
+com.android.yaohuola.R$color: int grey
+com.android.yaohuola.R$color: int line_bg
+com.android.yaohuola.R$color: int login_text_bg
+com.android.yaohuola.R$color: int main_bg
+com.android.yaohuola.R$color: int main_text_bg
+com.android.yaohuola.R$color: int red
+com.android.yaohuola.R$color: int text_color_dark
+com.android.yaohuola.R$color: int text_color_shallow
+com.android.yaohuola.R$color: int translucence
+com.android.yaohuola.R$color: int translucence_back
+com.android.yaohuola.R$color: int translucence_shallow
+com.android.yaohuola.R$color: int white
+com.android.yaohuola.R$color: int white_translucence
+com.android.yaohuola.R$dimen: int margin_jiaodu
+com.android.yaohuola.R$dimen: int margin_large
+com.android.yaohuola.R$dimen: int margin_larger
+com.android.yaohuola.R$dimen: int margin_nomarl
+com.android.yaohuola.R$dimen: int margin_nomarli
+com.android.yaohuola.R$dimen: int margin_nomarlr
+com.android.yaohuola.R$dimen: int margin_small
+com.android.yaohuola.R$dimen: int margin_smaller
+com.android.yaohuola.R$dimen: int margin_smallerr
+com.android.yaohuola.R$dimen: int tab_height
+com.android.yaohuola.R$dimen: int text_size_large
+com.android.yaohuola.R$dimen: int text_size_larger
+com.android.yaohuola.R$dimen: int text_size_min
+com.android.yaohuola.R$dimen: int text_size_normal
+com.android.yaohuola.R$dimen: int text_size_slightlybigger
+com.android.yaohuola.R$dimen: int text_size_small
+com.android.yaohuola.R$dimen: int title_height
+com.android.yaohuola.R$dimen: int view_min_width
+com.android.yaohuola.R$drawable: int about_us_iocn
+com.android.yaohuola.R$drawable: int about_us_logo_icon
+com.android.yaohuola.R$drawable: int addr_no_selector
+com.android.yaohuola.R$drawable: int addr_selector
+com.android.yaohuola.R$drawable: int addr_selector_bg
+com.android.yaohuola.R$drawable: int app_icon
+com.android.yaohuola.R$drawable: int avatar_bg_icon
+com.android.yaohuola.R$drawable: int back_icon
+com.android.yaohuola.R$drawable: int banner_icon0
+com.android.yaohuola.R$drawable: int banner_icon1
+com.android.yaohuola.R$drawable: int banner_icon2
+com.android.yaohuola.R$drawable: int biscuit_icon
+com.android.yaohuola.R$drawable: int candy_icon
+com.android.yaohuola.R$drawable: int cereal_icon
+com.android.yaohuola.R$drawable: int classification_icon
+com.android.yaohuola.R$drawable: int classification_seletor_icon
+com.android.yaohuola.R$drawable: int classify_item_selector_bg
+com.android.yaohuola.R$drawable: int classify_text_bg
+com.android.yaohuola.R$drawable: int common_progressbar
+com.android.yaohuola.R$drawable: int completed_orders_icon
+com.android.yaohuola.R$drawable: int default_addr_icon
+com.android.yaohuola.R$drawable: int default_avatar_icon
+com.android.yaohuola.R$drawable: int default_banner_icon
+com.android.yaohuola.R$drawable: int default_order_product_icon
+com.android.yaohuola.R$drawable: int default_product_icon
+com.android.yaohuola.R$drawable: int default_small_avatar_icon
+com.android.yaohuola.R$drawable: int dot_blur_icon
+com.android.yaohuola.R$drawable: int dot_focus_icon
+com.android.yaohuola.R$drawable: int dry_cargo_icon
+com.android.yaohuola.R$drawable: int enter_icon
+com.android.yaohuola.R$drawable: int feedback_icon
+com.android.yaohuola.R$drawable: int flowering_tea_icon
+com.android.yaohuola.R$drawable: int for_receiving_orders_icon
+com.android.yaohuola.R$drawable: int guide_page0
+com.android.yaohuola.R$drawable: int guide_page1
+com.android.yaohuola.R$drawable: int guide_page2
+com.android.yaohuola.R$drawable: int homepage_icon
+com.android.yaohuola.R$drawable: int homepage_selector_icon
+com.android.yaohuola.R$drawable: int hot_sale_icon
+com.android.yaohuola.R$drawable: int ic_launcher
+com.android.yaohuola.R$drawable: int login_bg
+com.android.yaohuola.R$drawable: int login_bg_icon
+com.android.yaohuola.R$drawable: int login_no_selector
+com.android.yaohuola.R$drawable: int login_selector
+com.android.yaohuola.R$drawable: int milk_icon
+com.android.yaohuola.R$drawable: int my_bg_iocn
+com.android.yaohuola.R$drawable: int my_icon
+com.android.yaohuola.R$drawable: int my_selector_icon
+com.android.yaohuola.R$drawable: int nuts_icon
+com.android.yaohuola.R$drawable: int product_number_bg
+com.android.yaohuola.R$drawable: int promptly_open_icon
+com.android.yaohuola.R$drawable: int pull_to_refresh_arrow
+com.android.yaohuola.R$drawable: int red_circle_iocn
+com.android.yaohuola.R$drawable: int search_bg
+com.android.yaohuola.R$drawable: int search_icon
+com.android.yaohuola.R$drawable: int shopping_cart
+com.android.yaohuola.R$drawable: int shopping_cart_icon
+com.android.yaohuola.R$drawable: int shopping_cart_no_selector
+com.android.yaohuola.R$drawable: int shopping_cart_selector
+com.android.yaohuola.R$drawable: int shopping_cart_selector_bg
+com.android.yaohuola.R$drawable: int shopping_cart_selector_icon
+com.android.yaohuola.R$drawable: int snacks_icon
+com.android.yaohuola.R$drawable: int tab_classfication_bg
+com.android.yaohuola.R$drawable: int tab_home_bg
+com.android.yaohuola.R$drawable: int tab_my_bg
+com.android.yaohuola.R$drawable: int tab_shopping_cart_bg
+com.android.yaohuola.R$drawable: int welcom_icon
+com.android.yaohuola.R$drawable: int white_seach_icon
+com.android.yaohuola.R$drawable: int yaohuola_icon
+com.android.yaohuola.R$drawable: int yellow_circle_iocn
+com.android.yaohuola.R$id: int FILL
+com.android.yaohuola.R$id: int STROKE
+com.android.yaohuola.R$id: int aboutUs
+com.android.yaohuola.R$id: int addToCart
+com.android.yaohuola.R$id: int addr
+com.android.yaohuola.R$id: int addrDetails
+com.android.yaohuola.R$id: int againToBuy
+com.android.yaohuola.R$id: int allClassifyListView
+com.android.yaohuola.R$id: int allSelect
+com.android.yaohuola.R$id: int area
+com.android.yaohuola.R$id: int avatar
+com.android.yaohuola.R$id: int back
+com.android.yaohuola.R$id: int classifyGridView
+com.android.yaohuola.R$id: int completed
+com.android.yaohuola.R$id: int completedOrders
+com.android.yaohuola.R$id: int consignee
+com.android.yaohuola.R$id: int contact
+com.android.yaohuola.R$id: int contactPhoneNumber
+com.android.yaohuola.R$id: int content
+com.android.yaohuola.R$id: int createTime
+com.android.yaohuola.R$id: int defaultAddr
+com.android.yaohuola.R$id: int delete
+com.android.yaohuola.R$id: int deliveryTime
+com.android.yaohuola.R$id: int description
+com.android.yaohuola.R$id: int dotLayout
+com.android.yaohuola.R$id: int edit
+com.android.yaohuola.R$id: int enter
+com.android.yaohuola.R$id: int feedback
+com.android.yaohuola.R$id: int footView
+com.android.yaohuola.R$id: int forReceivingOrders
+com.android.yaohuola.R$id: int graphicIntroduction
+com.android.yaohuola.R$id: int hotSaleGridView
+com.android.yaohuola.R$id: int imageView
+com.android.yaohuola.R$id: int isDefault
+com.android.yaohuola.R$id: int isSelected
+com.android.yaohuola.R$id: int iv_listview_header_arrow
+com.android.yaohuola.R$id: int ivaboutUs
+com.android.yaohuola.R$id: int ivcompletedOrders
+com.android.yaohuola.R$id: int ivfeedback
+com.android.yaohuola.R$id: int ivforReceivingOrders
+com.android.yaohuola.R$id: int jia
+com.android.yaohuola.R$id: int jian
+com.android.yaohuola.R$id: int layout
+com.android.yaohuola.R$id: int linearLayout
+com.android.yaohuola.R$id: int listView
+com.android.yaohuola.R$id: int llIsSelected
+com.android.yaohuola.R$id: int ll_area
+com.android.yaohuola.R$id: int login
+com.android.yaohuola.R$id: int loginOut
+com.android.yaohuola.R$id: int name
+com.android.yaohuola.R$id: int navigation_bar
+com.android.yaohuola.R$id: int newShippingAddress
+com.android.yaohuola.R$id: int nikeName
+com.android.yaohuola.R$id: int nowAddShoppingCart
+com.android.yaohuola.R$id: int number
+com.android.yaohuola.R$id: int oderNumber
+com.android.yaohuola.R$id: int orderNow
+com.android.yaohuola.R$id: int orderStatus
+com.android.yaohuola.R$id: int orderStatusHint
+com.android.yaohuola.R$id: int output
+com.android.yaohuola.R$id: int packingWay
+com.android.yaohuola.R$id: int pb_listview_header
+com.android.yaohuola.R$id: int phoneNum
+com.android.yaohuola.R$id: int phoneNumber
+com.android.yaohuola.R$id: int pic
+com.android.yaohuola.R$id: int prcieAndNumber
+com.android.yaohuola.R$id: int price
+com.android.yaohuola.R$id: int priceAndunit
+com.android.yaohuola.R$id: int productGridView
+com.android.yaohuola.R$id: int productNumber
+com.android.yaohuola.R$id: int producteDscription
+com.android.yaohuola.R$id: int promptlyOpen
+com.android.yaohuola.R$id: int saveShippingAddress
+com.android.yaohuola.R$id: int scrollView
+com.android.yaohuola.R$id: int shelfLife
+com.android.yaohuola.R$id: int shippingAddress
+com.android.yaohuola.R$id: int shippingAddressManagement
+com.android.yaohuola.R$id: int slideshowView
+com.android.yaohuola.R$id: int smallclassifyListView
+com.android.yaohuola.R$id: int submitOrder
+com.android.yaohuola.R$id: int suttle
+com.android.yaohuola.R$id: int tab_img
+com.android.yaohuola.R$id: int tab_text
+com.android.yaohuola.R$id: int taste
+com.android.yaohuola.R$id: int title
+com.android.yaohuola.R$id: int total
+com.android.yaohuola.R$id: int transactionTime
+com.android.yaohuola.R$id: int tv_listview_header_last_update_time
+com.android.yaohuola.R$id: int tv_listview_header_state
+com.android.yaohuola.R$id: int updateUserInfo
+com.android.yaohuola.R$id: int userNikeName
+com.android.yaohuola.R$id: int v_dot1
+com.android.yaohuola.R$id: int v_dot2
+com.android.yaohuola.R$id: int verification
+com.android.yaohuola.R$id: int verificationCode
+com.android.yaohuola.R$id: int viewPager
+com.android.yaohuola.R$id: int webView
+com.android.yaohuola.R$id: int welcome_image_view
+com.android.yaohuola.R$id: int xieYi
+com.android.yaohuola.R$layout: int activity_about_us
+com.android.yaohuola.R$layout: int activity_addr_details
+com.android.yaohuola.R$layout: int activity_addr_management
+com.android.yaohuola.R$layout: int activity_addr_select
+com.android.yaohuola.R$layout: int activity_area
+com.android.yaohuola.R$layout: int activity_fill_orders
+com.android.yaohuola.R$layout: int activity_guide_page
+com.android.yaohuola.R$layout: int activity_login
+com.android.yaohuola.R$layout: int activity_main
+com.android.yaohuola.R$layout: int activity_order_details
+com.android.yaohuola.R$layout: int activity_order_list
+com.android.yaohuola.R$layout: int activity_product
+com.android.yaohuola.R$layout: int activity_product_details
+com.android.yaohuola.R$layout: int activity_update_user_info
+com.android.yaohuola.R$layout: int activity_welcome
+com.android.yaohuola.R$layout: int activity_xieyi
+com.android.yaohuola.R$layout: int adapter_addr_list
+com.android.yaohuola.R$layout: int adapter_all_classify
+com.android.yaohuola.R$layout: int adapter_area
+com.android.yaohuola.R$layout: int adapter_classify
+com.android.yaohuola.R$layout: int adapter_fill_order_product_list
+com.android.yaohuola.R$layout: int adapter_hot_sale
+com.android.yaohuola.R$layout: int adapter_order_list
+com.android.yaohuola.R$layout: int adapter_order_product_list
+com.android.yaohuola.R$layout: int adapter_product
+com.android.yaohuola.R$layout: int adapter_shopping_cart
+com.android.yaohuola.R$layout: int adapter_small_classify
+com.android.yaohuola.R$layout: int fragment_classify
+com.android.yaohuola.R$layout: int fragment_homepage
+com.android.yaohuola.R$layout: int fragment_my
+com.android.yaohuola.R$layout: int fragment_shoppingcart
+com.android.yaohuola.R$layout: int listview_footer
+com.android.yaohuola.R$layout: int listview_header
+com.android.yaohuola.R$layout: int view_guide_page
+com.android.yaohuola.R$layout: int view_narrow_line
+com.android.yaohuola.R$layout: int view_navigation_bar
+com.android.yaohuola.R$layout: int view_slideshow
+com.android.yaohuola.R$layout: int view_tab
+com.android.yaohuola.R$layout: int view_wide_line
+com.android.yaohuola.R$string: int about_us
+com.android.yaohuola.R$string: int about_us_hint
+com.android.yaohuola.R$string: int about_us_text
+com.android.yaohuola.R$string: int addr_details
+com.android.yaohuola.R$string: int addr_details_hint
+com.android.yaohuola.R$string: int addr_hint
+com.android.yaohuola.R$string: int again_to_buy
+com.android.yaohuola.R$string: int all_select
+com.android.yaohuola.R$string: int app_name
+com.android.yaohuola.R$string: int area
+com.android.yaohuola.R$string: int area_hint
+com.android.yaohuola.R$string: int avatar
+com.android.yaohuola.R$string: int classification
+com.android.yaohuola.R$string: int completed
+com.android.yaohuola.R$string: int completed_orders
+com.android.yaohuola.R$string: int consignee
+com.android.yaohuola.R$string: int consignee_hint
+com.android.yaohuola.R$string: int contact
+com.android.yaohuola.R$string: int contact_hint
+com.android.yaohuola.R$string: int delete
+com.android.yaohuola.R$string: int edit
+com.android.yaohuola.R$string: int feedback
+com.android.yaohuola.R$string: int fill_orders
+com.android.yaohuola.R$string: int for_receiving_orders
+com.android.yaohuola.R$string: int graphic_introduction
+com.android.yaohuola.R$string: int home_page
+com.android.yaohuola.R$string: int hot_sale
+com.android.yaohuola.R$string: int login
+com.android.yaohuola.R$string: int login_hint
+com.android.yaohuola.R$string: int login_out
+com.android.yaohuola.R$string: int my
+com.android.yaohuola.R$string: int new_shipping_address
+com.android.yaohuola.R$string: int nike_name
+com.android.yaohuola.R$string: int now_add_shopping_cart
+com.android.yaohuola.R$string: int order_details
+com.android.yaohuola.R$string: int order_now
+com.android.yaohuola.R$string: int order_status_hint
+com.android.yaohuola.R$string: int pay_way
+com.android.yaohuola.R$string: int pay_way_hint
+com.android.yaohuola.R$string: int phone_num
+com.android.yaohuola.R$string: int phone_number
+com.android.yaohuola.R$string: int product_details
+com.android.yaohuola.R$string: int product_introduction
+com.android.yaohuola.R$string: int save_shipping_address
+com.android.yaohuola.R$string: int search_hint
+com.android.yaohuola.R$string: int select_shipping_address
+com.android.yaohuola.R$string: int shipping_address_management
+com.android.yaohuola.R$string: int shopping_cart
+com.android.yaohuola.R$string: int submit_order
+com.android.yaohuola.R$string: int update_user_info
+com.android.yaohuola.R$string: int user_nike_name
+com.android.yaohuola.R$string: int verification
+com.android.yaohuola.R$string: int verification_code
+com.android.yaohuola.R$string: int verification_phone
+com.android.yaohuola.R$style: int AppBaseTheme
+com.android.yaohuola.R$style: int AppTheme
+com.android.yaohuola.R$styleable: int[] PagerSlidingTabStrip
+com.android.yaohuola.R$styleable: int PagerSlidingTabStrip_pstsDividerColor
+com.android.yaohuola.R$styleable: int PagerSlidingTabStrip_pstsDividerPadding
+com.android.yaohuola.R$styleable: int PagerSlidingTabStrip_pstsIndicatorColor
+com.android.yaohuola.R$styleable: int PagerSlidingTabStrip_pstsIndicatorHeight
+com.android.yaohuola.R$styleable: int PagerSlidingTabStrip_pstsScrollOffset
+com.android.yaohuola.R$styleable: int PagerSlidingTabStrip_pstsShouldExpand
+com.android.yaohuola.R$styleable: int PagerSlidingTabStrip_pstsTabBackground
+com.android.yaohuola.R$styleable: int PagerSlidingTabStrip_pstsTabPaddingLeftRight
+com.android.yaohuola.R$styleable: int PagerSlidingTabStrip_pstsTextAllCaps
+com.android.yaohuola.R$styleable: int PagerSlidingTabStrip_pstsUnderlineColor
+com.android.yaohuola.R$styleable: int PagerSlidingTabStrip_pstsUnderlineHeight
+com.android.yaohuola.R$styleable: int[] RoundProgressBar
+com.android.yaohuola.R$styleable: int RoundProgressBar_max
+com.android.yaohuola.R$styleable: int RoundProgressBar_roundColor
+com.android.yaohuola.R$styleable: int RoundProgressBar_roundProgressColor
+com.android.yaohuola.R$styleable: int RoundProgressBar_roundWidth
+com.android.yaohuola.R$styleable: int RoundProgressBar_style
+com.android.yaohuola.R$styleable: int RoundProgressBar_textColor
+com.android.yaohuola.R$styleable: int RoundProgressBar_textIsDisplayable
+com.android.yaohuola.R$styleable: int RoundProgressBar_textSize
+com.android.yaohuola.R$styleable: int[] SelectableRoundedImageView
+com.android.yaohuola.R$styleable: int SelectableRoundedImageView_android_scaleType
+com.android.yaohuola.R$styleable: int SelectableRoundedImageView_sriv_border_color
+com.android.yaohuola.R$styleable: int SelectableRoundedImageView_sriv_border_width
+com.android.yaohuola.R$styleable: int SelectableRoundedImageView_sriv_left_bottom_corner_radius
+com.android.yaohuola.R$styleable: int SelectableRoundedImageView_sriv_left_top_corner_radius
+com.android.yaohuola.R$styleable: int SelectableRoundedImageView_sriv_oval
+com.android.yaohuola.R$styleable: int SelectableRoundedImageView_sriv_right_bottom_corner_radius
+com.android.yaohuola.R$styleable: int SelectableRoundedImageView_sriv_right_top_corner_radius
+com.j256.ormlite.android.apptools.OrmLiteBaseActivity
+com.j256.ormlite.android.apptools.OrmLiteBaseActivityGroup
+com.j256.ormlite.android.apptools.OrmLiteBaseListActivity
+com.j256.ormlite.android.apptools.OrmLiteBaseService
+com.j256.ormlite.android.apptools.OrmLiteBaseTabActivity
+com.j256.ormlite.field.DataType: com.j256.ormlite.field.DataType[] values()
+com.j256.ormlite.field.DataType: com.j256.ormlite.field.DataType valueOf(java.lang.String)
+com.j256.ormlite.field.SqlType: com.j256.ormlite.field.SqlType[] values()
+com.j256.ormlite.field.SqlType: com.j256.ormlite.field.SqlType valueOf(java.lang.String)
+com.j256.ormlite.logger.Log$Level: com.j256.ormlite.logger.Log$Level[] values()
+com.j256.ormlite.logger.Log$Level: com.j256.ormlite.logger.Log$Level valueOf(java.lang.String)
+com.j256.ormlite.logger.LoggerFactory$LogType: com.j256.ormlite.logger.LoggerFactory$LogType[] values()
+com.j256.ormlite.logger.LoggerFactory$LogType: com.j256.ormlite.logger.LoggerFactory$LogType valueOf(java.lang.String)
+com.j256.ormlite.stmt.QueryBuilder$JoinType: com.j256.ormlite.stmt.QueryBuilder$JoinType[] values()
+com.j256.ormlite.stmt.QueryBuilder$JoinType: com.j256.ormlite.stmt.QueryBuilder$JoinType valueOf(java.lang.String)
+com.j256.ormlite.stmt.QueryBuilder$JoinWhereOperation: com.j256.ormlite.stmt.QueryBuilder$JoinWhereOperation[] values()
+com.j256.ormlite.stmt.QueryBuilder$JoinWhereOperation: com.j256.ormlite.stmt.QueryBuilder$JoinWhereOperation valueOf(java.lang.String)
+com.j256.ormlite.stmt.StatementBuilder$StatementType: com.j256.ormlite.stmt.StatementBuilder$StatementType[] values()
+com.j256.ormlite.stmt.StatementBuilder$StatementType: com.j256.ormlite.stmt.StatementBuilder$StatementType valueOf(java.lang.String)
+com.j256.ormlite.stmt.StatementBuilder$WhereOperation: com.j256.ormlite.stmt.StatementBuilder$WhereOperation[] values()
+com.j256.ormlite.stmt.StatementBuilder$WhereOperation: com.j256.ormlite.stmt.StatementBuilder$WhereOperation valueOf(java.lang.String)
+com.library.LibraryApplaction
+com.library.LibraryApplaction: LibraryApplaction()
+com.library.activity.BaseActivity
+com.library.activity.BaseActivity: BaseActivity()
+com.library.view.NavigationBar
+com.library.view.NavigationBar: NavigationBar(android.content.Context)
+com.library.view.NavigationBar: NavigationBar(android.content.Context,android.util.AttributeSet)
+com.library.view.NavigationBar: NavigationBar(android.content.Context,android.util.AttributeSet,int)
+com.library.view.RefreshListView
+com.library.view.RefreshListView: void setOpenRefresh(boolean)
+com.library.view.RefreshListView: RefreshListView(android.content.Context,android.util.AttributeSet)
+com.library.view.RefreshListView: java.lang.String getLastUpdateTime()
+com.library.view.RefreshListView: void setOnRefreshListener(com.library.interfaces.OnRefreshListener)
+com.library.view.RoundImageView
+com.library.view.RoundImageView: RoundImageView(android.content.Context)
+com.library.view.RoundImageView: RoundImageView(android.content.Context,android.util.AttributeSet)
+com.library.view.RoundImageView: RoundImageView(android.content.Context,android.util.AttributeSet,int)
+com.library.view.RoundImageView: android.widget.ImageView$ScaleType getScaleType()
+com.library.view.RoundImageView: void setScaleType(android.widget.ImageView$ScaleType)
+com.library.view.RoundImageView: void setImageDrawable(android.graphics.drawable.Drawable)
+com.library.view.RoundImageView: void setImageBitmap(android.graphics.Bitmap)
+com.library.view.RoundImageView: void setImageResource(int)
+com.library.view.RoundImageView: void setImageURI(android.net.Uri)
+com.library.view.RoundImageView: float getCornerRadius()
+com.library.view.RoundImageView: float getBorderWidth()
+com.library.view.RoundImageView: void setBorderWidthDP(float)
+com.library.view.RoundImageView: int getBorderColor()
+com.library.view.RoundImageView: void setBorderColor(int)
+com.library.view.RoundImageView: android.content.res.ColorStateList getBorderColors()
+com.library.view.RoundImageView: void setBorderColor(android.content.res.ColorStateList)
+com.library.view.RoundImageView: void setOval(boolean)
+com.library.view.SAGridView
+com.library.view.SAGridView: SAGridView(android.content.Context,android.util.AttributeSet)
+com.library.view.SAGridView: SAGridView(android.content.Context)
+com.library.view.SAGridView: SAGridView(android.content.Context,android.util.AttributeSet,int)
+com.library.view.TabView
+com.library.view.TabView: TabView(android.content.Context,android.util.AttributeSet)
+com.library.view.TabView: TabView(android.content.Context,android.util.AttributeSet,int)
+com.library.view.TabView: void setSelected(boolean)
+com.lidroid.xutils.bitmap.callback.BitmapLoadFrom: com.lidroid.xutils.bitmap.callback.BitmapLoadFrom[] values()
+com.lidroid.xutils.bitmap.callback.BitmapLoadFrom: com.lidroid.xutils.bitmap.callback.BitmapLoadFrom valueOf(java.lang.String)
+com.lidroid.xutils.db.sqlite.ColumnDbType: com.lidroid.xutils.db.sqlite.ColumnDbType[] values()
+com.lidroid.xutils.db.sqlite.ColumnDbType: com.lidroid.xutils.db.sqlite.ColumnDbType valueOf(java.lang.String)
+com.lidroid.xutils.http.HttpHandler$State: com.lidroid.xutils.http.HttpHandler$State[] values()
+com.lidroid.xutils.http.HttpHandler$State: com.lidroid.xutils.http.HttpHandler$State valueOf(java.lang.String)
+com.lidroid.xutils.http.client.HttpRequest$HttpMethod: com.lidroid.xutils.http.client.HttpRequest$HttpMethod[] values()
+com.lidroid.xutils.http.client.HttpRequest$HttpMethod: com.lidroid.xutils.http.client.HttpRequest$HttpMethod valueOf(java.lang.String)
+com.lidroid.xutils.http.client.multipart.HttpMultipartMode: com.lidroid.xutils.http.client.multipart.HttpMultipartMode[] values()
+com.lidroid.xutils.http.client.multipart.HttpMultipartMode: com.lidroid.xutils.http.client.multipart.HttpMultipartMode valueOf(java.lang.String)
+com.lidroid.xutils.task.Priority: com.lidroid.xutils.task.Priority[] values()
+com.lidroid.xutils.task.Priority: com.lidroid.xutils.task.Priority valueOf(java.lang.String)
+com.lidroid.xutils.view.ResType: com.lidroid.xutils.view.ResType[] values()
+com.lidroid.xutils.view.ResType: com.lidroid.xutils.view.ResType valueOf(java.lang.String)
+com.nostra13.universalimageloader.core.assist.FailReason$FailType: com.nostra13.universalimageloader.core.assist.FailReason$FailType[] values()
+com.nostra13.universalimageloader.core.assist.FailReason$FailType: com.nostra13.universalimageloader.core.assist.FailReason$FailType valueOf(java.lang.String)
+com.nostra13.universalimageloader.core.assist.ImageScaleType: com.nostra13.universalimageloader.core.assist.ImageScaleType[] values()
+com.nostra13.universalimageloader.core.assist.ImageScaleType: com.nostra13.universalimageloader.core.assist.ImageScaleType valueOf(java.lang.String)
+com.nostra13.universalimageloader.core.assist.LoadedFrom: com.nostra13.universalimageloader.core.assist.LoadedFrom[] values()
+com.nostra13.universalimageloader.core.assist.LoadedFrom: com.nostra13.universalimageloader.core.assist.LoadedFrom valueOf(java.lang.String)
+com.nostra13.universalimageloader.core.assist.QueueProcessingType: com.nostra13.universalimageloader.core.assist.QueueProcessingType[] values()
+com.nostra13.universalimageloader.core.assist.QueueProcessingType: com.nostra13.universalimageloader.core.assist.QueueProcessingType valueOf(java.lang.String)
+com.nostra13.universalimageloader.core.assist.ViewScaleType: com.nostra13.universalimageloader.core.assist.ViewScaleType[] values()
+com.nostra13.universalimageloader.core.assist.ViewScaleType: com.nostra13.universalimageloader.core.assist.ViewScaleType valueOf(java.lang.String)
+com.nostra13.universalimageloader.core.download.ImageDownloader$Scheme: com.nostra13.universalimageloader.core.download.ImageDownloader$Scheme[] values()
+com.nostra13.universalimageloader.core.download.ImageDownloader$Scheme: com.nostra13.universalimageloader.core.download.ImageDownloader$Scheme valueOf(java.lang.String)
+com.squareup.okhttp.CipherSuite: com.squareup.okhttp.CipherSuite[] values()
+com.squareup.okhttp.CipherSuite: com.squareup.okhttp.CipherSuite valueOf(java.lang.String)
+com.squareup.okhttp.Protocol: com.squareup.okhttp.Protocol[] values()
+com.squareup.okhttp.Protocol: com.squareup.okhttp.Protocol valueOf(java.lang.String)
+com.squareup.okhttp.TlsVersion: com.squareup.okhttp.TlsVersion[] values()
+com.squareup.okhttp.TlsVersion: com.squareup.okhttp.TlsVersion valueOf(java.lang.String)
+com.squareup.okhttp.internal.spdy.ErrorCode: com.squareup.okhttp.internal.spdy.ErrorCode[] values()
+com.squareup.okhttp.internal.spdy.ErrorCode: com.squareup.okhttp.internal.spdy.ErrorCode valueOf(java.lang.String)
+com.squareup.okhttp.internal.spdy.HeadersMode: com.squareup.okhttp.internal.spdy.HeadersMode[] values()
+com.squareup.okhttp.internal.spdy.HeadersMode: com.squareup.okhttp.internal.spdy.HeadersMode valueOf(java.lang.String)
+com.umeng.analytics.Gender: com.umeng.analytics.Gender[] values()
+com.umeng.analytics.Gender: com.umeng.analytics.Gender valueOf(java.lang.String)
+com.umeng.analytics.social.UMPlatformData$GENDER: com.umeng.analytics.social.UMPlatformData$GENDER[] values()
+com.umeng.analytics.social.UMPlatformData$GENDER: com.umeng.analytics.social.UMPlatformData$GENDER valueOf(java.lang.String)
+com.umeng.analytics.social.UMPlatformData$UMedia: com.umeng.analytics.social.UMPlatformData$UMedia[] values()
+com.umeng.analytics.social.UMPlatformData$UMedia: com.umeng.analytics.social.UMPlatformData$UMedia valueOf(java.lang.String)
+com.umeng.update.UpdateDialogActivity
+com.umeng.update.net.DownloadingService
+com.umeng.update.net.i$a: com.umeng.update.net.i$a[] values()
+com.umeng.update.net.i$a: com.umeng.update.net.i$a valueOf(java.lang.String)
+com.umeng.update.net.j$b: com.umeng.update.net.j$b[] values()
+com.umeng.update.net.j$b: com.umeng.update.net.j$b valueOf(java.lang.String)
+com.umeng.update.util.DeltaUpdate
+com.umeng.update.util.DeltaUpdate: int bspatch(java.lang.String,java.lang.String,java.lang.String)
+com.yaohuola.YaoHuoLaApplication
+com.yaohuola.YaoHuoLaApplication: YaoHuoLaApplication()
+com.yaohuola.activity.GuidePageActivity
+com.yaohuola.activity.GuidePageActivity: GuidePageActivity()
+com.yaohuola.activity.GuidePageActivity: void onClick(android.view.View)
+com.yaohuola.activity.MainActivity
+com.yaohuola.activity.MainActivity: MainActivity()
+com.yaohuola.activity.MainActivity: void onClick(android.view.View)
+com.yaohuola.activity.WelcomeActivity
+com.yaohuola.activity.WelcomeActivity: WelcomeActivity()
+com.yaohuola.activity.WelcomeActivity: void onClick(android.view.View)
+com.yaohuola.classification.activity.ProductAitivity
+com.yaohuola.classification.activity.ProductAitivity: ProductAitivity()
+com.yaohuola.classification.activity.ProductAitivity: void onClick(android.view.View)
+com.yaohuola.classification.activity.ProductDetailsActivity
+com.yaohuola.classification.activity.ProductDetailsActivity: ProductDetailsActivity()
+com.yaohuola.classification.activity.ProductDetailsActivity: void onClick(android.view.View)
+com.yaohuola.homepage.view.MyViewPager
+com.yaohuola.homepage.view.MyViewPager: MyViewPager(android.content.Context,android.util.AttributeSet)
+com.yaohuola.homepage.view.MyViewPager: MyViewPager(android.content.Context)
+com.yaohuola.homepage.view.MyViewPager: void setOnSingleTouchListener(com.yaohuola.homepage.view.MyViewPager$OnSingleTouchListener)
+com.yaohuola.homepage.view.SlideShowView
+com.yaohuola.homepage.view.SlideShowView: java.util.List getImageList()
+com.yaohuola.homepage.view.SlideShowView: SlideShowView(android.content.Context)
+com.yaohuola.homepage.view.SlideShowView: SlideShowView(android.content.Context,android.util.AttributeSet)
+com.yaohuola.homepage.view.SlideShowView: SlideShowView(android.content.Context,android.util.AttributeSet,int)
+com.yaohuola.homepage.view.SlideShowView: void getData()
+com.yaohuola.library.R$attr: int max
+com.yaohuola.library.R$attr: int pstsDividerColor
+com.yaohuola.library.R$attr: int pstsDividerPadding
+com.yaohuola.library.R$attr: int pstsIndicatorColor
+com.yaohuola.library.R$attr: int pstsIndicatorHeight
+com.yaohuola.library.R$attr: int pstsScrollOffset
+com.yaohuola.library.R$attr: int pstsShouldExpand
+com.yaohuola.library.R$attr: int pstsTabBackground
+com.yaohuola.library.R$attr: int pstsTabPaddingLeftRight
+com.yaohuola.library.R$attr: int pstsTextAllCaps
+com.yaohuola.library.R$attr: int pstsUnderlineColor
+com.yaohuola.library.R$attr: int pstsUnderlineHeight
+com.yaohuola.library.R$attr: int roundColor
+com.yaohuola.library.R$attr: int roundProgressColor
+com.yaohuola.library.R$attr: int roundWidth
+com.yaohuola.library.R$attr: int sriv_border_color
+com.yaohuola.library.R$attr: int sriv_border_width
+com.yaohuola.library.R$attr: int sriv_left_bottom_corner_radius
+com.yaohuola.library.R$attr: int sriv_left_top_corner_radius
+com.yaohuola.library.R$attr: int sriv_oval
+com.yaohuola.library.R$attr: int sriv_right_bottom_corner_radius
+com.yaohuola.library.R$attr: int sriv_right_top_corner_radius
+com.yaohuola.library.R$attr: int style
+com.yaohuola.library.R$attr: int textColor
+com.yaohuola.library.R$attr: int textIsDisplayable
+com.yaohuola.library.R$attr: int textSize
+com.yaohuola.library.R$color: int black
+com.yaohuola.library.R$color: int blue
+com.yaohuola.library.R$color: int grey
+com.yaohuola.library.R$color: int main_text_bg
+com.yaohuola.library.R$color: int red
+com.yaohuola.library.R$color: int translucence
+com.yaohuola.library.R$color: int translucence_back
+com.yaohuola.library.R$color: int translucence_shallow
+com.yaohuola.library.R$color: int white
+com.yaohuola.library.R$color: int white_translucence
+com.yaohuola.library.R$dimen: int margin_jiaodu
+com.yaohuola.library.R$dimen: int margin_large
+com.yaohuola.library.R$dimen: int margin_larger
+com.yaohuola.library.R$dimen: int margin_nomarl
+com.yaohuola.library.R$dimen: int margin_nomarli
+com.yaohuola.library.R$dimen: int margin_nomarlr
+com.yaohuola.library.R$dimen: int margin_small
+com.yaohuola.library.R$dimen: int margin_smaller
+com.yaohuola.library.R$dimen: int margin_smallerr
+com.yaohuola.library.R$dimen: int tab_height
+com.yaohuola.library.R$dimen: int text_size_large
+com.yaohuola.library.R$dimen: int text_size_larger
+com.yaohuola.library.R$dimen: int text_size_min
+com.yaohuola.library.R$dimen: int text_size_normal
+com.yaohuola.library.R$dimen: int text_size_slightlybigger
+com.yaohuola.library.R$dimen: int text_size_small
+com.yaohuola.library.R$dimen: int title_height
+com.yaohuola.library.R$dimen: int view_min_width
+com.yaohuola.library.R$drawable: int common_progressbar
+com.yaohuola.library.R$drawable: int ic_launcher
+com.yaohuola.library.R$drawable: int pull_to_refresh_arrow
+com.yaohuola.library.R$id: int FILL
+com.yaohuola.library.R$id: int STROKE
+com.yaohuola.library.R$id: int iv_listview_header_arrow
+com.yaohuola.library.R$id: int layout
+com.yaohuola.library.R$id: int pb_listview_header
+com.yaohuola.library.R$id: int tab_img
+com.yaohuola.library.R$id: int tab_text
+com.yaohuola.library.R$id: int tv_listview_header_last_update_time
+com.yaohuola.library.R$id: int tv_listview_header_state
+com.yaohuola.library.R$layout: int listview_footer
+com.yaohuola.library.R$layout: int listview_header
+com.yaohuola.library.R$layout: int view_navigation_bar
+com.yaohuola.library.R$layout: int view_tab
+com.yaohuola.library.R$string: int app_name
+com.yaohuola.library.R$style: int AppBaseTheme
+com.yaohuola.library.R$style: int AppTheme
+com.yaohuola.library.R$styleable: int[] PagerSlidingTabStrip
+com.yaohuola.library.R$styleable: int PagerSlidingTabStrip_pstsDividerColor
+com.yaohuola.library.R$styleable: int PagerSlidingTabStrip_pstsDividerPadding
+com.yaohuola.library.R$styleable: int PagerSlidingTabStrip_pstsIndicatorColor
+com.yaohuola.library.R$styleable: int PagerSlidingTabStrip_pstsIndicatorHeight
+com.yaohuola.library.R$styleable: int PagerSlidingTabStrip_pstsScrollOffset
+com.yaohuola.library.R$styleable: int PagerSlidingTabStrip_pstsShouldExpand
+com.yaohuola.library.R$styleable: int PagerSlidingTabStrip_pstsTabBackground
+com.yaohuola.library.R$styleable: int PagerSlidingTabStrip_pstsTabPaddingLeftRight
+com.yaohuola.library.R$styleable: int PagerSlidingTabStrip_pstsTextAllCaps
+com.yaohuola.library.R$styleable: int PagerSlidingTabStrip_pstsUnderlineColor
+com.yaohuola.library.R$styleable: int PagerSlidingTabStrip_pstsUnderlineHeight
+com.yaohuola.library.R$styleable: int[] RoundProgressBar
+com.yaohuola.library.R$styleable: int RoundProgressBar_max
+com.yaohuola.library.R$styleable: int RoundProgressBar_roundColor
+com.yaohuola.library.R$styleable: int RoundProgressBar_roundProgressColor
+com.yaohuola.library.R$styleable: int RoundProgressBar_roundWidth
+com.yaohuola.library.R$styleable: int RoundProgressBar_style
+com.yaohuola.library.R$styleable: int RoundProgressBar_textColor
+com.yaohuola.library.R$styleable: int RoundProgressBar_textIsDisplayable
+com.yaohuola.library.R$styleable: int RoundProgressBar_textSize
+com.yaohuola.library.R$styleable: int[] SelectableRoundedImageView
+com.yaohuola.library.R$styleable: int SelectableRoundedImageView_android_scaleType
+com.yaohuola.library.R$styleable: int SelectableRoundedImageView_sriv_border_color
+com.yaohuola.library.R$styleable: int SelectableRoundedImageView_sriv_border_width
+com.yaohuola.library.R$styleable: int SelectableRoundedImageView_sriv_left_bottom_corner_radius
+com.yaohuola.library.R$styleable: int SelectableRoundedImageView_sriv_left_top_corner_radius
+com.yaohuola.library.R$styleable: int SelectableRoundedImageView_sriv_oval
+com.yaohuola.library.R$styleable: int SelectableRoundedImageView_sriv_right_bottom_corner_radius
+com.yaohuola.library.R$styleable: int SelectableRoundedImageView_sriv_right_top_corner_radius
+com.yaohuola.my.activity.AboutUsActivity
+com.yaohuola.my.activity.AboutUsActivity: AboutUsActivity()
+com.yaohuola.my.activity.AboutUsActivity: void onClick(android.view.View)
+com.yaohuola.my.activity.AddrDetailsActivity
+com.yaohuola.my.activity.AddrDetailsActivity: AddrDetailsActivity()
+com.yaohuola.my.activity.AddrDetailsActivity: void onClick(android.view.View)
+com.yaohuola.my.activity.AddrManagementActivity
+com.yaohuola.my.activity.AddrManagementActivity: AddrManagementActivity()
+com.yaohuola.my.activity.AddrManagementActivity: void onClick(android.view.View)
+com.yaohuola.my.activity.LoginActivity
+com.yaohuola.my.activity.LoginActivity: LoginActivity()
+com.yaohuola.my.activity.LoginActivity: void onClick(android.view.View)
+com.yaohuola.my.activity.OrderDetailsActivity
+com.yaohuola.my.activity.OrderDetailsActivity: OrderDetailsActivity()
+com.yaohuola.my.activity.OrderDetailsActivity: void onClick(android.view.View)
+com.yaohuola.my.activity.OrderListActivity
+com.yaohuola.my.activity.OrderListActivity: OrderListActivity()
+com.yaohuola.my.activity.OrderListActivity: void onClick(android.view.View)
+com.yaohuola.my.activity.SelectAreaActivity
+com.yaohuola.my.activity.SelectAreaActivity: SelectAreaActivity()
+com.yaohuola.my.activity.SelectAreaActivity: void onClick(android.view.View)
+com.yaohuola.my.activity.UpdateUserInfoActivity
+com.yaohuola.my.activity.UpdateUserInfoActivity: UpdateUserInfoActivity()
+com.yaohuola.my.activity.UpdateUserInfoActivity: void onClick(android.view.View)
+com.yaohuola.my.activity.XieYiActivity
+com.yaohuola.my.activity.XieYiActivity: XieYiActivity()
+com.yaohuola.my.activity.XieYiActivity: void onClick(android.view.View)
+com.yaohuola.shoppingcart.activity.AddrSelectActivity
+com.yaohuola.shoppingcart.activity.AddrSelectActivity: AddrSelectActivity()
+com.yaohuola.shoppingcart.activity.AddrSelectActivity: void onClick(android.view.View)
+com.yaohuola.shoppingcart.activity.FillOrdersActivity
+com.yaohuola.shoppingcart.activity.FillOrdersActivity: FillOrdersActivity()
+com.yaohuola.shoppingcart.activity.FillOrdersActivity: void onClick(android.view.View)
+com.yaohuola.view.GuidePageView
+com.yaohuola.view.GuidePageView: android.view.View getView()
+com.yaohuola.view.GuidePageView: GuidePageView(android.content.Context,android.util.AttributeSet)
+com.yaohuola.view.GuidePageView: GuidePageView(android.content.Context,android.util.AttributeSet,int)
+u.aly.an: u.aly.an[] values()
+u.aly.an: u.aly.an valueOf(java.lang.String)
+u.aly.ao$e: u.aly.ao$e[] values()
+u.aly.ao$e: u.aly.ao$e valueOf(java.lang.String)
+u.aly.ap$e: u.aly.ap$e[] values()
+u.aly.ap$e: u.aly.ap$e valueOf(java.lang.String)
+u.aly.aq$e: u.aly.aq$e[] values()
+u.aly.aq$e: u.aly.aq$e valueOf(java.lang.String)
+u.aly.ar$e: u.aly.ar$e[] values()
+u.aly.ar$e: u.aly.ar$e valueOf(java.lang.String)
+u.aly.as$e: u.aly.as$e[] values()
+u.aly.as$e: u.aly.as$e valueOf(java.lang.String)
+u.aly.at$e: u.aly.at$e[] values()
+u.aly.at$e: u.aly.at$e valueOf(java.lang.String)
+u.aly.au$e: u.aly.au$e[] values()
+u.aly.au$e: u.aly.au$e valueOf(java.lang.String)
+u.aly.av$e: u.aly.av$e[] values()
+u.aly.av$e: u.aly.av$e valueOf(java.lang.String)
+u.aly.aw: u.aly.aw[] values()
+u.aly.aw: u.aly.aw valueOf(java.lang.String)
+u.aly.ax$e: u.aly.ax$e[] values()
+u.aly.ax$e: u.aly.ax$e valueOf(java.lang.String)
+u.aly.ay: u.aly.ay[] values()
+u.aly.ay: u.aly.ay valueOf(java.lang.String)
+u.aly.az$e: u.aly.az$e[] values()
+u.aly.az$e: u.aly.az$e valueOf(java.lang.String)
+u.aly.ba$e: u.aly.ba$e[] values()
+u.aly.ba$e: u.aly.ba$e valueOf(java.lang.String)
+u.aly.bb$e: u.aly.bb$e[] values()
+u.aly.bb$e: u.aly.bb$e valueOf(java.lang.String)
+u.aly.bc$e: u.aly.bc$e[] values()
+u.aly.bc$e: u.aly.bc$e valueOf(java.lang.String)
+u.aly.bd$e: u.aly.bd$e[] values()
+u.aly.bd$e: u.aly.bd$e valueOf(java.lang.String)
+u.aly.be$e: u.aly.be$e[] values()
+u.aly.be$e: u.aly.be$e valueOf(java.lang.String)
+u.aly.bf$e: u.aly.bf$e[] values()
+u.aly.bf$e: u.aly.bf$e valueOf(java.lang.String)
+u.aly.bg$e: u.aly.bg$e[] values()
+u.aly.bg$e: u.aly.bg$e valueOf(java.lang.String)
+u.aly.bh$e: u.aly.bh$e[] values()
+u.aly.bh$e: u.aly.bh$e valueOf(java.lang.String)
+u.aly.bi$e: u.aly.bi$e[] values()
+u.aly.bi$e: u.aly.bi$e valueOf(java.lang.String)
+u.aly.bj$a: u.aly.bj$a[] values()
+u.aly.bj$a: u.aly.bj$a valueOf(java.lang.String)
+u.aly.bk$e: u.aly.bk$e[] values()
+u.aly.bk$e: u.aly.bk$e valueOf(java.lang.String)
+u.aly.bl$e: u.aly.bl$e[] values()
+u.aly.bl$e: u.aly.bl$e valueOf(java.lang.String)
+u.aly.bm: u.aly.bm[] values()
+u.aly.bm: u.aly.bm valueOf(java.lang.String)
+u.aly.bn$e: u.aly.bn$e[] values()
+u.aly.bn$e: u.aly.bn$e valueOf(java.lang.String)
+u.aly.bo$e: u.aly.bo$e[] values()
+u.aly.bo$e: u.aly.bo$e valueOf(java.lang.String)
+u.aly.bp$e: u.aly.bp$e[] values()
+u.aly.bp$e: u.aly.bp$e valueOf(java.lang.String)
+u.aly.bq$e: u.aly.bq$e[] values()
+u.aly.bq$e: u.aly.bq$e valueOf(java.lang.String)
+u.aly.br$e: u.aly.br$e[] values()
+u.aly.br$e: u.aly.br$e valueOf(java.lang.String)
+u.upd.f$a: u.upd.f$a[] values()
+u.upd.f$a: u.upd.f$a valueOf(java.lang.String)

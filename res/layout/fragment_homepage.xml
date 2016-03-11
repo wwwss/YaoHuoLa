@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/red"
+        android:baselineAligned="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="74dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="@dimen/margin_nomarl"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/yaohuola_icon" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="33dp"
+            android:layout_marginRight="@dimen/margin_large"
+            android:layout_weight="1"
+            android:background="@drawable/search_bg" >
+
+            <EditText
+                android:id="@+id/edit"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_margin="@dimen/margin_smaller"
+                android:background="@null"
+                android:hint="@string/search_hint"
+                android:imeOptions="actionSearch"
+                android:paddingLeft="@dimen/margin_large"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/text_size_normal" />
+
+            <ImageView
+                android:id="@+id/seach"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_nomarl"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/white_seach_icon" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fadingEdge="none"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.yaohuola.homepage.view.SlideShowView
+                android:id="@+id/slideshowView"
+                android:layout_width="fill_parent"
+                android:layout_height="140dp" />
+
+            <com.library.view.SAGridView
+                android:id="@+id/classifyGridView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:listSelector="#00000000"
+                android:numColumns="4"
+                android:paddingBottom="12dp"
+                android:paddingTop="14dp"
+                android:scrollbars="none"
+                android:verticalSpacing="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="@dimen/margin_nomarl"
+                android:drawableLeft="@drawable/hot_sale_icon"
+                android:drawablePadding="@dimen/margin_small"
+                android:gravity="center_vertical"
+                android:text="@string/hot_sale"
+                android:textColor="@color/text_color_shallow"
+                android:textSize="@dimen/text_size_min" />
+
+            <com.library.view.SAGridView
+                android:id="@+id/hotSaleGridView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="#00000000"
+                android:fadeScrollbars="true"
+                android:horizontalSpacing="5dp"
+                android:listSelector="#00000000"
+                android:numColumns="2"
+                android:scrollbars="none"
+                android:verticalSpacing="5dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

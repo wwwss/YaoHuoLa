@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white" >
+
+        <LinearLayout
+            android:id="@+id/back"
+            android:layout_width="@dimen/view_min_width"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="@dimen/margin_nomarl"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/back_icon" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/order_details"
+            android:textColor="@color/text_color_dark"
+            android:textSize="@dimen/text_size_slightlybigger" />
+    </RelativeLayout>
+
+    <include layout="@layout/view_wide_line" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fadingEdge="none"
+        android:scrollbars="none"
+        android:visibility="visible" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/margin_nomarl"
+                android:paddingRight="@dimen/margin_nomarl" >
+
+                <TextView
+                    android:id="@+id/orderStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text_color_dark"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <TextView
+                    android:id="@+id/orderStatusHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/order_status_hint"
+                    android:textColor="@color/text_color_shallow"
+                    android:textSize="@dimen/text_size_min" />
+            </LinearLayout>
+
+            <include layout="@layout/view_narrow_line" />
+
+            <TextView
+                android:id="@+id/consignee"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_nomarl"
+                android:paddingRight="@dimen/margin_nomarl"
+                android:singleLine="true"
+                android:textColor="@color/text_color_dark"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/contactPhoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_nomarl"
+                android:paddingRight="@dimen/margin_nomarl"
+                android:singleLine="true"
+                android:textColor="@color/text_color_dark"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/shippingAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_nomarl"
+                android:paddingRight="@dimen/margin_nomarl"
+                android:singleLine="true"
+                android:textColor="@color/text_color_dark"
+                android:textSize="@dimen/text_size_small" />
+
+            <include layout="@layout/view_narrow_line" />
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/line_bg"
+                android:dividerHeight="1dp"
+                android:fadingEdge="none"
+                android:scrollbars="none" />
+
+            <include layout="@layout/view_narrow_line" />
+
+            <TextView
+                android:id="@+id/totalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_nomarl"
+                android:paddingRight="@dimen/margin_nomarl"
+                android:singleLine="true"
+                android:textColor="@color/text_color_dark"
+                android:textSize="@dimen/text_size_normal" />
+
+            <include layout="@layout/view_narrow_line" />
+
+            <TextView
+                android:id="@+id/oderNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_nomarl"
+                android:paddingRight="@dimen/margin_nomarl"
+                android:singleLine="true"
+                android:textColor="@color/text_color_dark"
+                android:textSize="@dimen/text_size_min" />
+
+            <TextView
+                android:id="@+id/createTime"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_nomarl"
+                android:paddingRight="@dimen/margin_nomarl"
+                android:singleLine="true"
+                android:textColor="@color/text_color_dark"
+                android:textSize="@dimen/text_size_min" />
+
+            <TextView
+                android:id="@+id/deliveryTime"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_nomarl"
+                android:paddingRight="@dimen/margin_nomarl"
+                android:singleLine="true"
+                android:textColor="@color/text_color_dark"
+                android:textSize="@dimen/text_size_min" />
+
+            <TextView
+                android:id="@+id/transactionTime"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_nomarl"
+                android:paddingRight="@dimen/margin_nomarl"
+                android:singleLine="true"
+                android:textColor="@color/text_color_dark"
+                android:textSize="@dimen/text_size_min" />
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/aSingleAgain"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@color/red"
+        android:gravity="center"
+        android:singleLine="true"
+        android:visibility="gone"
+        android:text="@string/a_single_again"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_small" />
+
+</LinearLayout>

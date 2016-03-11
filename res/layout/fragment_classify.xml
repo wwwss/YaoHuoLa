@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/red"
+        android:baselineAligned="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="74dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="@dimen/margin_nomarl"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/yaohuola_icon" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="33dp"
+            android:layout_marginRight="@dimen/margin_large"
+            android:layout_weight="1"
+            android:background="@drawable/search_bg" >
+
+            <EditText
+                android:id="@+id/edit"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_margin="@dimen/margin_smaller"
+                android:background="@null"
+                android:hint="@string/search_hint"
+                android:imeOptions="actionSearch"
+                android:paddingLeft="@dimen/margin_large"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/text_size_normal" />
+
+            <ImageView
+                android:id="@+id/seach"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_nomarl"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/white_seach_icon" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/margin_smaller"
+        android:visibility="gone"
+        android:background="@color/line_bg" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal" >
+
+        <ListView
+            android:id="@+id/allClassifyListView"
+            android:layout_width="83dp"
+            android:layout_height="fill_parent"
+            android:background="@color/main_bg"
+            android:cacheColorHint="#00000000"
+            android:divider="@color/white"
+            android:dividerHeight="@dimen/margin_smaller"
+            android:fadingEdge="none"
+            android:listSelector="#00000000"
+            android:scrollbars="none" />
+
+        <ListView
+            android:id="@+id/smallclassifyListView"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:cacheColorHint="#00000000"
+            android:divider="@null"
+            android:fadingEdge="none"
+            android:paddingLeft="@dimen/margin_nomarlr"
+            android:scrollbars="none" >
+        </ListView>
+    </LinearLayout>
+
+</LinearLayout>
