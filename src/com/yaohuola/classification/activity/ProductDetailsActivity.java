@@ -9,18 +9,16 @@ import org.json.JSONObject;
 
 import com.android.yaohuola.R;
 import com.library.activity.BaseActivity;
-import com.library.uitls.ListViewUitls;
-import com.yaohuola.YaoHuoLaApplication;
-import com.yaohuola.classification.adapter.ProductImageAdapter;
+import com.yaohuola.data.entity.BannerEntity;
 import com.yaohuola.data.entity.ProductEntity;
+import com.yaohuola.homepage.view.SlideShowView;
 import com.yaohuola.task.AddToCartTask;
 import com.yaohuola.task.HttpTask;
 
 import android.graphics.Color;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -29,7 +27,7 @@ import android.widget.TextView;
  */
 public class ProductDetailsActivity extends BaseActivity {
 
-	private ImageView iv_pic;
+	// private ImageView iv_pic;
 	private TextView tv_producteDscription;// 产品描述
 	private TextView tv_priceAndunit;// 单价和单位
 	private TextView tv_output;// 供货量
@@ -37,10 +35,11 @@ public class ProductDetailsActivity extends BaseActivity {
 	private TextView tv_suttle;// 净重
 	private TextView tv_shelfLife;// 保质期
 	private TextView tv_info;// 产品介绍
-	private ListView listView;// 图片列表
-	private ProductImageAdapter adapter;
+	// private ListView listView;// 图片列表
+	// private ProductImageAdapter adapter;
 	private String unique_id;// 产品ID
 	private TextView tv_nowAddShoppingCart;// 立即加入购物车
+	private SlideShowView slideShowView;
 
 	@Override
 	public void setContentView() {
@@ -54,7 +53,8 @@ public class ProductDetailsActivity extends BaseActivity {
 		if (TextUtils.isEmpty(unique_id)) {
 			return;
 		}
-		iv_pic = (ImageView) findViewById(R.id.pic);
+		slideShowView = (SlideShowView) findViewById(R.id.slideshowView);
+		// iv_pic = (ImageView) findViewById(R.id.pic);
 		tv_producteDscription = (TextView) findViewById(R.id.producteDscription);
 		tv_priceAndunit = (TextView) findViewById(R.id.priceAndunit);
 		tv_output = (TextView) findViewById(R.id.output);
@@ -62,7 +62,7 @@ public class ProductDetailsActivity extends BaseActivity {
 		tv_packingWay = (TextView) findViewById(R.id.packingWay);
 		tv_suttle = (TextView) findViewById(R.id.suttle);
 		tv_shelfLife = (TextView) findViewById(R.id.shelfLife);
-		listView = (ListView) findViewById(R.id.listView);
+		// listView = (ListView) findViewById(R.id.listView);
 		findViewById(R.id.back).setOnClickListener(this);
 		tv_nowAddShoppingCart = (TextView) findViewById(R.id.nowAddShoppingCart);
 		tv_nowAddShoppingCart.setOnClickListener(this);
@@ -132,23 +132,53 @@ public class ProductDetailsActivity extends BaseActivity {
 			tv_info.setVisibility(View.VISIBLE);
 			tv_info.setText(productEntity.getInfo());
 		}
-		if (productEntity.getPics() != null && productEntity.getPics().length() > 0) {
-			YaoHuoLaApplication.disPlayFromUrl(productEntity.getPics().getString(0), iv_pic,
-					R.drawable.default_banner_icon);
-			List<String> list = new ArrayList<String>();
-			for (int i = 1; i < productEntity.getPics().length(); i++) {
-				list.add(productEntity.getPics().getString(i));
-			}
-			if (list.size() > 0) {
-				adapter = new ProductImageAdapter(this, list);
-				listView.setAdapter(adapter);
-				listView.setVisibility(View.VISIBLE);
-				ListViewUitls.setListViewHeightBasedOnChildren(listView);
-			}
-
+		List<BannerEntity> imageList = new ArrayList<BannerEntity>();
+		if (productEntity.getPics() == null && productEntity.getPics().length() == 0) {
+			return;
 		}
+		for (int i = 0; i < productEntity.getPics().length(); i++) {
+			BannerEntity banner = new BannerEntity();
+			String imageUrl = productEntity.getPics().getString(i);
+			if (TextUtils.isEmpty(imageUrl)) {
+				continue;
+			}
+			banner.setImage_url(imageUrl);
+//			banner.setId(bannerObj.optInt("unique_id", -1));
+//			banner.setProduct_unique_id(bannerObj.optString("product_unique_id", ""));
+//			banner.setTitle(bannerObj.optString("title", ""));
+			imageList.add(banner);
+		}
+		slideShowView.setData(imageList);
+		// if (productEntity.getPics() != null &&
+		// productEntity.getPics().length() > 0) {
+		// YaoHuoLaApplication.disPlayFromUrl(productEntity.getPics().getString(0),
+		// iv_pic,
+		// R.drawable.default_banner_icon);
+		// List<String> list = new ArrayList<String>();
+		// for (int i = 1; i < productEntity.getPics().length(); i++) {
+		// list.add(productEntity.getPics().getString(i));
+		// }
+		// if (list.size() > 0) {
+		// adapter = new ProductImageAdapter(this, list);
+		// listView.setAdapter(adapter);
+		// listView.setVisibility(View.VISIBLE);
+		// ListViewUitls.setListViewHeightBasedOnChildren(listView);
+		// }
+		//
+		// }
 	};
 
+	@Override
+	protected void onResume() {
+		handler.sendEmptyMessage(1002);
+		super.onResume();
+	}
+	
+	@Override
+	protected void onPause() {
+		handler.sendEmptyMessage(1003);
+		super.onPause();
+	}
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -163,6 +193,21 @@ public class ProductDetailsActivity extends BaseActivity {
 		}
 
 	}
+
+	public Handler handler = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case 1002:
+				if (!slideShowView.isPlay) {
+					slideShowView.startPlay();
+				}
+				break;
+			case 1003:
+				slideShowView.stopPlay();
+				break;
+			}
+		};
+	};
 
 	@Override
 	public void refreshData() {

@@ -52,13 +52,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <ImageView
-                android:id="@+id/pic"
+            <com.yaohuola.homepage.view.SlideShowView
+                android:id="@+id/slideshowView"
                 android:layout_width="fill_parent"
-                android:layout_height="180dp"
-                android:contentDescription="@string/app_name"
-                android:scaleType="centerCrop"
-                android:src="@drawable/default_banner_icon" />
+                android:layout_height="180dp" />
 
             <include layout="@layout/view_narrow_line" />
 

@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import com.android.yaohuola.R;
 import com.library.view.SAGridView;
 import com.yaohuola.classification.activity.ProductDetailsActivity;
+import com.yaohuola.data.entity.BannerEntity;
 import com.yaohuola.data.entity.ClassifyEntity;
 import com.yaohuola.data.entity.HotSaleEntity;
 import com.yaohuola.homepage.adapter.ClassifyAdapter;
@@ -129,6 +130,7 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 			classifyAdapter.notifyDataSetChanged();
 		}
 		new HttpTask(context, HttpTask.GET, "adverts", null) {
+			@SuppressWarnings("null")
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;
@@ -137,7 +139,24 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 					JSONObject jsonObject = new JSONObject(result);
 					int code = jsonObject.optInt("result", -1);
 					if (code == 0) {
-						slideShowView.setData(jsonObject);
+						List<BannerEntity> imageList = new ArrayList<BannerEntity>();
+						JSONArray bannerArray = jsonObject.optJSONArray("adverts");
+						if (bannerArray == null&&bannerArray.length()==0) {
+							return;
+						}
+						for (int i = 0; i < bannerArray.length(); i++) {
+							BannerEntity banner = new BannerEntity();
+							JSONObject bannerObj = bannerArray.optJSONObject(i);
+							if (bannerObj == null) {
+								continue;
+							}
+							banner.setImage_url(bannerObj.optString("image_url", ""));
+							banner.setId(bannerObj.optInt("unique_id", -1));
+							banner.setProduct_unique_id(bannerObj.optString("product_unique_id", ""));
+							banner.setTitle(bannerObj.optString("title", ""));
+							imageList.add(banner);
+						}
+						slideShowView.setData(imageList);
 						JSONArray jsonArray = jsonObject.optJSONArray("populars");
 						if (jsonArray == null) {
 							return;
@@ -201,14 +220,6 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 
 	}
 
-	// @Override
-	// public void onResume() {
-	// if (getUserVisibleHint()) {
-	// handler.sendEmptyMessage(1002);
-	// getData();
-	// }
-	// super.onResume();
-	// }
 
 	@Override
 	public void onStop() {

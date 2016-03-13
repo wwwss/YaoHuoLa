@@ -128,7 +128,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements UploadImageL
 			ToastShow("请输入昵称");
 			return;
 		}
-		if (et_nikeName.getText().toString().trim().equals(user.getName()) && TextUtils.isEmpty(imagePath)) {
+		if (et_nikeName.getText().toString().trim().equals(user.getName())) {
 			ToastShow("您还没有修改任何信息");
 			return;
 		}
@@ -152,6 +152,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements UploadImageL
 						Toast.makeText(context, "提交成功", Toast.LENGTH_SHORT).show();
 						setResult(RESULT_OK);
 						finish();
+					} else {
+						Toast.makeText(context, "修改信息失败", Toast.LENGTH_SHORT).show();
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();

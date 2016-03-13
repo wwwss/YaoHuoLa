@@ -7,12 +7,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import com.android.yaohuola.R;
+import com.library.uitls.SmartLog;
 import com.yaohuola.YaoHuoLaApplication;
 import com.yaohuola.classification.activity.ProductDetailsActivity;
+import com.yaohuola.classification.view.PicturePreviewAlertDialog;
 import com.yaohuola.data.entity.BannerEntity;
 import com.yaohuola.homepage.view.MyViewPager.OnSingleTouchListener;
 
@@ -24,6 +23,7 @@ import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -260,27 +260,14 @@ public class SlideShowView extends FrameLayout implements OnSingleTouchListener 
 
 	}
 
-	public void setData(JSONObject jsonObject) {
+	public void setData(List<BannerEntity> imageList) {
+		SmartLog.i("ceshi", "---------------------------1");
 		if (imageList != null && imageList.size() > 0) {
-			return;
+			SmartLog.i("ceshi", "---------------------------" + imageList.size());
+			this.imageList.addAll(imageList);
+			initUI(context);
 		}
-		JSONArray bannerArray = jsonObject.optJSONArray("adverts");
-		if (bannerArray == null) {
-			return;
-		}
-		for (int i = 0; i < bannerArray.length(); i++) {
-			BannerEntity banner = new BannerEntity();
-			JSONObject bannerObj = bannerArray.optJSONObject(i);
-			if (bannerObj == null) {
-				continue;
-			}
-			banner.setImage_url(bannerObj.optString("image_url", ""));
-			banner.setId(bannerObj.optInt("unique_id", -1));
-			banner.setProduct_unique_id(bannerObj.optString("product_unique_id", ""));
-			banner.setTitle(bannerObj.optString("title", ""));
-			imageList.add(banner);
-		}
-		initUI(context);
+
 	}
 
 	/**
@@ -288,9 +275,17 @@ public class SlideShowView extends FrameLayout implements OnSingleTouchListener 
 	 */
 	@Override
 	public void onSingleTouch() {
-		Intent intent = new Intent(context, ProductDetailsActivity.class);
-		intent.putExtra("id", imageList.get(viewPager.getCurrentItem()).getProduct_unique_id());
-		context.startActivity(intent);
+		Intent intent;
+		String id = imageList.get(viewPager.getCurrentItem()).getProduct_unique_id();
+		if (TextUtils.isEmpty(id)) {
+			String imageUrl = imageList.get(viewPager.getCurrentItem()).getImage_url();
+			PicturePreviewAlertDialog dialog= new PicturePreviewAlertDialog(context, imageUrl);
+			dialog.show();
+		} else {
+			intent = new Intent(context, ProductDetailsActivity.class);
+			intent.putExtra("id", id);
+			context.startActivity(intent);
+		}
 
 	}
 
