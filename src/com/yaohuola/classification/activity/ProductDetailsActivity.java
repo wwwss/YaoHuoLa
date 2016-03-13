@@ -11,9 +11,9 @@ import com.android.yaohuola.R;
 import com.library.activity.BaseActivity;
 import com.yaohuola.data.entity.BannerEntity;
 import com.yaohuola.data.entity.ProductEntity;
-import com.yaohuola.homepage.view.SlideShowView;
 import com.yaohuola.task.AddToCartTask;
 import com.yaohuola.task.HttpTask;
+import com.yaohuola.view.SlideShowView;
 
 import android.graphics.Color;
 import android.os.Handler;

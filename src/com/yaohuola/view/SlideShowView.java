@@ -1,5 +1,5 @@
 
-package com.yaohuola.homepage.view;
+package com.yaohuola.view;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +8,11 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import com.android.yaohuola.R;
-import com.library.uitls.SmartLog;
 import com.yaohuola.YaoHuoLaApplication;
 import com.yaohuola.classification.activity.ProductDetailsActivity;
 import com.yaohuola.classification.view.PicturePreviewAlertDialog;
 import com.yaohuola.data.entity.BannerEntity;
+import com.yaohuola.homepage.view.MyViewPager;
 import com.yaohuola.homepage.view.MyViewPager.OnSingleTouchListener;
 
 import android.content.Context;
@@ -261,13 +261,10 @@ public class SlideShowView extends FrameLayout implements OnSingleTouchListener 
 	}
 
 	public void setData(List<BannerEntity> imageList) {
-		SmartLog.i("ceshi", "---------------------------1");
 		if (imageList != null && imageList.size() > 0) {
-			SmartLog.i("ceshi", "---------------------------" + imageList.size());
 			this.imageList.addAll(imageList);
 			initUI(context);
 		}
-
 	}
 
 	/**
@@ -279,7 +276,10 @@ public class SlideShowView extends FrameLayout implements OnSingleTouchListener 
 		String id = imageList.get(viewPager.getCurrentItem()).getProduct_unique_id();
 		if (TextUtils.isEmpty(id)) {
 			String imageUrl = imageList.get(viewPager.getCurrentItem()).getImage_url();
-			PicturePreviewAlertDialog dialog= new PicturePreviewAlertDialog(context, imageUrl);
+			if (TextUtils.isEmpty(imageUrl)) {
+				return;
+			}
+			PicturePreviewAlertDialog dialog = new PicturePreviewAlertDialog(context, imageUrl);
 			dialog.show();
 		} else {
 			intent = new Intent(context, ProductDetailsActivity.class);

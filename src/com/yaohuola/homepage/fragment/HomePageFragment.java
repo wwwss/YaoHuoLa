@@ -15,9 +15,9 @@ import com.yaohuola.data.entity.ClassifyEntity;
 import com.yaohuola.data.entity.HotSaleEntity;
 import com.yaohuola.homepage.adapter.ClassifyAdapter;
 import com.yaohuola.homepage.adapter.HotSaleAdapter;
-import com.yaohuola.homepage.view.SlideShowView;
 import com.yaohuola.task.HttpTask;
 import com.yaohuola.task.SearchTask;
+import com.yaohuola.view.SlideShowView;
 
 import android.content.Context;
 import android.content.Intent;
