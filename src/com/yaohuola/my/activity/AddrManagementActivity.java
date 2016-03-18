@@ -64,8 +64,8 @@ public class AddrManagementActivity extends BaseActivity implements OnItemClickL
 				try {
 					JSONObject jsonObject = new JSONObject(result);
 					int code = jsonObject.optInt("result", -1);
+				
 					if (code == 0) {
-						addrEntities.clear();
 						JSONArray jsonArray = jsonObject.optJSONArray("addresses");
 						if (jsonArray == null) {
 							return;
@@ -92,6 +92,9 @@ public class AddrManagementActivity extends BaseActivity implements OnItemClickL
 						if (addrEntities.size() > 0) {
 							adapter.notifyDataSetChanged();
 						}
+					} else if(code == 1){
+						addrEntities.clear();
+						adapter.notifyDataSetChanged();
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();

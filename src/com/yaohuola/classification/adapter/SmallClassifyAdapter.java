@@ -114,6 +114,7 @@ public class SmallClassifyAdapter extends BaseAdapter<SmallClassifyEntity> {
 							productEntity.setDescription(jsonObject2.optString("desc", ""));
 							productEntity.setPrice(jsonObject2.optDouble("price", 0));
 							productEntity.setSpec(jsonObject2.optString("spec", ""));
+							productEntity.setStock_num(jsonObject2.optInt("stock_num", 0));
 							productEntities.add(productEntity);
 						}
 						smallClassifyEntity.setProductEntities(productEntities);

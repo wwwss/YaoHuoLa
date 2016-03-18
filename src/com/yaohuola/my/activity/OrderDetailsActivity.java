@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import com.android.yaohuola.R;
 import com.library.activity.BaseActivity;
 import com.library.uitls.ListViewUitls;
+import com.yaohuola.classification.activity.ProductDetailsActivity;
 import com.yaohuola.data.cache.LocalCache;
 import com.yaohuola.data.entity.AddrEntity;
 import com.yaohuola.data.entity.OrderEntity;
@@ -22,12 +23,14 @@ import com.yaohuola.task.HttpTask;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class OrderDetailsActivity extends BaseActivity {
+public class OrderDetailsActivity extends BaseActivity implements OnItemClickListener {
 
 	private TextView tv_orderStatus;
 	private TextView tv_consignee;// 收货人
@@ -67,6 +70,7 @@ public class OrderDetailsActivity extends BaseActivity {
 		productEntities = new ArrayList<ProductEntity>();
 		adapter = new OrderProductListAdapter(this, productEntities);
 		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(this);
 		findViewById(R.id.back).setOnClickListener(this);
 		findViewById(R.id.aSingleAgain).setOnClickListener(this);
 		if (TextUtils.isEmpty(id)) {
@@ -232,6 +236,14 @@ public class OrderDetailsActivity extends BaseActivity {
 	public void refreshData() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Intent intent = new Intent(this, ProductDetailsActivity.class);
+		ProductEntity productEntity = (ProductEntity) parent.getItemAtPosition(position);
+		intent.putExtra("id", productEntity.getId());
+		startActivity(intent);
 	}
 
 }

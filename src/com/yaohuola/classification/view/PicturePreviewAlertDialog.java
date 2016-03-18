@@ -19,7 +19,7 @@ public class PicturePreviewAlertDialog extends AlertDialog {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.dialog_picture_preview);
+		setContentView(R.layout.activity_picture_preview);
 		PhotoView imageView=(PhotoView) findViewById(R.id.photoView);
 		YaoHuoLaApplication.disPlayFromUrl(imageUrl, imageView, R.drawable.default_banner_icon);
 	}

@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.android.yaohuola.R;
+import com.yaohuola.classification.activity.ProductDetailsActivity;
 import com.yaohuola.data.cache.LocalCache;
 import com.yaohuola.data.entity.OrderEntity;
 import com.yaohuola.data.entity.ProductEntity;
@@ -28,10 +29,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ShoppingcartFragment extends Fragment implements OnClickListener {
+public class ShoppingcartFragment extends Fragment implements OnClickListener, OnItemClickListener {
 	private Context context;
 	private TextView tv_edit;
 	private ListView listView;
@@ -63,6 +66,7 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener {
 		productEntities = new ArrayList<ProductEntity>();
 		adapter = new ShoppingCartAdapter(context, productEntities, handler);
 		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(this);
 		tv_edit.setOnClickListener(this);
 		tv_allSelect.setOnClickListener(this);
 		tv_orderNow = (TextView) view.findViewById(R.id.orderNow);
@@ -329,5 +333,13 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener {
 		adapter.setDelect(true);
 		adapter.notifyDataSetChanged();
 
+	}
+	
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Intent intent = new Intent(getActivity(), ProductDetailsActivity.class);
+		ProductEntity productEntity = (ProductEntity) parent.getItemAtPosition(position);
+		intent.putExtra("id", productEntity.getId2());
+		startActivity(intent);
 	}
 }

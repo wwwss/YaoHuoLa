@@ -181,6 +181,9 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 						}
 						if (hotSaleEntities.size() > 0) {
 							hotSaleAdapter.notifyDataSetChanged();
+							getView().findViewById(R.id.tips).setVisibility(View.VISIBLE);
+						}else{
+							getView().findViewById(R.id.tips).setVisibility(View.GONE);	
 						}
 					}
 				} catch (JSONException e) {

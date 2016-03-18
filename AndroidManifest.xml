@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.yaohuola"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="20160318"
+    android:versionName="1.1" >
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="21" />
+        android:targetSdkVersion="23" />
     <!-- 地图包、搜索包需要的基础权限 -->
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -64,6 +64,10 @@
         <!-- 产品页面 -->
         <activity
             android:name="com.yaohuola.classification.activity.ProductAitivity"
+            android:screenOrientation="portrait" />
+        <!-- 图片预览页面 -->
+        <activity
+            android:name="com.yaohuola.classification.activity.PicturePreviewActivity"
             android:screenOrientation="portrait" />
         <!-- 订单列表页面 -->
         <activity

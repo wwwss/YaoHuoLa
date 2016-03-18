@@ -103,6 +103,15 @@
                 android:numColumns="2"
                 android:scrollbars="none"
                 android:verticalSpacing="5dp" />
+
+            <ImageView
+                android:id="@+id/tips"
+                android:layout_width="fill_parent"
+                android:layout_height="78dp"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/tips_icon" />
         </LinearLayout>
     </ScrollView>
 

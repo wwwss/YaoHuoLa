@@ -9,18 +9,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.android.yaohuola.R;
 import com.library.activity.BaseActivity;
 import com.library.uitls.ListViewUitls;
+import com.yaohuola.classification.activity.ProductDetailsActivity;
 import com.yaohuola.data.cache.LocalCache;
 import com.yaohuola.data.entity.AddrEntity;
 import com.yaohuola.data.entity.OrderEntity;
@@ -29,11 +21,21 @@ import com.yaohuola.my.activity.OrderListActivity;
 import com.yaohuola.my.adapter.FillOrderProductListAdapter;
 import com.yaohuola.task.HttpTask;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
 /**
  * 
  * @author admin 填写订单页面
  */
-public class FillOrdersActivity extends BaseActivity {
+public class FillOrdersActivity extends BaseActivity implements OnItemClickListener {
 	private TextView tv_consignee;// 收货人
 	private TextView tv_phoneNumber;
 	private TextView tv_shippingAddress;
@@ -73,6 +75,7 @@ public class FillOrdersActivity extends BaseActivity {
 		}
 		adapter = new FillOrderProductListAdapter(this, productEntities);
 		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(this);
 		ListViewUitls.setListViewHeightBasedOnChildren(listView);
 		// 让listView失去焦点
 		listView.setFocusable(false);
@@ -186,11 +189,6 @@ public class FillOrdersActivity extends BaseActivity {
 						intent.putExtra("type", 0);
 						startActivity(intent);
 						finish();
-					} else if (code == 3) {
-						Toast.makeText(context, "库存不足", Toast.LENGTH_SHORT).show();
-					} else {
-						Toast.makeText(context, "提交订单失败", Toast.LENGTH_SHORT).show();
-
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -229,4 +227,13 @@ public class FillOrdersActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Intent intent = new Intent(this, ProductDetailsActivity.class);
+		ProductEntity productEntity = (ProductEntity) parent.getItemAtPosition(position);
+		intent.putExtra("id", productEntity.getId2());
+		startActivity(intent);
+	}
+
 }

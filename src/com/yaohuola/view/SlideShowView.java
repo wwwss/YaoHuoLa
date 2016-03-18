@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit;
 
 import com.android.yaohuola.R;
 import com.yaohuola.YaoHuoLaApplication;
+import com.yaohuola.classification.activity.PicturePreviewActivity;
 import com.yaohuola.classification.activity.ProductDetailsActivity;
-import com.yaohuola.classification.view.PicturePreviewAlertDialog;
 import com.yaohuola.data.entity.BannerEntity;
 import com.yaohuola.homepage.view.MyViewPager;
 import com.yaohuola.homepage.view.MyViewPager.OnSingleTouchListener;
@@ -279,8 +279,9 @@ public class SlideShowView extends FrameLayout implements OnSingleTouchListener 
 			if (TextUtils.isEmpty(imageUrl)) {
 				return;
 			}
-			PicturePreviewAlertDialog dialog = new PicturePreviewAlertDialog(context, imageUrl);
-			dialog.show();
+			intent = new Intent(context, PicturePreviewActivity.class);
+			intent.putExtra("imageUrl", imageUrl);
+			context.startActivity(intent);
 		} else {
 			intent = new Intent(context, ProductDetailsActivity.class);
 			intent.putExtra("id", id);

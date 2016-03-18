@@ -10,11 +10,13 @@ import org.json.JSONObject;
 import com.library.task.BaseTask;
 import com.library.uitls.HttpUtils;
 import com.library.uitls.NetUtils;
+import com.library.uitls.SmartLog;
 import com.yaohuola.constants.UrlConstants;
 import com.yaohuola.data.cache.LocalCache;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 public class HttpTask extends BaseTask {
 
@@ -23,11 +25,11 @@ public class HttpTask extends BaseTask {
 	public static int PUT = 2;
 	public static int DELETE = 3;
 	public Context context;// 上下文
-	// protected String error_message;
+	protected String error_message;
 	private Map<String, String> map;
 	private String func;
-	// private int error_type;// 1001是服务器异常，1002是请求失败
-	private int type;// 0是get，1是post 2是put
+	private int type;// 0是get，1是post 2是put 3是DELETE
+	private int error_code;
 
 	public HttpTask(Context context, int type, String func, Map<String, String> map) {
 		if (map == null) {
@@ -55,10 +57,12 @@ public class HttpTask extends BaseTask {
 			if (!TextUtils.isEmpty(jsonString)) {
 				try {
 					JSONObject jsonObject = new JSONObject(jsonString);
-					int code = jsonObject.optInt("result", -1);
-					if (code == 2) {
+					error_code = jsonObject.optInt("result", -1);
+					error_message = jsonObject.optString("errmsg", "");
+					if (error_code != 0) {
 						publishProgress();
 					}
+
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -70,10 +74,18 @@ public class HttpTask extends BaseTask {
 
 	@Override
 	protected void onProgressUpdate(Void... values) {
-//		Intent intent = new Intent(new Intent(context, LoginActivity.class));
-//		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//		context.startActivity(intent);
-		LocalCache.getInstance(context).clearToken();
+		switch (error_code) {
+		case 2:
+			LocalCache.getInstance(context).clearToken();
+			break;
+		default:
+			if (!TextUtils.isEmpty(error_message)) {
+				Toast.makeText(context, error_message, Toast.LENGTH_SHORT).show();
+				SmartLog.i("HttpTask", "错误信息是：" + error_message);
+			}
+			break;
+		}
+
 	}
 
 }
