@@ -64,11 +64,13 @@ public class AddrManagementActivity extends BaseActivity implements OnItemClickL
 				try {
 					JSONObject jsonObject = new JSONObject(result);
 					int code = jsonObject.optInt("result", -1);
-				
 					if (code == 0) {
 						JSONArray jsonArray = jsonObject.optJSONArray("addresses");
 						if (jsonArray == null) {
 							return;
+						}
+						if (addrEntities.size()>0) {
+							addrEntities.clear();
 						}
 						for (int i = 0; i < jsonArray.length(); i++) {
 							JSONObject jsonObject2 = jsonArray.optJSONObject(i);

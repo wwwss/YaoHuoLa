@@ -46,6 +46,7 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 	private TextView tv_orderNowHint;
 	private View view;
 	private double sendPrice;
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_shoppingcart, container, false);
 	}
@@ -139,7 +140,7 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 							productEntity.setSpec(jsonObject3.optString("spec", ""));
 							int stock_num = jsonObject3.optInt("stock_num", 0);
 							productEntity.setStock_num(stock_num);
-							if (product_num >stock_num) {
+							if (product_num > stock_num) {
 								productEntity.setSelected(false);
 							} else {
 								productEntity.setSelected(true);
@@ -187,10 +188,9 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 				}
 				if (count == productEntities.size()) {
 					tv_allSelect.setSelected(true);
-
 				}
 				total = (Double) msg.obj;
-				DecimalFormat df=new DecimalFormat("#,##0.00"); 
+				DecimalFormat df = new DecimalFormat("##0.00");
 				String strValue = df.format(total);
 				tv_total.setText("合计：" + strValue);
 				if (total >= sendPrice) {
@@ -239,7 +239,7 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 				if (total > 0) {
 					Intent intent = new Intent(context, FillOrdersActivity.class);
 					OrderEntity orderEntity = new OrderEntity();
-					DecimalFormat df=new DecimalFormat("#,##0.00"); 
+					DecimalFormat df = new DecimalFormat("#,##0.00");
 					String strValue = df.format(total);
 					orderEntity.setTotal(strValue);
 					final List<ProductEntity> newProductEntities = new ArrayList<ProductEntity>();
@@ -334,7 +334,7 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 		adapter.notifyDataSetChanged();
 
 	}
-	
+
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Intent intent = new Intent(getActivity(), ProductDetailsActivity.class);
