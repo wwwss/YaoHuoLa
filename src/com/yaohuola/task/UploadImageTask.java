@@ -3,6 +3,7 @@ package com.yaohuola.task;
 import java.util.Map;
 
 import com.library.interfaces.UploadPicturesCallBack;
+import com.library.uitls.AppUtils;
 import com.library.uitls.PictureProcessingUtils;
 import com.library.uitls.SmartLog;
 import com.yaohuola.constants.UrlConstants;
@@ -14,6 +15,9 @@ import android.widget.Toast;
 
 public class UploadImageTask {
 	public static void uploadImageFile(final Activity context,String imagePath,final UploadImageListenter listenter,Map<String, String> params) {
+		if (AppUtils.isFastClick()) {
+			return;
+		}
 		try {
 			PictureProcessingUtils.uploadImageFile(UrlConstants.UPLOADPICTURES,imagePath, params,new UploadPicturesCallBack() {
 						private ProgressDialog dialog;

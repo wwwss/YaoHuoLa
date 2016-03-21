@@ -13,7 +13,6 @@ import com.library.uitls.NetUtils;
 import com.library.uitls.SmartLog;
 import com.yaohuola.constants.UrlConstants;
 import com.yaohuola.data.cache.LocalCache;
-
 import android.content.Context;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -77,6 +76,10 @@ public class HttpTask extends BaseTask {
 		switch (error_code) {
 		case 2:
 			LocalCache.getInstance(context).clearToken();
+//			Toast.makeText(context, "检测到登录信息已失效，如需继续使用请重新登录", Toast.LENGTH_SHORT).show();
+//			Intent intent = new Intent(context, LoginActivity.class);
+//			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//			context.startActivity(intent);
 			break;
 		default:
 			if (!TextUtils.isEmpty(error_message)) {

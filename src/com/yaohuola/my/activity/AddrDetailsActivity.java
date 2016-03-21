@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import com.android.yaohuola.R;
 import com.library.activity.BaseActivity;
+import com.library.uitls.AppUtils;
 import com.yaohuola.data.cache.LocalCache;
 import com.yaohuola.data.entity.AddrEntity;
 import com.yaohuola.task.HttpTask;
@@ -78,6 +79,9 @@ public class AddrDetailsActivity extends BaseActivity {
 
 	@Override
 	public void onClick(View v) {
+		if (AppUtils.isFastClick()) {
+			return;
+		}
 		switch (v.getId()) {
 		case R.id.back:
 			finish();

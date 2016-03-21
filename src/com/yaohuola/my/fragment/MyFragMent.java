@@ -26,6 +26,7 @@ import com.yaohuola.YaoHuoLaApplication;
 import com.yaohuola.data.cache.LocalCache;
 import com.yaohuola.data.entity.UserEntity;
 import com.yaohuola.my.activity.AboutUsActivity;
+import com.yaohuola.my.activity.LoginActivity;
 import com.yaohuola.my.activity.OrderListActivity;
 import com.yaohuola.my.activity.UpdateUserInfoActivity;
 import com.yaohuola.task.HttpTask;
@@ -61,21 +62,18 @@ public class MyFragMent extends Fragment implements OnClickListener {
 		view.findViewById(R.id.forReceivingOrders).setOnClickListener(this);
 		view.findViewById(R.id.feedback).setOnClickListener(this);
 		view.findViewById(R.id.aboutUs).setOnClickListener(this);
-		// 获取个人信息
-		getData();
+
 		kefutell = LocalCache.getInstance(context).getKeFuTell();
 
 	}
 
-	// @Override
-	// public void onResume() {
-	// if (getUserVisibleHint()) {
-	// // 获取个人信息
-	// getData();
-	//
-	// }
-	// super.onResume();
-	// }
+	@Override
+	public void onResume() {
+		// 获取个人信息
+		getData();
+		super.onResume();
+	}
+
 	/**
 	 * 获取个人信息
 	 */
@@ -83,6 +81,7 @@ public class MyFragMent extends Fragment implements OnClickListener {
 		Map<String, String> map = new HashMap<String, String>();
 		String token = LocalCache.getInstance(context).getToken();
 		if (TextUtils.isEmpty(token)) {
+			tv_userNikeName.setText("点击登录");
 			return;
 		}
 		map.put("token", token);
@@ -101,7 +100,7 @@ public class MyFragMent extends Fragment implements OnClickListener {
 						}
 						user = new UserEntity();
 						user.setUnique_id(jsonObject2.optString("unique_id", ""));
-						user.setName(jsonObject2.optString("name", ""));
+						user.setName(jsonObject2.optString("name", "点击修改昵称"));
 						user.setImage(jsonObject2.optString("image", ""));
 						user.setIdentification(jsonObject2.optString("identification", ""));
 						user.setPhone_num(jsonObject2.optString("phone_num", ""));
@@ -133,22 +132,34 @@ public class MyFragMent extends Fragment implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		if (user == null) {
-			return;
-		}
 		Intent intent;
 		switch (v.getId()) {
 		case R.id.updateUserInfo:
+			if (!YaoHuoLaApplication.isLogin(context)) {
+				intent = new Intent(context, LoginActivity.class);
+				context.startActivity(intent);
+				return;
+			}
 			intent = new Intent(context, UpdateUserInfoActivity.class);
 			intent.putExtra("user", user);
 			startActivityForResult(intent, UPDATE_USER_INFO);
 			break;
 		case R.id.completedOrders:
+			if (!YaoHuoLaApplication.isLogin(context)) {
+				intent = new Intent(context, LoginActivity.class);
+				context.startActivity(intent);
+				return;
+			}
 			intent = new Intent(context, OrderListActivity.class);
 			intent.putExtra("type", 1);
 			startActivity(intent);
 			break;
 		case R.id.forReceivingOrders:
+			if (!YaoHuoLaApplication.isLogin(context)) {
+				intent = new Intent(context, LoginActivity.class);
+				context.startActivity(intent);
+				return;
+			}
 			intent = new Intent(context, OrderListActivity.class);
 			intent.putExtra("type", 0);
 			startActivity(intent);

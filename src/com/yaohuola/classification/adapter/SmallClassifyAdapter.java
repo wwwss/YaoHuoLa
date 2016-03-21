@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.android.yaohuola.R;
+import com.library.uitls.AppUtils;
 import com.library.view.SAGridView;
 import com.yaohuola.adapter.BaseAdapter;
 import com.yaohuola.classification.activity.ProductAitivity;
@@ -68,6 +69,9 @@ public class SmallClassifyAdapter extends BaseAdapter<SmallClassifyEntity> {
 
 			@Override
 			public void onClick(View v) {
+				if (AppUtils.isFastClick()) {
+					return;
+				}
 				getSmallClassify(smallClassifyEntity.getId(), smallClassifyEntity.getTitle());
 			}
 		});

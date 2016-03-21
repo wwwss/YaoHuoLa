@@ -112,8 +112,11 @@ public class UpdateUserInfoActivity extends BaseActivity implements UploadImageL
 	private void loginOut() {
 		LocalCache.getInstance(this).clearToken();
 		Intent intent = new Intent(this, LoginActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+		// intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
+		// Intent.FLAG_ACTIVITY_NEW_TASK);
+		// intent.putExtra("type", 1);
 		startActivity(intent);
+		finish();
 
 	}
 
@@ -128,10 +131,10 @@ public class UpdateUserInfoActivity extends BaseActivity implements UploadImageL
 			ToastShow("请输入昵称");
 			return;
 		}
-		if (et_nikeName.getText().toString().trim().equals(user.getName())) {
-			ToastShow("您还没有修改任何信息");
-			return;
-		}
+		// if (et_nikeName.getText().toString().trim().equals(user.getName())) {
+		// ToastShow("您还没有修改任何信息");
+		// return;
+		// }
 		map.put("user_name", et_nikeName.getText().toString().trim());
 		if (!TextUtils.isEmpty(imagePath)) {
 			try {
@@ -149,7 +152,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements UploadImageL
 					JSONObject jsonObject = new JSONObject(result);
 					int code = jsonObject.optInt("result", -1);
 					if (code == 0) {
-						Toast.makeText(context, "提交成功", Toast.LENGTH_SHORT).show();
+						Toast.makeText(context, "修改信息成功", Toast.LENGTH_SHORT).show();
 						setResult(RESULT_OK);
 						finish();
 					} else {

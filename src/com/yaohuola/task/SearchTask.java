@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.library.uitls.AppUtils;
 import com.yaohuola.classification.activity.ProductAitivity;
 import com.yaohuola.data.entity.ProductEntity;
 import com.yaohuola.data.entity.SmallClassifyEntity;
@@ -23,6 +24,9 @@ public class SearchTask {
 	 * 搜索
 	 */
 	public static void search(Context context, final String keyWord) {
+		if (AppUtils.isFastClick()) {
+			return;
+		}
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("key_word", keyWord);
 		new HttpTask(context, HttpTask.POST, "products/search", map) {

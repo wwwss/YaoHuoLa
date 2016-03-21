@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import com.android.yaohuola.R;
 import com.library.activity.BaseActivity;
+import com.library.uitls.AppUtils;
 import com.library.uitls.ListViewUitls;
 import com.yaohuola.classification.activity.ProductDetailsActivity;
 import com.yaohuola.data.cache.LocalCache;
@@ -132,6 +133,7 @@ public class FillOrdersActivity extends BaseActivity implements OnItemClickListe
 
 	@Override
 	public void onClick(View v) {
+		
 		Intent intent;
 		switch (v.getId()) {
 		case R.id.back:
@@ -142,6 +144,9 @@ public class FillOrdersActivity extends BaseActivity implements OnItemClickListe
 			startActivityForResult(intent, SHIPPING_ADDRESS_SELECT);
 			break;
 		case R.id.submitOrder:
+			if (AppUtils.isFastClick()) {
+				return;
+			}
 			submitOrder();
 			break;
 

@@ -100,6 +100,10 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 	public void getData() {
 		String token = LocalCache.getInstance(context).getToken();
 		if (TextUtils.isEmpty(token)) {
+			productEntities.clear();
+			adapter.notifyDataSetChanged();
+			view.findViewById(R.id.footView).setVisibility(View.INVISIBLE);
+			tv_edit.setVisibility(View.INVISIBLE);
 			return;
 		}
 		new HttpTask(context, HttpTask.GET, "cart_items/" + token, null) {
@@ -167,7 +171,7 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 	}
 
 	private double total;
-	Handler handler = new Handler() {
+	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 
 			switch (msg.what) {

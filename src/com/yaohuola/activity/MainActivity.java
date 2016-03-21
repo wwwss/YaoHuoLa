@@ -13,11 +13,9 @@ import com.yaohuola.YaoHuoLaApplication;
 import com.yaohuola.classification.fragment.ClassificationFragment;
 import com.yaohuola.homepage.fragment.HomePageFragment;
 import com.yaohuola.interfaces.FragmentSwitchListenter;
-import com.yaohuola.my.activity.LoginActivity;
 import com.yaohuola.my.fragment.MyFragMent;
 import com.yaohuola.shoppingcart.fragment.ShoppingcartFragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -104,13 +102,13 @@ public class MainActivity extends BaseActivity implements OnNavigationBarClickLi
 			if (!fragments[index].isAdded()) {
 				fragmentTransaction.add(R.id.content, fragments[index]);
 			}
-			if (index == 3) {
-				if (!YaoHuoLaApplication.isLogin(this)) {
-					startActivity(new Intent(this, LoginActivity.class));
-					navigationBar.onTabSelected(currentTabIndex);
-					return;
-				}
-			}
+//			if (index == 3) {
+//				if (!YaoHuoLaApplication.isLogin(this)) {
+//					startActivity(new Intent(this, LoginActivity.class));
+//					navigationBar.onTabSelected(currentTabIndex);
+//					return;
+//				}
+//			}
 			fragmentTransaction.show(fragments[index]).commit();
 			fragments[index].setUserVisibleHint(true);
 		}

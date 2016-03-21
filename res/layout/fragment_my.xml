@@ -56,7 +56,6 @@
                     android:layout_height="43dp"
                     android:gravity="center"
                     android:singleLine="true"
-                    android:text="@string/user_nike_name"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
