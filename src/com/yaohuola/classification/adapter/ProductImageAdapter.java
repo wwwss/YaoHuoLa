@@ -7,6 +7,7 @@ import com.yaohuola.YaoHuoLaApplication;
 import com.yaohuola.adapter.BaseAdapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,11 @@ public class ProductImageAdapter extends BaseAdapter<String> {
 			convertView.setTag(itemCache);
 		}
 		ItemCache itemCache = (ItemCache) convertView.getTag();
-		YaoHuoLaApplication.disPlayFromUrl(list.get(position), itemCache.ivImage, R.drawable.default_banner_icon);
+		if (TextUtils.isEmpty(list.get(position))) {
+			itemCache.ivImage.setImageResource(R.drawable.default_banner_icon);
+		}else{
+			YaoHuoLaApplication.disPlayFromUrl(list.get(position), itemCache.ivImage, R.drawable.default_banner_icon);
+		}
 		return convertView;
 	}
 

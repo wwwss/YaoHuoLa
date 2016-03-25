@@ -143,29 +143,9 @@ public class ProductDetailsActivity extends BaseActivity {
 				continue;
 			}
 			banner.setImage_url(imageUrl);
-//			banner.setId(bannerObj.optInt("unique_id", -1));
-//			banner.setProduct_unique_id(bannerObj.optString("product_unique_id", ""));
-//			banner.setTitle(bannerObj.optString("title", ""));
 			imageList.add(banner);
 		}
 		slideShowView.setData(imageList);
-		// if (productEntity.getPics() != null &&
-		// productEntity.getPics().length() > 0) {
-		// YaoHuoLaApplication.disPlayFromUrl(productEntity.getPics().getString(0),
-		// iv_pic,
-		// R.drawable.default_banner_icon);
-		// List<String> list = new ArrayList<String>();
-		// for (int i = 1; i < productEntity.getPics().length(); i++) {
-		// list.add(productEntity.getPics().getString(i));
-		// }
-		// if (list.size() > 0) {
-		// adapter = new ProductImageAdapter(this, list);
-		// listView.setAdapter(adapter);
-		// listView.setVisibility(View.VISIBLE);
-		// ListViewUitls.setListViewHeightBasedOnChildren(listView);
-		// }
-		//
-		// }
 	};
 
 	@Override

@@ -14,6 +14,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -31,9 +33,9 @@ public class WelcomeActivity extends Activity implements AnimationListener {
 	}
 
 	public void setContentView() {
-		// requestWindowFeature(Window.FEATURE_NO_TITLE); // 无title
-		// getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-		// WindowManager.LayoutParams.FLAG_FULLSCREEN); // 全屏
+		 requestWindowFeature(Window.FEATURE_NO_TITLE); // 无title
+		 getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+		 WindowManager.LayoutParams.FLAG_FULLSCREEN); // 全屏
 		// 初始化布局文件
 		setContentView(R.layout.activity_welcome);
 		initView();

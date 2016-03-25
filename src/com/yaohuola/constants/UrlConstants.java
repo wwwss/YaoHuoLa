@@ -1,15 +1,20 @@
 package com.yaohuola.constants;
 
 public interface UrlConstants {
-	 /**
+	// /**
+	// * 公网服务器地址
+	// */
+	// String SERVER = "http://103.21.117.21/";
+
+	/**
 	 * 公网服务器地址
 	 */
-	 String SERVER = "http://103.21.117.21/";
+	String SERVER = "http://yaohuo.la/";
 
-//	/**
+//	 /**
 //	 * 测试服务器地址
 //	 */
-//	String SERVER = "http://192.168.0.111:3000/";
+//	 String SERVER = "http://192.168.0.111:3000/";
 
 	/**
 	 * 公网服务器接口地址

@@ -54,6 +54,7 @@
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:fadingEdge="none"
@@ -108,10 +109,47 @@
                 android:id="@+id/tips"
                 android:layout_width="fill_parent"
                 android:layout_height="78dp"
-                android:scaleType="fitXY"
-                android:visibility="gone"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/tips_icon" />
+                android:scaleType="fitXY"
+                android:src="@drawable/tips_icon"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/footview"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" 
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:background="#00000000" />
+
+                <LinearLayout
+                    android:id="@+id/MainGridViewFooterLinear"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp" >
+
+                    <ProgressBar
+                        android:id="@+id/footer_loading"
+                        style="@android:style/Widget.ProgressBar.Small.Inverse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center_vertical"
+                        android:text="正在加载..."
+                        android:textColor="@color/text_color_shallow"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 

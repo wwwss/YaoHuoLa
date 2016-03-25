@@ -30,10 +30,10 @@
             android:id="@+id/all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_nomarl"
             android:drawablePadding="@dimen/margin_small"
             android:drawableRight="@drawable/grey_enter_icon"
             android:text="@string/all"
+            android:padding="@dimen/margin_nomarl"
             android:textColor="@color/text_color_shallow"
             android:textSize="@dimen/text_size_small" />
     </LinearLayout>

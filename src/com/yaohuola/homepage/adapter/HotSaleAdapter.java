@@ -9,6 +9,7 @@ import com.yaohuola.data.entity.HotSaleEntity;
 import com.yaohuola.task.AddToCartTask;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,7 +37,13 @@ public class HotSaleAdapter extends BaseAdapter<HotSaleEntity> {
 		}
 		ItemCache itemCache = (ItemCache) convertView.getTag();
 		final HotSaleEntity hotSaleEntity = list.get(position);
-		YaoHuoLaApplication.disPlayFromUrl(hotSaleEntity.getPic(), itemCache.ivPic, R.drawable.default_product_icon);
+
+		if (TextUtils.isEmpty(hotSaleEntity.getPic())) {
+			itemCache.ivPic.setImageResource(R.drawable.default_product_icon);
+		} else {
+			YaoHuoLaApplication.disPlayFromUrl(hotSaleEntity.getPic(), itemCache.ivPic,
+					R.drawable.default_product_icon);
+		}
 		itemCache.tvName.setText(hotSaleEntity.getName());
 		itemCache.tvDescription.setText(hotSaleEntity.getSpec());
 		itemCache.tvPrice.setText("¥" + hotSaleEntity.getPrice());

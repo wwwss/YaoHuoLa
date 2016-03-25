@@ -12,6 +12,8 @@ public class SmallClassifyEntity extends ClassifyEntity {
 	private String title;
 
 	private List<ProductEntity> productEntities;
+	
+	private int total_pages;
 
 	public String getTitle() {
 		return title;
@@ -26,5 +28,13 @@ public class SmallClassifyEntity extends ClassifyEntity {
 
 	public void setProductEntities(List<ProductEntity> productEntities) {
 		this.productEntities = productEntities;
+	}
+
+	public int getTotal_pages() {
+		return total_pages;
+	}
+
+	public void setTotal_pages(int total_pages) {
+		this.total_pages = total_pages;
 	}
 }

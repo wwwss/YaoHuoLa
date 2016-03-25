@@ -1,7 +1,9 @@
 package com.yaohuola.homepage.fragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,16 +27,21 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -43,7 +50,7 @@ import android.widget.Toast;
  * 
  * @author admin 首页视图
  */
-public class HomePageFragment extends Fragment implements OnClickListener, OnItemClickListener {
+public class HomePageFragment extends Fragment implements OnClickListener, OnItemClickListener, OnTouchListener {
 	private SlideShowView slideShowView;
 	private SAGridView classifyGridView;// 分类
 	private ClassifyAdapter classifyAdapter;// 分类适配器
@@ -53,6 +60,8 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 	private List<HotSaleEntity> hotSaleEntities;
 	private Context context;
 	private EditText etSearch;
+	private ScrollView scrollView;
+	private RelativeLayout footview;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -104,9 +113,14 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 			}
 
 		});
+		scrollView = (ScrollView) view.findViewById(R.id.scrollView);
+		scrollView.setOnTouchListener(this);
+		footview = (RelativeLayout) view.findViewById(R.id.footview);
 		view.findViewById(R.id.seach).setOnClickListener(this);
-		// 获取数据
+		// 获取Banner数据
 		getData();
+		// 获取热门产品数据
+		getPopularsData();
 	}
 
 	/**
@@ -129,7 +143,7 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 		if (classifyEntities.size() > 0) {
 			classifyAdapter.notifyDataSetChanged();
 		}
-		new HttpTask(context, HttpTask.GET, "adverts", null) {
+		new HttpTask(context, HttpTask.GET, "adverts/advert", null) {
 			@SuppressWarnings("null")
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
@@ -141,7 +155,7 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 					if (code == 0) {
 						List<BannerEntity> imageList = new ArrayList<BannerEntity>();
 						JSONArray bannerArray = jsonObject.optJSONArray("adverts");
-						if (bannerArray == null&&bannerArray.length()==0) {
+						if (bannerArray == null && bannerArray.length() == 0) {
 							return;
 						}
 						for (int i = 0; i < bannerArray.length(); i++) {
@@ -157,34 +171,59 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 							imageList.add(banner);
 						}
 						slideShowView.setData(imageList);
-						JSONArray jsonArray = jsonObject.optJSONArray("populars");
-						if (jsonArray == null) {
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			};
+		}.run();
+
+	}
+
+	private int pageNum = 1;
+	private int total_pages;
+
+	/**
+	 * 获取热门产品数据
+	 */
+	private void getPopularsData() {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("page_num", pageNum+"");
+		new HttpTask(context, HttpTask.GET, "adverts/hot_products", map) {
+			@SuppressWarnings("null")
+			protected void onPostExecute(String result) {
+				handler.sendEmptyMessage(1004);
+				if (TextUtils.isEmpty(result)) {
+					return;
+				}
+				try {
+					JSONObject jsonObject = new JSONObject(result);
+					int code = jsonObject.optInt("result", -1);
+					if (code == 0) {
+						total_pages=jsonObject.optInt("total_pages", 1);
+						JSONArray	jsonArray = jsonObject.optJSONArray("populars");
+						
+						if (jsonArray == null && jsonArray.length() == 0) {
 							return;
 						}
-						if (hotSaleEntities.size() > 0) {
-							hotSaleEntities.clear();
-						}
 						for (int i = 0; i < jsonArray.length(); i++) {
-							JSONObject jsonObject2 = jsonArray.optJSONObject(i);
-							if (jsonObject2 == null) {
-								continue;
-							}
-							HotSaleEntity hotSaleEntity = new HotSaleEntity();
-							hotSaleEntity.setId(jsonObject2.optString("unique_id", ""));
-							hotSaleEntity.setName(jsonObject2.optString("name", ""));
-							hotSaleEntity.setPic(jsonObject2.optString("image", ""));
-							hotSaleEntity.setDescription(jsonObject2.optString("desc", ""));
-							hotSaleEntity.setPrice(jsonObject2.optDouble("price", 0));
-							hotSaleEntity.setSpec(jsonObject2.optString("spec", ""));
-							hotSaleEntity.setStock_num(jsonObject2.optInt("stock_num", 0));
-							hotSaleEntities.add(hotSaleEntity);
+						JSONObject jsonObject2 = jsonArray.optJSONObject(i);
+						if (jsonObject2 == null) {
+							continue;
 						}
-						if (hotSaleEntities.size() > 0) {
-							hotSaleAdapter.notifyDataSetChanged();
-							getView().findViewById(R.id.tips).setVisibility(View.VISIBLE);
-						}else{
-							getView().findViewById(R.id.tips).setVisibility(View.GONE);	
-						}
+						HotSaleEntity hotSaleEntity = new HotSaleEntity();
+						hotSaleEntity.setId(jsonObject2.optString("unique_id", ""));
+						hotSaleEntity.setName(jsonObject2.optString("name", ""));
+						hotSaleEntity.setPic(jsonObject2.optString("image", ""));
+						hotSaleEntity.setDescription(jsonObject2.optString("desc", ""));
+						hotSaleEntity.setPrice(jsonObject2.optDouble("price", 0));
+						hotSaleEntity.setSpec(jsonObject2.optString("spec", ""));
+						hotSaleEntity.setStock_num(jsonObject2.optInt("stock_num", 0));
+						hotSaleEntities.add(hotSaleEntity);
+					}
+					if (hotSaleEntities.size() > 0) {
+						hotSaleAdapter.notifyDataSetChanged();
+					}
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -204,6 +243,13 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 			case 1003:
 				slideShowView.stopPlay();
 				break;
+			case 1004:
+				footview.setVisibility(View.GONE);
+				IsLoading = false;
+				break;
+			case 1005:
+				getView().findViewById(R.id.tips).setVisibility(View.VISIBLE);
+				break;
 			}
 		};
 	};
@@ -222,7 +268,6 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 		}
 
 	}
-
 
 	@Override
 	public void onStop() {
@@ -269,5 +314,26 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 			break;
 		}
 
+	}
+
+	private int lastY = 0;
+	private boolean IsLoading;
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_UP) {
+			lastY = scrollView.getScrollY();
+			if (lastY >= scrollView.getHeight() - 100 && !IsLoading) {
+				pageNum++;
+				if (pageNum<=total_pages) {
+					Log.i("ceshi", lastY + "--------------------");
+					IsLoading = true;
+					footview.setVisibility(View.VISIBLE);
+					getPopularsData();
+				}
+			
+			}
+		}
+		return false;
 	}
 }

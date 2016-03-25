@@ -17,7 +17,6 @@ import com.yaohuola.data.entity.SmallClassifyEntity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 public class SearchTask {
 	/**
@@ -29,6 +28,7 @@ public class SearchTask {
 		}
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("key_word", keyWord);
+		map.put("page_num", "1");
 		new HttpTask(context, HttpTask.POST, "products/search", map) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
@@ -44,6 +44,7 @@ public class SearchTask {
 						}
 						SmallClassifyEntity smallClassifyEntity = new SmallClassifyEntity();
 						smallClassifyEntity.setTitle(keyWord);
+						smallClassifyEntity.setTotal_pages(jsonObject.optInt("total_pages", 1));
 						List<ProductEntity> productEntities = new ArrayList<ProductEntity>();
 						for (int i = 0; i < jsonArray.length(); i++) {
 							JSONObject jsonObject2 = jsonArray.optJSONObject(i);
@@ -65,9 +66,11 @@ public class SearchTask {
 						intent.putExtra("smallClassifyEntity", smallClassifyEntity);
 						intent.putExtra("title", keyWord);
 						intent.putExtra("index", -1);
+						intent.putExtra("type", 2);
 						context.startActivity(intent);
 					} else {
-						Toast.makeText(context, "没有找到你要搜索的商品", Toast.LENGTH_SHORT).show();
+						// Toast.makeText(context, "没有找到你要搜索的商品",
+						// Toast.LENGTH_SHORT).show();
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();

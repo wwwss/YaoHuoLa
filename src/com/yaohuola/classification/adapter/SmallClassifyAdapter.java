@@ -1,7 +1,9 @@
 package com.yaohuola.classification.adapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,6 +64,7 @@ public class SmallClassifyAdapter extends BaseAdapter<SmallClassifyEntity> {
 				Intent intent = new Intent(context, ProductAitivity.class);
 				intent.putExtra("smallClassifyEntity", smallClassifyEntity);
 				intent.putExtra("index", position);
+				intent.putExtra("type", 0);
 				context.startActivity(intent);
 			}
 		});
@@ -89,8 +92,10 @@ public class SmallClassifyAdapter extends BaseAdapter<SmallClassifyEntity> {
 	/**
 	 * 全部分类
 	 */
-	public void getSmallClassify(String unique_id, final String title) {
-		new HttpTask(context, HttpTask.GET, "products/sub_category/" + unique_id, null) {
+	public void getSmallClassify(final String unique_id, final String title) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("page_num", "1");
+		new HttpTask(context, HttpTask.GET, "products/sub_category/" + unique_id, map) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;
@@ -105,6 +110,8 @@ public class SmallClassifyAdapter extends BaseAdapter<SmallClassifyEntity> {
 						}
 						SmallClassifyEntity smallClassifyEntity = new SmallClassifyEntity();
 						smallClassifyEntity.setTitle(title);
+						smallClassifyEntity.setId(unique_id);
+						smallClassifyEntity.setTotal_pages(jsonObject.optInt("total_pages", 1));
 						List<ProductEntity> productEntities = new ArrayList<ProductEntity>();
 						for (int i = 0; i < jsonArray.length(); i++) {
 							JSONObject jsonObject2 = jsonArray.optJSONObject(i);
@@ -126,6 +133,7 @@ public class SmallClassifyAdapter extends BaseAdapter<SmallClassifyEntity> {
 						intent.putExtra("smallClassifyEntity", smallClassifyEntity);
 						intent.putExtra("title", title);
 						intent.putExtra("index", -1);
+						intent.putExtra("type", 1);
 						context.startActivity(intent);
 					}
 				} catch (JSONException e) {

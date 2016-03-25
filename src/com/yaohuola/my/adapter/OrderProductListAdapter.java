@@ -51,8 +51,12 @@ public class OrderProductListAdapter extends BaseAdapter<ProductEntity> {
 		}
 		final ItemCache itemCache = (ItemCache) convertView.getTag();
 		final ProductEntity productEntity = list.get(position);
-		YaoHuoLaApplication.disPlayFromUrl(productEntity.getPic(), itemCache.iv_pic,
-				R.drawable.default_order_product_icon);
+		if (TextUtils.isEmpty(productEntity.getPic())) {
+			itemCache.iv_pic.setImageResource(R.drawable.default_product_icon);
+		} else {
+			YaoHuoLaApplication.disPlayFromUrl(productEntity.getPic(), itemCache.iv_pic,
+					R.drawable.default_product_icon);
+		}
 		itemCache.tv_productName.setText(productEntity.getName());
 		itemCache.tv_productDescription.setText(productEntity.getDescription());
 		itemCache.tv_productPrcieAndNumber.setText("¥" + productEntity.getPrice() + "  x" + productEntity.getNumber());		

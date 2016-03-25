@@ -67,7 +67,6 @@ public class HttpTask extends BaseTask {
 				}
 			}
 		}
-
 		return jsonString;
 	}
 

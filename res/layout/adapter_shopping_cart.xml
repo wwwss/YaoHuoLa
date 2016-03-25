@@ -50,6 +50,7 @@
             android:layout_height="25dp"
             android:gravity="center_vertical"
             android:singleLine="true"
+            android:ellipsize="end"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_small" />
 
@@ -59,6 +60,7 @@
             android:layout_height="25dp"
             android:gravity="center_vertical"
             android:singleLine="true"
+            android:ellipsize="end"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_small" />
 
