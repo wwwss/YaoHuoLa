@@ -131,7 +131,7 @@ public class MainActivity extends BaseActivity implements OnNavigationBarClickLi
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
 			if ((System.currentTimeMillis() - exitTime) > 2000) {
-				Toast.makeText(getApplicationContext(), "再按一次要货啦", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "再按一次退出要货啦", Toast.LENGTH_SHORT).show();
 				exitTime = System.currentTimeMillis();
 			} else {
 				finish();

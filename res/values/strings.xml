@@ -16,7 +16,7 @@
     <string name="user_nike_name">点击修改昵称</string>
     <string name="completed_orders">已完成订单</string>
     <string name="for_receiving_orders">待收货订单</string>
-    <string name="feedback">反馈</string>
+    <string name="feedback">联系客服</string>
     <string name="about_us">关于我们</string>
     <string name="about_us_text">Copyright2015-2016\n上海青云信息科技有限公司</string>
     <string name="about_us_hint">要货啦是一个专注于“互联网＋要货”的移动商业B2B平台，是专业服务于店家“批发采购、进货、要货”。以“资源整合、合作共赢”为目的，致力于建立“工厂”直达"店家”的便捷平台，大幅提升传统行业批发零售的效率，立志于在大“互联网＋”的时代背景下，打造出便利的“批发采购、进货、要货”商业新生态。</string>
@@ -59,5 +59,5 @@
     <string name="back">返回</string>
     <string name="all">全部</string>
     <string name="user_agreement">用户协议</string>
-
+    <string name="load_hint">正在加载...</string>
 </resources>

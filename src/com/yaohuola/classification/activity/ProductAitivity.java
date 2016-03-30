@@ -11,36 +11,34 @@ import org.json.JSONObject;
 
 import com.android.yaohuola.R;
 import com.library.activity.BaseActivity;
-import com.library.view.SAGridView;
 import com.yaohuola.classification.adapter.ProductGridViewAdapter;
 import com.yaohuola.data.entity.ProductEntity;
 import com.yaohuola.data.entity.SmallClassifyEntity;
+import com.yaohuola.interfaces.AutoLoadListener;
+import com.yaohuola.interfaces.AutoLoadListener.AutoLoadCallBack;
 import com.yaohuola.task.HttpTask;
 
 import android.content.Intent;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 /**
  * 
  * @author admin 产品页面
  */
-public class ProductAitivity extends BaseActivity implements OnItemClickListener, OnTouchListener {
+public class ProductAitivity extends BaseActivity implements OnItemClickListener, AutoLoadCallBack {
 
-	private SAGridView productGridView;// 产品
+	private GridView productGridView;// 产品
 	private ProductGridViewAdapter productGridViewAdapter;
 	private List<ProductEntity> productEntities;
 	private SmallClassifyEntity smallClassifyEntity;
 	private int index;
 	private TextView tv_title;
-	private ScrollView scrollView;
 	private RelativeLayout footview;
 	private int type;
 	private String title;
@@ -53,7 +51,7 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 
 	@Override
 	public void initView() {
-		productGridView = (SAGridView) findViewById(R.id.productGridView);
+		productGridView = (GridView) findViewById(R.id.productGridView);
 		productEntities = new ArrayList<ProductEntity>();
 		productGridViewAdapter = new ProductGridViewAdapter(this, productEntities);
 		productGridView.setAdapter(productGridViewAdapter);
@@ -75,9 +73,10 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 			getData();
 			tv_title.setText(smallClassifyEntity.getProductEntities().get(index).getName());
 		}
-		scrollView = (ScrollView) findViewById(R.id.scrollView);
-		scrollView.setOnTouchListener(this);
-		footview = (RelativeLayout) findViewById(R.id.footview);
+		footview = (RelativeLayout)findViewById(R.id.footview);
+		// 添加自动翻页的事件
+		AutoLoadListener autoLoadListener = new AutoLoadListener(this);
+		productGridView.setOnScrollListener(autoLoadListener);
 
 	}
 
@@ -97,7 +96,7 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 		switch (type) {
 		case 0:
 			map = new HashMap<String, String>();
-			map.put("page_num", pageNum +"");
+			map.put("page_num", pageNum + "");
 			funcName = "detail_categories/" + smallClassifyEntity.getProductEntities().get(index).getId();
 			requestType = HttpTask.GET;
 			break;
@@ -114,10 +113,6 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 			funcName = "products/search";
 			requestType = HttpTask.POST;
 			break;
-		}
-		if (TextUtils.isEmpty(funcName) || requestType == -1 || map == null) {
-			hideFootView();
-			return;
 		}
 		new HttpTask(this, requestType, funcName, map) {
 			protected void onPostExecute(String result) {
@@ -187,32 +182,25 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 	public void refreshData() {
 	}
 
-	private int lastY = 0;
 	private boolean IsLoading;
 	private int pageNum = 1;
 
-	@Override
-	public boolean onTouch(View v, MotionEvent event) {
-		if (event.getAction() == MotionEvent.ACTION_UP) {
-			lastY = scrollView.getScrollY();
-			if (lastY >= scrollView.getHeight() - 100 && !IsLoading) {
-				pageNum++;
-				if (pageNum<=smallClassifyEntity.getTotal_pages()) {
-					IsLoading = true;
-					footview.setVisibility(View.VISIBLE);
-					getData();
-				}
-			}
-
-		}
-		return false;
+	
+	private	void hideFootView(){
+		footview.setVisibility(View.GONE);
+		IsLoading = false;
 	}
-
-	private void hideFootView() {
-		if (footview.getVisibility() == View.VISIBLE) {
-			footview.setVisibility(View.GONE);
-			IsLoading = false;
+	@Override
+	public void execute() {
+		if (!IsLoading) {
+			pageNum++;
+			if (pageNum <= smallClassifyEntity.getTotal_pages()) {
+				IsLoading = true;
+				footview.setVisibility(View.VISIBLE);
+				getData();
+			}
 		}
+
 	}
 
 }

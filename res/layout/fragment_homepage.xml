@@ -145,7 +145,7 @@
                         android:layout_height="fill_parent"
                         android:layout_marginLeft="5dp"
                         android:gravity="center_vertical"
-                        android:text="正在加载..."
+                        android:text="@string/load_hint"
                         android:textColor="@color/text_color_shallow"
                         android:textSize="18sp" />
                 </LinearLayout>

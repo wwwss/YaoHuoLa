@@ -6,15 +6,15 @@ public interface UrlConstants {
 	// */
 	// String SERVER = "http://103.21.117.21/";
 
-	/**
+	 /**
 	 * 公网服务器地址
 	 */
-	String SERVER = "http://yaohuo.la/";
+	 String SERVER = "http://yaohuo.la/";
 
-//	 /**
+//	/**
 //	 * 测试服务器地址
 //	 */
-//	 String SERVER = "http://192.168.0.111:3000/";
+//	String SERVER = "http://192.168.0.104:3000/";
 
 	/**
 	 * 公网服务器接口地址
@@ -27,7 +27,7 @@ public interface UrlConstants {
 	String UPLOADPICTURES = SERVERAPI + "users?";
 
 	/**
-	 * 公网服务器地址
+	 * 服务协议地址
 	 */
 	String AGREEMENT_ADDRESS = "http://103.21.117.21/service_agreement";
 

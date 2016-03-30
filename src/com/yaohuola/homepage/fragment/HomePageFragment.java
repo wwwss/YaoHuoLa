@@ -27,7 +27,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -62,6 +61,7 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 	private EditText etSearch;
 	private ScrollView scrollView;
 	private RelativeLayout footview;
+	private View view;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,7 +75,7 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 	}
 
 	private void initView() {
-		View view = getView();
+		view = getView();
 		context = getActivity();
 		etSearch = (EditText) view.findViewById(R.id.edit);
 		slideShowView = (SlideShowView) view.findViewById(R.id.slideshowView);
@@ -188,7 +188,7 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 	 */
 	private void getPopularsData() {
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("page_num", pageNum+"");
+		map.put("page_num", pageNum + "");
 		new HttpTask(context, HttpTask.GET, "adverts/hot_products", map) {
 			@SuppressWarnings("null")
 			protected void onPostExecute(String result) {
@@ -200,30 +200,30 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 					JSONObject jsonObject = new JSONObject(result);
 					int code = jsonObject.optInt("result", -1);
 					if (code == 0) {
-						total_pages=jsonObject.optInt("total_pages", 1);
-						JSONArray	jsonArray = jsonObject.optJSONArray("populars");
-						
+						total_pages = jsonObject.optInt("total_pages", 1);
+						JSONArray jsonArray = jsonObject.optJSONArray("populars");
+
 						if (jsonArray == null && jsonArray.length() == 0) {
 							return;
 						}
 						for (int i = 0; i < jsonArray.length(); i++) {
-						JSONObject jsonObject2 = jsonArray.optJSONObject(i);
-						if (jsonObject2 == null) {
-							continue;
+							JSONObject jsonObject2 = jsonArray.optJSONObject(i);
+							if (jsonObject2 == null) {
+								continue;
+							}
+							HotSaleEntity hotSaleEntity = new HotSaleEntity();
+							hotSaleEntity.setId(jsonObject2.optString("unique_id", ""));
+							hotSaleEntity.setName(jsonObject2.optString("name", ""));
+							hotSaleEntity.setPic(jsonObject2.optString("image", ""));
+							hotSaleEntity.setDescription(jsonObject2.optString("desc", ""));
+							hotSaleEntity.setPrice(jsonObject2.optDouble("price", 0));
+							hotSaleEntity.setSpec(jsonObject2.optString("spec", ""));
+							hotSaleEntity.setStock_num(jsonObject2.optInt("stock_num", 0));
+							hotSaleEntities.add(hotSaleEntity);
 						}
-						HotSaleEntity hotSaleEntity = new HotSaleEntity();
-						hotSaleEntity.setId(jsonObject2.optString("unique_id", ""));
-						hotSaleEntity.setName(jsonObject2.optString("name", ""));
-						hotSaleEntity.setPic(jsonObject2.optString("image", ""));
-						hotSaleEntity.setDescription(jsonObject2.optString("desc", ""));
-						hotSaleEntity.setPrice(jsonObject2.optDouble("price", 0));
-						hotSaleEntity.setSpec(jsonObject2.optString("spec", ""));
-						hotSaleEntity.setStock_num(jsonObject2.optInt("stock_num", 0));
-						hotSaleEntities.add(hotSaleEntity);
-					}
-					if (hotSaleEntities.size() > 0) {
-						hotSaleAdapter.notifyDataSetChanged();
-					}
+						if (hotSaleEntities.size() > 0) {
+							hotSaleAdapter.notifyDataSetChanged();
+						}
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -325,13 +325,14 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 			lastY = scrollView.getScrollY();
 			if (lastY >= scrollView.getHeight() - 100 && !IsLoading) {
 				pageNum++;
-				if (pageNum<=total_pages) {
-					Log.i("ceshi", lastY + "--------------------");
+				if (pageNum <= total_pages) {
 					IsLoading = true;
 					footview.setVisibility(View.VISIBLE);
 					getPopularsData();
+				} else {
+					view.findViewById(R.id.tips).setVisibility(View.VISIBLE);
 				}
-			
+
 			}
 		}
 		return false;

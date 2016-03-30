@@ -6,8 +6,7 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_height="50dp"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
@@ -32,8 +31,8 @@
             android:layout_height="wrap_content"
             android:drawablePadding="@dimen/margin_small"
             android:drawableRight="@drawable/grey_enter_icon"
-            android:text="@string/all"
             android:padding="@dimen/margin_nomarl"
+            android:text="@string/all"
             android:textColor="@color/text_color_shallow"
             android:textSize="@dimen/text_size_small" />
     </LinearLayout>
@@ -46,7 +45,6 @@
         android:cacheColorHint="#00000000"
         android:listSelector="#00000000"
         android:numColumns="3"
-        android:paddingTop="@dimen/margin_nomarl"
         android:scrollbars="none" />
 
     <View

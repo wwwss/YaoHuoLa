@@ -7,4 +7,5 @@
     <issue id="InlinedApi" severity="ignore" />
     <issue id="NewApi" severity="ignore" />
     <issue id="SetJavaScriptEnabled" severity="ignore" />
+    <issue id="ShowToast" severity="ignore" />
 </lint>

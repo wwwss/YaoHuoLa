@@ -82,6 +82,7 @@ public class MyFragMent extends Fragment implements OnClickListener {
 		String token = LocalCache.getInstance(context).getToken();
 		if (TextUtils.isEmpty(token)) {
 			tv_userNikeName.setText("点击登录");
+			iv_avatar.setImageResource(R.drawable.default_avatar_icon);
 			return;
 		}
 		map.put("token", token);

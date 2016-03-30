@@ -2,12 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical" >
-    <TextView
+
+    <ImageView
+        android:id="@+id/pic"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_product_icon" />
+
+    <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
         android:textColor="@color/text_color_dark"
         android:textSize="@dimen/text_size_small" />
 

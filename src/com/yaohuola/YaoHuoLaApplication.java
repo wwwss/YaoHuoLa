@@ -3,6 +3,7 @@ package com.yaohuola;
 import com.library.LibraryApplaction;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.yaohuola.data.cache.LocalCache;
 
 import android.content.Context;
@@ -22,28 +23,36 @@ public class YaoHuoLaApplication extends LibraryApplaction {
 	}
 
 	public static void disPlayFromUrl(String imageUri, ImageView imageView, int drawable) {
-		if (!TextUtils.isEmpty(imageUri)&&!"[]".equals(imageUri)) {
+		// DisplayImageOptions options = new
+		// DisplayImageOptions.Builder().showImageOnLoading(drawable)
+		// .showImageForEmptyUri(drawable).showImageOnFail(drawable).cacheInMemory(true).cacheOnDisk(true)
+		// .bitmapConfig(Bitmap.Config.RGB_565).build();
+		if (TextUtils.isEmpty(imageUri)) {
+			return;
+		}
+		@SuppressWarnings("deprecation")
+		DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).showImageOnLoading(drawable) // 设置图片不缓存于内存中
+				.showImageForEmptyUri(drawable).cacheOnDisc(true).showImageOnFail(drawable)
+				.bitmapConfig(Bitmap.Config.RGB_565) // 设置图片的质量
+				.imageScaleType(ImageScaleType.IN_SAMPLE_INT) // 设置图片的缩放类型，该方法可以有效减少内存的占用
+				.build();
+		ImageLoader.getInstance().displayImage(imageUri, imageView, options);
+	}
+
+	/**
+	 * 从内存卡中异步加载本地图片
+	 * 
+	 * @param uri
+	 * @param imageView
+	 */
+	public static void disPlayFromSDCard(String uri, ImageView imageView, int drawable) {
 		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(drawable)
 				.showImageForEmptyUri(drawable).showImageOnFail(drawable).cacheInMemory(true).cacheOnDisk(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
-		ImageLoader.getInstance().displayImage(imageUri, imageView, options);
-		}   
+		ImageLoader.getInstance().displayImage("file://" + uri, imageView, options);
 	}
-	
-	  /**
-     * 从内存卡中异步加载本地图片
-     * 
-     * @param uri
-     * @param imageView
-     */
-    public static  void disPlayFromSDCard(String uri, ImageView imageView,int drawable) {
-    	DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(drawable)
-				.showImageForEmptyUri(drawable).showImageOnFail(drawable).cacheInMemory(true).cacheOnDisk(true)
-				.bitmapConfig(Bitmap.Config.RGB_565).build();
-        ImageLoader.getInstance().displayImage("file://" + uri, imageView,options);
-    }
-    
-    public static boolean isLogin(Context context) {
+
+	public static boolean isLogin(Context context) {
 		String token = LocalCache.getInstance(context).getToken();
 		if (token != null) {
 			return true;
