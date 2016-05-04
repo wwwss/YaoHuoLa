@@ -23,11 +23,8 @@ public class YaoHuoLaApplication extends LibraryApplaction {
 	}
 
 	public static void disPlayFromUrl(String imageUri, ImageView imageView, int drawable) {
-		// DisplayImageOptions options = new
-		// DisplayImageOptions.Builder().showImageOnLoading(drawable)
-		// .showImageForEmptyUri(drawable).showImageOnFail(drawable).cacheInMemory(true).cacheOnDisk(true)
-		// .bitmapConfig(Bitmap.Config.RGB_565).build();
 		if (TextUtils.isEmpty(imageUri)) {
+			imageView.setImageResource(drawable);
 			return;
 		}
 		@SuppressWarnings("deprecation")

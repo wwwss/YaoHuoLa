@@ -33,15 +33,56 @@
 
     <include layout="@layout/view_wide_line" />
 
-    <ListView
-        android:id="@+id/listView"
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:divider="@color/line_bg"
-        android:dividerHeight="1dp"
-        android:fadingEdge="none"
-        android:scrollbars="none" />
+        android:layout_weight="1" >
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:divider="@color/line_bg"
+            android:dividerHeight="1dp"
+            android:fadingEdge="none"
+            android:scrollbars="none" />
+
+        <LinearLayout
+            android:id="@+id/shoppingCartEmptyHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="140dp"
+                android:layout_height="108dp"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop"
+                android:src="@drawable/shopping_cart_empty_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:minHeight="44dp"
+                android:text="购物车是空的哦"
+                android:textColor="@color/text_color_shallow"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/goHomepage"
+                android:layout_width="130dp"
+                android:layout_height="39dp"
+                android:background="@drawable/go_homepage_bg"
+                android:gravity="center"
+                android:text="去首页逛逛"
+                android:textColor="@color/red"
+                android:textSize="@dimen/text_size_small" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/footView"
@@ -97,12 +138,12 @@
             android:id="@+id/orderNow_hint"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:layout_marginRight="@dimen/margin_nomarl"
             android:gravity="center"
             android:singleLine="true"
-            android:layout_marginRight="@dimen/margin_nomarl"
             android:textColor="@color/white"
-            android:visibility="gone"
-            android:textSize="@dimen/text_size_small" />
+            android:textSize="@dimen/text_size_small"
+            android:visibility="gone" />
     </LinearLayout>
 
 </LinearLayout>

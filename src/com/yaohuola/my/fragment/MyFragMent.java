@@ -26,6 +26,7 @@ import com.yaohuola.YaoHuoLaApplication;
 import com.yaohuola.data.cache.LocalCache;
 import com.yaohuola.data.entity.UserEntity;
 import com.yaohuola.my.activity.AboutUsActivity;
+import com.yaohuola.my.activity.CollectBabyActivity;
 import com.yaohuola.my.activity.LoginActivity;
 import com.yaohuola.my.activity.OrderListActivity;
 import com.yaohuola.my.activity.UpdateUserInfoActivity;
@@ -60,9 +61,9 @@ public class MyFragMent extends Fragment implements OnClickListener {
 		view.findViewById(R.id.updateUserInfo).setOnClickListener(this);
 		view.findViewById(R.id.completedOrders).setOnClickListener(this);
 		view.findViewById(R.id.forReceivingOrders).setOnClickListener(this);
+		view.findViewById(R.id.collectBaby).setOnClickListener(this);
 		view.findViewById(R.id.feedback).setOnClickListener(this);
 		view.findViewById(R.id.aboutUs).setOnClickListener(this);
-
 		kefutell = LocalCache.getInstance(context).getKeFuTell();
 
 	}
@@ -86,7 +87,7 @@ public class MyFragMent extends Fragment implements OnClickListener {
 			return;
 		}
 		map.put("token", token);
-		new HttpTask(context, HttpTask.POST, "users/user_info", map) {
+		new HttpTask(context, HttpTask.POST, "v1/users/user_info", map) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;
@@ -162,6 +163,16 @@ public class MyFragMent extends Fragment implements OnClickListener {
 				return;
 			}
 			intent = new Intent(context, OrderListActivity.class);
+			intent.putExtra("type", 0);
+			startActivity(intent);
+			break;
+		case R.id.collectBaby:
+			if (!YaoHuoLaApplication.isLogin(context)) {
+				intent = new Intent(context, LoginActivity.class);
+				context.startActivity(intent);
+				return;
+			}
+			intent = new Intent(context, CollectBabyActivity.class);
 			intent.putExtra("type", 0);
 			startActivity(intent);
 			break;

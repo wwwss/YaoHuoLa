@@ -120,7 +120,7 @@ public class OrderListAdapter extends BaseAdapter<OrderEntity> {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("token", token);
 		map.put("unique_id", unique_id);
-		new HttpTask(context, HttpTask.POST, "cart_items/order_batch_entry", map) {
+		new HttpTask(context, HttpTask.POST, "v1/cart_items/order_batch_entry", map) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;

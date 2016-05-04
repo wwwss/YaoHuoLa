@@ -39,9 +39,12 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 	private SmallClassifyEntity smallClassifyEntity;
 	private int index;
 	private TextView tv_title;
+	private TextView tv_Classify;
 	private RelativeLayout footview;
 	private int type;
+	private int searchType;
 	private String title;
+	private String classifyId;
 
 	@Override
 	public void setContentView() {
@@ -58,9 +61,11 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 		productGridView.setOnItemClickListener(this);
 		findViewById(R.id.back).setOnClickListener(this);
 		tv_title = (TextView) findViewById(R.id.title);
+		tv_Classify = (TextView) findViewById(R.id.classify);
 		smallClassifyEntity = (SmallClassifyEntity) getIntent().getSerializableExtra("smallClassifyEntity");
 		index = getIntent().getIntExtra("index", 0);
 		type = getIntent().getIntExtra("type", -1);
+		searchType = getIntent().getIntExtra("searchType", -1);
 		if (smallClassifyEntity == null) {
 			return;
 		}
@@ -73,7 +78,14 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 			getData();
 			tv_title.setText(smallClassifyEntity.getProductEntities().get(index).getName());
 		}
-		footview = (RelativeLayout)findViewById(R.id.footview);
+		if (searchType == 1) {
+			classifyId=getIntent().getStringExtra("classifyId");
+			tv_Classify.setVisibility(View.VISIBLE);
+			tv_Classify.setOnClickListener(this);
+		} else {
+			tv_Classify.setVisibility(View.GONE);
+		}
+		footview = (RelativeLayout) findViewById(R.id.footview);
 		// 添加自动翻页的事件
 		AutoLoadListener autoLoadListener = new AutoLoadListener(this);
 		productGridView.setOnScrollListener(autoLoadListener);
@@ -97,20 +109,20 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 		case 0:
 			map = new HashMap<String, String>();
 			map.put("page_num", pageNum + "");
-			funcName = "detail_categories/" + smallClassifyEntity.getProductEntities().get(index).getId();
+			funcName = "v1/detail_categories/" + smallClassifyEntity.getProductEntities().get(index).getId();
 			requestType = HttpTask.GET;
 			break;
 		case 1:
 			map = new HashMap<String, String>();
 			map.put("page_num", pageNum + "");
-			funcName = "products/sub_category/" + smallClassifyEntity.getId();
+			funcName = "v1/products/sub_category/" + smallClassifyEntity.getId();
 			requestType = HttpTask.GET;
 			break;
 		case 2:
 			map = new HashMap<String, String>();
 			map.put("page_num", pageNum + "");
 			map.put("key_word", title);
-			funcName = "products/search";
+			funcName = "v1/products/search";
 			requestType = HttpTask.POST;
 			break;
 		}
@@ -162,7 +174,12 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 		case R.id.back:
 			finish();
 			break;
-
+		case R.id.classify:
+			Intent intent=new Intent();
+			intent.putExtra("classifyId", classifyId);
+			setResult(RESULT_OK, intent);
+			finish();
+			break;
 		default:
 			break;
 		}
@@ -185,11 +202,11 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 	private boolean IsLoading;
 	private int pageNum = 1;
 
-	
-	private	void hideFootView(){
+	private void hideFootView() {
 		footview.setVisibility(View.GONE);
 		IsLoading = false;
 	}
+
 	@Override
 	public void execute() {
 		if (!IsLoading) {
@@ -202,5 +219,7 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 		}
 
 	}
+	
+
 
 }

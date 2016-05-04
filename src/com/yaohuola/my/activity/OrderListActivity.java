@@ -81,7 +81,7 @@ public class OrderListActivity extends BaseActivity implements OnItemClickListen
 			return;
 		}
 		map.put("state", jsonArray.toString());
-		new HttpTask(this, HttpTask.GET, "orders/", map) {
+		new HttpTask(this, HttpTask.GET, "v1/orders/", map) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;

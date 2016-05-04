@@ -59,7 +59,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
-<!--             <include layout="@layout/view_narrow_line" /> -->
+            <!-- <include layout="@layout/view_narrow_line" /> -->
 
             <RelativeLayout
                 android:id="@+id/completedOrders"
@@ -120,6 +120,43 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/ivforReceivingOrders"
                     android:text="@string/for_receiving_orders"
+                    android:textColor="@color/text_color_shallow"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <ImageView
+                    android:layout_width="7dp"
+                    android:layout_height="11dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_nomarl"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/enter_icon" />
+            </RelativeLayout>
+
+            <include layout="@layout/view_narrow_line" />
+
+            <RelativeLayout
+                android:id="@+id/collectBaby"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:background="@color/white" >
+
+                <ImageView
+                    android:id="@+id/ivCollectBaby"
+                    android:layout_width="34dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_nomarl"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/collection_baby_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/ivCollectBaby"
+                    android:text="@string/collect_baby"
                     android:textColor="@color/text_color_shallow"
                     android:textSize="@dimen/text_size_normal" />
 

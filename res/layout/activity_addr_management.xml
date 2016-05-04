@@ -37,26 +37,57 @@
             android:textSize="@dimen/text_size_slightlybigger" />
     </RelativeLayout>
 
-    <include 
-        layout="@layout/view_wide_line"/>
-    <ListView
-        android:id="@+id/listView"
+    <include layout="@layout/view_wide_line" />
+
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:divider="@color/line_bg"
-        android:dividerHeight="1dp"
-        android:fadingEdge="none"
-        android:scrollbars="none" />
+        android:layout_weight="1" >
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:divider="@color/line_bg"
+            android:dividerHeight="1dp"
+            android:fadingEdge="none"
+            android:scrollbars="none" />
+
+        <LinearLayout
+            android:id="@+id/addressEmptyHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="75dp"
+                android:layout_height="60dp"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop"
+                android:src="@drawable/address_empty_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:minHeight="44dp"
+                android:text="点击下方新增按钮吧"
+                android:textColor="@color/text_color_shallow"
+                android:textSize="@dimen/text_size_small" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/newShippingAddress"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:background="@color/red"
+        android:gravity="center"
         android:text="@string/new_shipping_address"
         android:textColor="@color/white"
-        android:gravity="center"
         android:textSize="@dimen/text_size_normal" />
 
 </LinearLayout>

@@ -34,18 +34,23 @@ public class OrderEntity extends BaseEntity {
 	 * 完成时间
 	 */
 	private String complete_time;
+
 	public String getDelivery_time() {
 		return delivery_time;
 	}
+
 	public void setDelivery_time(String delivery_time) {
 		this.delivery_time = delivery_time;
 	}
+
 	public String getComplete_time() {
 		return complete_time;
 	}
+
 	public void setComplete_time(String complete_time) {
 		this.complete_time = complete_time;
 	}
+
 	/**
 	 * /** 收件人信息
 	 */
@@ -63,53 +68,79 @@ public class OrderEntity extends BaseEntity {
 	 * 总价
 	 */
 	private String total;
+
 	private List<ProductEntity> productEntities;
+	
+	private List<ShoppingCartEntity> shoppingCartEntities;
+
+	public List<ShoppingCartEntity> getShoppingCartEntities() {
+		return shoppingCartEntities;
+	}
+
+	public void setShoppingCartEntities(List<ShoppingCartEntity> shoppingCartEntities) {
+		this.shoppingCartEntities = shoppingCartEntities;
+	}
+
 	public AddrEntity getAddrEntity() {
 		return addrEntity;
 	}
+
 	public void setAddrEntity(AddrEntity addrEntity) {
 		this.addrEntity = addrEntity;
 	}
+
 	public String getTotal() {
 		return total;
 	}
+
 	public void setTotal(String total) {
 		this.total = total;
 	}
+
 	public List<ProductEntity> getProductEntities() {
 		return productEntities;
 	}
+
 	public void setProductEntities(List<ProductEntity> productEntities) {
 		this.productEntities = productEntities;
 	}
-	
+
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getSn() {
 		return sn;
 	}
+
 	public void setSn(String sn) {
 		this.sn = sn;
 	}
+
 	public String getCreate_at() {
 		return create_at;
 	}
+
 	public void setCreate_at(String create_at) {
 		this.create_at = create_at;
 	}
+
 	public int getStatus() {
 		return status;
 	}
+
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
 	public int getProductNumber() {
 		return productNumber;
 	}
+
 	public void setProductNumber(int productNumber) {
 		this.productNumber = productNumber;
 	}

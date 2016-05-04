@@ -143,7 +143,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements UploadImageL
 				e.printStackTrace();
 			}
 		}
-		new HttpTask(this, HttpTask.PUT, "users?", map) {
+		new HttpTask(this, HttpTask.PUT, "v1/users?", map) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;

@@ -34,6 +34,24 @@
             android:text="@string/product_details"
             android:textColor="@color/text_color_dark"
             android:textSize="@dimen/text_size_slightlybigger" />
+
+        <ImageView
+            android:id="@+id/goShoppingCart"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginRight="@dimen/margin_nomarl"
+            android:layout_toLeftOf="@+id/collection"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/go_shopping_cart_icon" />
+
+        <ImageView
+            android:id="@+id/collection"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin_nomarl"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/collection_bg" />
     </RelativeLayout>
 
     <include layout="@layout/view_wide_line" />
@@ -45,7 +63,7 @@
         android:layout_weight="1"
         android:fadingEdge="none"
         android:scrollbars="none"
-        android:visibility="invisible" >
+        android:visibility="visible" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -144,6 +162,17 @@
 
             <TextView
                 android:id="@+id/suttle"
+                android:layout_width="fill_parent"
+                android:layout_height="25dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_nomarl"
+                android:paddingRight="@dimen/margin_nomarl"
+                android:singleLine="true"
+                android:textColor="@color/text_color_dark"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/price"
                 android:layout_width="fill_parent"
                 android:layout_height="25dp"
                 android:gravity="center_vertical"

@@ -47,6 +47,7 @@ public class AddrManagementActivity extends BaseActivity implements OnItemClickL
 		addrEntities = new ArrayList<AddrEntity>();
 		adapter = new AddrListAdapter(getApplicationContext(), addrEntities);
 		listView.setAdapter(adapter);
+		listView.setEmptyView(findViewById(R.id.addressEmptyHint));
 		listView.setOnItemClickListener(this);
 		getData();
 	}
@@ -56,7 +57,7 @@ public class AddrManagementActivity extends BaseActivity implements OnItemClickL
 		if (TextUtils.isEmpty(token)) {
 			return;
 		}
-		new HttpTask(getApplicationContext(), HttpTask.GET, "addresses/"+token, null) {
+		new HttpTask(this, HttpTask.GET, "v1/addresses/" + token, null) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;
@@ -69,7 +70,7 @@ public class AddrManagementActivity extends BaseActivity implements OnItemClickL
 						if (jsonArray == null) {
 							return;
 						}
-						if (addrEntities.size()>0) {
+						if (addrEntities.size() > 0) {
 							addrEntities.clear();
 						}
 						for (int i = 0; i < jsonArray.length(); i++) {
@@ -94,7 +95,7 @@ public class AddrManagementActivity extends BaseActivity implements OnItemClickL
 						if (addrEntities.size() > 0) {
 							adapter.notifyDataSetChanged();
 						}
-					} else if(code == 1){
+					} else if (code == 1) {
 						addrEntities.clear();
 						adapter.notifyDataSetChanged();
 					}
@@ -139,14 +140,14 @@ public class AddrManagementActivity extends BaseActivity implements OnItemClickL
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		AddrEntity addrEntity=(AddrEntity) parent.getItemAtPosition(position);
+		AddrEntity addrEntity = (AddrEntity) parent.getItemAtPosition(position);
 		Intent intent = new Intent(this, AddrDetailsActivity.class);
 		intent.putExtra("addrEntity", addrEntity);
 		intent.putExtra("type", 1);
 		startActivityForResult(intent, NEW_SHIPPING_ADDRESS);
 
 	}
-	
+
 	@Override
 	public void finish() {
 		setResult(RESULT_OK);
@@ -156,7 +157,7 @@ public class AddrManagementActivity extends BaseActivity implements OnItemClickL
 	@Override
 	public void refreshData() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

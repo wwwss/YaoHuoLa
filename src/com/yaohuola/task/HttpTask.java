@@ -8,11 +8,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.library.task.BaseTask;
+import com.library.uitls.DialogUtils;
 import com.library.uitls.HttpUtils;
 import com.library.uitls.NetUtils;
 import com.library.uitls.SmartLog;
 import com.yaohuola.constants.UrlConstants;
 import com.yaohuola.data.cache.LocalCache;
+
+import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -29,8 +32,9 @@ public class HttpTask extends BaseTask {
 	private String func;
 	private int type;// 0是get，1是post 2是put 3是DELETE
 	private int error_code;
-
+	protected Dialog dialog;
 	public HttpTask(Context context, int type, String func, Map<String, String> map) {
+		dialog = DialogUtils.createLoadingDialog(context);
 		if (map == null) {
 			map = new HashMap<String, String>();
 		}
@@ -75,10 +79,6 @@ public class HttpTask extends BaseTask {
 		switch (error_code) {
 		case 2:
 			LocalCache.getInstance(context).clearToken();
-//			Toast.makeText(context, "检测到登录信息已失效，如需继续使用请重新登录", Toast.LENGTH_SHORT).show();
-//			Intent intent = new Intent(context, LoginActivity.class);
-//			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//			context.startActivity(intent);
 			break;
 		default:
 			if (!TextUtils.isEmpty(error_message)) {
@@ -87,7 +87,6 @@ public class HttpTask extends BaseTask {
 			}
 			break;
 		}
-
 	}
 
 }

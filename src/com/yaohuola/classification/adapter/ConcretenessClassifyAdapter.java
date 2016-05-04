@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 /**
  * 
- * @author admin 全部分类适配器
+ * @author admin 具体分类适配器
  */
 public class ConcretenessClassifyAdapter extends BaseAdapter<ProductEntity> {
 	public ConcretenessClassifyAdapter(Context context, List<ProductEntity> list) {

@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.android.yaohuola.R;
+import com.yaohuola.activity.MainActivity;
 import com.yaohuola.classification.adapter.AllClassifyAdapter;
 import com.yaohuola.classification.adapter.SmallClassifyAdapter;
 import com.yaohuola.data.entity.ClassifyEntity;
@@ -16,8 +17,10 @@ import com.yaohuola.data.entity.SmallClassifyEntity;
 import com.yaohuola.task.HttpTask;
 import com.yaohuola.task.SearchTask;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -91,7 +94,7 @@ public class ClassificationFragment extends Fragment implements OnItemClickListe
 						Toast.makeText(context, "搜索内容不能为空", Toast.LENGTH_SHORT).show();
 						return false;
 					}
-					SearchTask.search(getActivity(),keyWord);
+					SearchTask.search(context, "v1/products/search_name", keyWord, 0);
 					return true;
 				}
 				return false;
@@ -115,7 +118,7 @@ public class ClassificationFragment extends Fragment implements OnItemClickListe
 	 * 获取数据
 	 */
 	public void getData() {
-		new HttpTask(context, HttpTask.GET, "categories", null) {
+		new HttpTask(context, HttpTask.GET, "v1/categories", null) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;
@@ -168,6 +171,7 @@ public class ClassificationFragment extends Fragment implements OnItemClickListe
 								ProductEntity productEntity = new ProductEntity();
 								productEntity.setId(jsonObject4.optString("unique_id", ""));
 								productEntity.setName(jsonObject4.optString("name", ""));
+								productEntity.setPic(jsonObject4.optString("image", ""));
 								productEntities.add(productEntity);
 							}
 							smallClassifyEntity.setProductEntities(productEntities);
@@ -206,7 +210,7 @@ public class ClassificationFragment extends Fragment implements OnItemClickListe
 	 * 获取小分类列表
 	 */
 	private void getSmallClassData(String id, final int postion) {
-		new HttpTask(context, HttpTask.GET, "categories/" + id, null) {
+		new HttpTask(context, HttpTask.GET, "v1/categories/" + id, null) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;
@@ -219,7 +223,7 @@ public class ClassificationFragment extends Fragment implements OnItemClickListe
 						if (jsonArray == null) {
 							return;
 						}
-						if (jsonArray.length()==0) {
+						if (jsonArray.length() == 0) {
 							return;
 						}
 						smallClassifyEntities.clear();
@@ -244,6 +248,7 @@ public class ClassificationFragment extends Fragment implements OnItemClickListe
 								ProductEntity productEntity = new ProductEntity();
 								productEntity.setId(jsonObject3.optString("unique_id", ""));
 								productEntity.setName(jsonObject3.optString("name", ""));
+								productEntity.setPic(jsonObject3.optString("image", ""));
 								productEntities.add(productEntity);
 							}
 							smallClassifyEntity.setProductEntities(productEntities);
@@ -252,6 +257,7 @@ public class ClassificationFragment extends Fragment implements OnItemClickListe
 						if (smallClassifyEntities.size() > 0) {
 							smallClassifyAdapter.notifyDataSetChanged();
 							allClassifyAdapter.setSelectItem(postion);
+							allClassificationListView.setSelection(postion);
 							allClassifyAdapter.notifyDataSetInvalidated();
 						}
 					}
@@ -272,7 +278,7 @@ public class ClassificationFragment extends Fragment implements OnItemClickListe
 				Toast.makeText(context, "搜索内容不能为空", Toast.LENGTH_SHORT).show();
 				return;
 			}
-			SearchTask.search(getActivity(),keyWord);
+			SearchTask.search(context, "v1/products/search_name", keyWord, 0);
 			break;
 
 		default:
@@ -280,6 +286,34 @@ public class ClassificationFragment extends Fragment implements OnItemClickListe
 		}
 	}
 
-	
+	private MainActivity mainActivity;
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		mainActivity = (MainActivity) activity;
+		mainActivity.setHandler(handler);
+	}
+
+	public Handler handler = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case 1001:
+				String id = msg.obj.toString();
+				int postion = -1;
+				for (int i = 0; i < classifyEntities.size(); i++) {
+					if (classifyEntities.get(i).getId().equals(id)) {
+						postion = i;
+					}
+				}
+				if (postion == -1) {
+					return;
+				}
+				getSmallClassData(id, postion);
+				break;
+			}
+		}
+
+	};
 
 }

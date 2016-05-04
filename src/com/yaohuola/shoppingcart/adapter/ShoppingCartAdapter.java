@@ -14,6 +14,7 @@ import com.yaohuola.YaoHuoLaApplication;
 import com.yaohuola.adapter.BaseAdapter;
 import com.yaohuola.data.cache.LocalCache;
 import com.yaohuola.data.entity.ProductEntity;
+import com.yaohuola.data.entity.ShoppingCartEntity;
 import com.yaohuola.my.activity.LoginActivity;
 import com.yaohuola.task.HttpTask;
 
@@ -36,15 +37,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ShoppingCartAdapter extends BaseAdapter<ProductEntity> {
+public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartEntity> {
 	private Handler handler;
 	public boolean isDelect;
+	private int oldPosition;
 
 	public void setDelect(boolean isDelect) {
 		this.isDelect = isDelect;
 	}
 
-	public ShoppingCartAdapter(Context context, List<ProductEntity> list, Handler handler) {
+	public ShoppingCartAdapter(Context context, List<ShoppingCartEntity> list, Handler handler) {
 		super(context, list);
 		this.handler = handler;
 	}
@@ -57,6 +59,7 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductEntity> {
 			itemCache.iv_isSelected = (ImageView) convertView.findViewById(R.id.isSelected);
 			itemCache.iv_pic = (ImageView) convertView.findViewById(R.id.pic);
 			itemCache.tv_productName = (TextView) convertView.findViewById(R.id.name);
+			itemCache.tv_categoryName = (TextView) convertView.findViewById(R.id.categoryName);
 			itemCache.tv_productDescription = (TextView) convertView.findViewById(R.id.description);
 			itemCache.tv_productNumber = (TextView) convertView.findViewById(R.id.number);
 			itemCache.tv_stockNumber = (TextView) convertView.findViewById(R.id.stockNumber);
@@ -68,7 +71,22 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductEntity> {
 
 		}
 		final ItemCache itemCache = (ItemCache) convertView.getTag();
-		final ProductEntity productEntity = list.get(position);
+		final ShoppingCartEntity shoppingCartEntity = list.get(position);
+		ShoppingCartEntity oldShoppingCartEntity = new ShoppingCartEntity();
+		if (oldPosition <= list.size() - 1) {
+			oldShoppingCartEntity = list.get(oldPosition);
+		}
+		final ProductEntity productEntity = shoppingCartEntity.getProductEntity();
+		if (position == 0) {
+			itemCache.tv_categoryName.setVisibility(View.VISIBLE);
+		} else {
+			if (shoppingCartEntity.getCategoryName().equals(oldShoppingCartEntity.getCategoryName())) {
+				itemCache.tv_categoryName.setVisibility(View.GONE);
+			} else {
+				itemCache.tv_categoryName.setVisibility(View.VISIBLE);
+			}
+		}
+		itemCache.tv_categoryName.setText(shoppingCartEntity.getCategoryName());
 		if (TextUtils.isEmpty(productEntity.getPic())) {
 			itemCache.iv_pic.setImageResource(R.drawable.default_product_icon);
 		} else {
@@ -79,12 +97,11 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductEntity> {
 		itemCache.tv_productDescription.setText(productEntity.getDescription());
 		itemCache.tv_productNumber.setText(productEntity.getNumber() + "");
 		itemCache.tv_price.setText("¥" + productEntity.getPrice());
-		if (productEntity.isSelecteIsShow()) {
+		if (shoppingCartEntity.isSelecteIsShow()) {
 			itemCache.iv_isSelected.setVisibility(View.VISIBLE);
-			if (productEntity.isSelected()) {
+			if (shoppingCartEntity.isSelected()) {
 				itemCache.iv_isSelected.setSelected(true);
 			} else {
-
 				itemCache.iv_isSelected.setSelected(false);
 			}
 		} else {
@@ -97,7 +114,7 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductEntity> {
 				int count = productEntity.getNumber();
 				if (count > 1) {
 					count--;
-					updateCartItemNumber(position, productEntity.getId(), count);
+					updateCartItemNumber(position, shoppingCartEntity.getShoppingcartId(), count);
 				}
 			}
 
@@ -109,7 +126,7 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductEntity> {
 				int count = productEntity.getNumber();
 				if (count < productEntity.getStock_num()) {
 					count++;
-					updateCartItemNumber(position, productEntity.getId(), count);
+					updateCartItemNumber(position, shoppingCartEntity.getShoppingcartId(), count);
 
 				}
 			}
@@ -124,10 +141,10 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductEntity> {
 						return;
 					}
 				}
-				if (productEntity.isSelected()) {
-					productEntity.setSelected(false);
+				if (shoppingCartEntity.isSelected()) {
+					shoppingCartEntity.setSelected(false);
 				} else {
-					productEntity.setSelected(true);
+					shoppingCartEntity.setSelected(true);
 				}
 				notifyDataSetChanged();
 			}
@@ -145,13 +162,14 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductEntity> {
 		} else {
 			itemCache.tv_stockNumber.setVisibility(View.GONE);
 		}
-
+		oldPosition = position;
 		return convertView;
 	}
 
 	public class ItemCache {
 		private ImageView iv_isSelected;
 		private ImageView iv_pic;
+		private TextView tv_categoryName;
 		private TextView tv_productName;
 		private TextView tv_stockNumber;
 		private TextView tv_productDescription;// 产品描述
@@ -168,8 +186,9 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductEntity> {
 		Message message = new Message();
 		double total = 0;
 		for (int i = 0; i < list.size(); i++) {
-			ProductEntity productEntity = list.get(i);
-			if (productEntity.isSelected()) {
+			ShoppingCartEntity shoppingCartEntity = list.get(i);
+			final ProductEntity productEntity = shoppingCartEntity.getProductEntity();
+			if (shoppingCartEntity.isSelected()) {
 				total += productEntity.getNumber() * productEntity.getPrice();
 			}
 		}
@@ -194,7 +213,7 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductEntity> {
 		map.put("token", token);
 		map.put("unique_id", unique_id);
 		map.put("product_num", product_num + "");
-		new HttpTask(context, HttpTask.POST, "cart_items/edit_product_num", map) {
+		new HttpTask(context, HttpTask.POST, "v1/cart_items/edit_product_num", map) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;
@@ -203,7 +222,7 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductEntity> {
 					JSONObject jsonObject = new JSONObject(result);
 					int code = jsonObject.optInt("result", -1);
 					if (code == 0) {
-						list.get(position).setNumber(product_num);
+						list.get(position).getProductEntity().setNumber(product_num);
 						notifyDataSetChanged();
 					} else if (code == 3) {
 						Toast.makeText(context, "库存不足", Toast.LENGTH_SHORT).show();
@@ -237,6 +256,8 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductEntity> {
 
 			@Override
 			public void onClick(View v) {
+				if (TextUtils.isEmpty(et_number.getText().toString()))
+					return;
 				int number = Integer.valueOf(et_number.getText().toString());
 				if (number > 1) {
 					number--;
@@ -249,6 +270,8 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductEntity> {
 
 			@Override
 			public void onClick(View v) {
+				if (TextUtils.isEmpty(et_number.getText().toString()))
+					return;
 				int number = Integer.valueOf(et_number.getText().toString());
 				if (number < stock_num) {
 					number++;
@@ -269,9 +292,11 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductEntity> {
 
 			@Override
 			public void onClick(View v) {
+				if (TextUtils.isEmpty(et_number.getText().toString()))
+					return;
 				int number = Integer.valueOf(et_number.getText().toString());
 				if (number > 0 && number <= stock_num) {
-					updateCartItemNumber(position, list.get(position).getId(), number);
+					updateCartItemNumber(position, list.get(position).getShoppingcartId(), number);
 					alertDialog.dismiss();
 				}
 			}

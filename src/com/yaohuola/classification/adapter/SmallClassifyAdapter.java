@@ -35,7 +35,7 @@ import android.widget.TextView;
  */
 public class SmallClassifyAdapter extends BaseAdapter<SmallClassifyEntity> {
 
-	private ProductAdapter adapter;
+	private ConcretenessClassifyAdapter adapter;
 
 	public SmallClassifyAdapter(Context context, List<SmallClassifyEntity> list) {
 		super(context, list);
@@ -54,7 +54,7 @@ public class SmallClassifyAdapter extends BaseAdapter<SmallClassifyEntity> {
 		ItemCache itemCache = (ItemCache) convertView.getTag();
 		final SmallClassifyEntity smallClassifyEntity = list.get(position);
 		itemCache.tvName.setText(smallClassifyEntity.getTitle());
-		adapter = new ProductAdapter(context, smallClassifyEntity.getProductEntities());
+		adapter = new ConcretenessClassifyAdapter(context, smallClassifyEntity.getProductEntities());
 		itemCache.productGridView.setAdapter(adapter);
 		itemCache.productGridView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -95,7 +95,7 @@ public class SmallClassifyAdapter extends BaseAdapter<SmallClassifyEntity> {
 	public void getSmallClassify(final String unique_id, final String title) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("page_num", "1");
-		new HttpTask(context, HttpTask.GET, "products/sub_category/" + unique_id, map) {
+		new HttpTask(context, HttpTask.GET, "v1/products/sub_category/" + unique_id, map) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;

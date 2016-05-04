@@ -13,11 +13,7 @@ public class ProductEntity extends BaseEntity {
 
 	private String id;
 
-	private String id2;
-
 	private String pic;
-
-	private int drawable;
 
 	private String name;
 
@@ -26,10 +22,6 @@ public class ProductEntity extends BaseEntity {
 	private double price;
 
 	private int number = 1;
-
-	private boolean selecteIsShow;
-
-	private boolean isSelected;
 
 	/**
 	 * 商品规格
@@ -65,13 +57,42 @@ public class ProductEntity extends BaseEntity {
 	 * 产品详情
 	 */
 	private String info;
+	
+	/**
+	 * 0是已收藏，1是未收藏
+	 */
+	private int favorites;
+	
+	/**
+	 * 收藏ID
+	 */
+	private String favorite_unique_id;
+	
+	private String unit_price;
 
-	public String getId2() {
-		return id2;
+
+	public String getUnit_price() {
+		return unit_price;
 	}
 
-	public void setId2(String id2) {
-		this.id2 = id2;
+	public void setUnit_price(String unit_price) {
+		this.unit_price = unit_price;
+	}
+
+	public int getFavorites() {
+		return favorites;
+	}
+
+	public void setFavorites(int favorites) {
+		this.favorites = favorites;
+	}
+
+	public String getFavorite_unique_id() {
+		return favorite_unique_id;
+	}
+
+	public void setFavorite_unique_id(String favorite_unique_id) {
+		this.favorite_unique_id = favorite_unique_id;
 	}
 
 	public String getSales() {
@@ -122,22 +143,6 @@ public class ProductEntity extends BaseEntity {
 		this.spec = spec;
 	}
 
-	public boolean isSelected() {
-		return isSelected;
-	}
-
-	public void setSelected(boolean isSelected) {
-		this.isSelected = isSelected;
-	}
-
-	public boolean isSelecteIsShow() {
-		return selecteIsShow;
-	}
-
-	public void setSelecteIsShow(boolean selecteIsShow) {
-		this.selecteIsShow = selecteIsShow;
-	}
-
 	public int getNumber() {
 		return number;
 	}
@@ -160,14 +165,6 @@ public class ProductEntity extends BaseEntity {
 
 	public void setPic(String pic) {
 		this.pic = pic;
-	}
-
-	public int getDrawable() {
-		return drawable;
-	}
-
-	public void setDrawable(int drawable) {
-		this.drawable = drawable;
 	}
 
 	public String getName() {

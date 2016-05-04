@@ -7,5 +7,5 @@ package com.yaohuola.interfaces;
  */
 public interface FragmentSwitchListenter {
 	//将要切换到Fragment的下标
-	void go(int index);
+	void go(int index,String content);
 }

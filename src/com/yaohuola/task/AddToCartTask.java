@@ -28,8 +28,13 @@ public class AddToCartTask {
 		map.put("token", token);
 		map.put("pro_unique_id", unique_id);
 		map.put("product_num", "1");
-		new HttpTask(context, HttpTask.POST, "cart_items", map) {
+		new HttpTask(context, HttpTask.POST, "v1/cart_items", map) {
+			protected void onPreExecute() {
+				dialog.show();
+			};
+
 			protected void onPostExecute(String result) {
+				dialog.dismiss();
 				if (TextUtils.isEmpty(result)) {
 					return;
 				}

@@ -127,8 +127,13 @@ public class AddrDetailsActivity extends BaseActivity {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("token", token);
 		map.put("unique_id", addrEntity.getId() + "");
-		new HttpTask(this, HttpTask.DELETE, "addresses", map) {
+		new HttpTask(this, HttpTask.DELETE, "v1/addresses", map) {
+			protected void onPreExecute() {
+				dialog.show();
+			};
+
 			protected void onPostExecute(String result) {
+				dialog.dismiss();
 				if (TextUtils.isEmpty(result)) {
 					return;
 				}
@@ -168,6 +173,10 @@ public class AddrDetailsActivity extends BaseActivity {
 			ToastShow("请填写收货人联系方式");
 			return;
 		}
+		if (contact.length() < 11) {
+			ToastShow("请填写正确的收货人电话   ");
+			return;
+		}
 		if (TextUtils.isEmpty(area)) {
 			ToastShow("请填写所在区域");
 			return;
@@ -190,8 +199,13 @@ public class AddrDetailsActivity extends BaseActivity {
 		map.put("receive_name", name);
 		map.put("receive_phone", contact);
 		map.put("default", "1");
-		new HttpTask(this, RequestWay, "addresses", map) {
+		new HttpTask(this, RequestWay, "v1/addresses", map) {
+			protected void onPreExecute() {
+				dialog.show();
+			};
+
 			protected void onPostExecute(String result) {
+				dialog.dismiss();
 				if (TextUtils.isEmpty(result)) {
 					return;
 				}
@@ -236,7 +250,7 @@ public class AddrDetailsActivity extends BaseActivity {
 	@Override
 	public void refreshData() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

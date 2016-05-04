@@ -56,7 +56,7 @@ public class AddrSelectActivity extends BaseActivity implements
 	private void getData() {
 		String token = LocalCache.getInstance(getApplicationContext())
 				.getToken();
-		new HttpTask(getApplicationContext(), HttpTask.GET, "addresses/"
+		new HttpTask(this, HttpTask.GET, "v1/addresses/"
 				+ token, null) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {

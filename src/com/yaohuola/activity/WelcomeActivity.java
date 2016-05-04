@@ -80,7 +80,7 @@ public class WelcomeActivity extends Activity implements AnimationListener {
 		}
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("token", token);
-		new HttpTask(this, HttpTask.POST, "users/token", map) {
+		new HttpTask(this, HttpTask.POST, "v1/users/token", map) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;

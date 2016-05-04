@@ -21,16 +21,26 @@ import android.text.TextUtils;
 public class SearchTask {
 	/**
 	 * 搜索
+	 * 
+	 * @param context
+	 * @param keyWord
+	 * @param searchType
+	 *            0是首页搜索 1是搜索框搜索
 	 */
-	public static void search(Context context, final String keyWord) {
+	public static void search(Context context, String func, final String keyWord, final int searchType) {
 		if (AppUtils.isFastClick()) {
 			return;
 		}
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("key_word", keyWord);
 		map.put("page_num", "1");
-		new HttpTask(context, HttpTask.POST, "products/search", map) {
+		new HttpTask(context, HttpTask.POST, func, map) {
+			protected void onPreExecute() {
+				dialog.show();
+			};
+
 			protected void onPostExecute(String result) {
+				dialog.dismiss();
 				if (TextUtils.isEmpty(result)) {
 					return;
 				}
@@ -67,10 +77,8 @@ public class SearchTask {
 						intent.putExtra("title", keyWord);
 						intent.putExtra("index", -1);
 						intent.putExtra("type", 2);
+						intent.putExtra("searchType", searchType);
 						context.startActivity(intent);
-					} else {
-						// Toast.makeText(context, "没有找到你要搜索的商品",
-						// Toast.LENGTH_SHORT).show();
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();

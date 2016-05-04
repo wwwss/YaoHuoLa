@@ -122,7 +122,7 @@ public class OrderProductListAdapter extends BaseAdapter<ProductEntity> {
 		map.put("token", token);
 		map.put("pro_unique_id", unique_id);
 		map.put("product_num", product_num + "");
-		new HttpTask(context, HttpTask.POST, "cart_items", map) {
+		new HttpTask(context, HttpTask.POST, "v1/cart_items", map) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;

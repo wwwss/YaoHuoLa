@@ -86,7 +86,7 @@ public class OrderDetailsActivity extends BaseActivity implements OnItemClickLis
 		}
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("token", token);
-		new HttpTask(this, HttpTask.GET, "orders/" + id, map) {
+		new HttpTask(this, HttpTask.GET, "v1/orders/" + id, map) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;
@@ -208,7 +208,7 @@ public class OrderDetailsActivity extends BaseActivity implements OnItemClickLis
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("token", token);
 		map.put("unique_id", unique_id);
-		new HttpTask(this, HttpTask.POST, "cart_items/order_batch_entry", map) {
+		new HttpTask(this, HttpTask.POST, "v1/cart_items/order_batch_entry", map) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;

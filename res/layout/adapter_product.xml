@@ -6,8 +6,8 @@
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/margin_large"
         android:textColor="@color/text_color_dark"
         android:textSize="@dimen/text_size_small" />
 

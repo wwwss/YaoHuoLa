@@ -16,6 +16,8 @@
     <string name="user_nike_name">点击修改昵称</string>
     <string name="completed_orders">已完成订单</string>
     <string name="for_receiving_orders">待收货订单</string>
+    <string name="collect_baby">收藏宝贝</string>
+    <string name="empty">清空</string>
     <string name="feedback">联系客服</string>
     <string name="about_us">关于我们</string>
     <string name="about_us_text">Copyright2015-2016\n上海青云信息科技有限公司</string>
@@ -60,4 +62,5 @@
     <string name="all">全部</string>
     <string name="user_agreement">用户协议</string>
     <string name="load_hint">正在加载...</string>
+
 </resources>

@@ -38,6 +38,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher, Runnable
 	private String phoneNumber;
 	private String verificationCode;
 	private int time = 30;// 倒计时
+	private String AESPhoneNumber;// 加密手机号码
 
 	@Override
 	public void setContentView() {
@@ -63,8 +64,6 @@ public class LoginActivity extends BaseActivity implements TextWatcher, Runnable
 		etVerificationCode.addTextChangedListener(this);
 
 	}
-
-	String AESPhoneNumber;
 
 	@Override
 	public void onClick(View v) {
@@ -105,9 +104,14 @@ public class LoginActivity extends BaseActivity implements TextWatcher, Runnable
 	private void getVerification(String AESPhoneNumber) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("phone_num", AESPhoneNumber);
-		new HttpTask(getApplicationContext(), HttpTask.POST, "users/send_sms", map) {
+		new HttpTask(this, HttpTask.POST, "v1/users/send_sms", map) {
+
+			protected void onPreExecute() {
+				dialog.show();
+			};
 
 			protected void onPostExecute(String result) {
+				dialog.dismiss();
 				if (TextUtils.isEmpty(result)) {
 					return;
 				}
@@ -178,9 +182,14 @@ public class LoginActivity extends BaseActivity implements TextWatcher, Runnable
 		verificationCode = etVerificationCode.getText().toString();
 		map.put("phone_num", AESPhoneNumber);
 		map.put("rand_code", verificationCode);
-		new HttpTask(getApplicationContext(), HttpTask.POST, "users/sign_in", map) {
+		new HttpTask(this, HttpTask.POST, "v1/users/sign_in", map) {
+
+			protected void onPreExecute() {
+				dialog.show();
+			};
 
 			protected void onPostExecute(String result) {
+				dialog.dismiss();
 				if (TextUtils.isEmpty(result)) {
 					return;
 				}

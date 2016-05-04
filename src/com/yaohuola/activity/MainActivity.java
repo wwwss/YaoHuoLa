@@ -17,8 +17,11 @@ import com.yaohuola.my.fragment.MyFragMent;
 import com.yaohuola.shoppingcart.fragment.ShoppingcartFragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -49,14 +52,15 @@ public class MainActivity extends BaseActivity implements OnNavigationBarClickLi
 	@Override
 	public void initView() {
 		navigationBar = (NavigationBar) findViewById(R.id.navigation_bar);
-		homePageFragment = new HomePageFragment();
+		homePageFragment = new HomePageFragment(this);
 		classificationFragment = new ClassificationFragment();
-		shoppingcartFragment = new ShoppingcartFragment();
+		shoppingcartFragment = new ShoppingcartFragment(this);
 		myFragMent = new MyFragMent();
 		fragments = new Fragment[] { homePageFragment, classificationFragment, shoppingcartFragment, myFragMent };
 		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 		// 添加fragments显示第一个fragment
-		fragmentTransaction.add(R.id.content, homePageFragment).show(homePageFragment).commit();
+		fragmentTransaction.add(R.id.content, homePageFragment).add(R.id.content, classificationFragment)
+				.hide(classificationFragment).show(homePageFragment).commit();
 		initData();
 		// 检查提示更新
 		UmengUpdateAgent.update(this);
@@ -79,6 +83,10 @@ public class MainActivity extends BaseActivity implements OnNavigationBarClickLi
 		}
 		int widthPixels = getResources().getDisplayMetrics().widthPixels;
 		navigationBar.initData(tabs, widthPixels, this);
+		int type = getIntent().getIntExtra("type", -1);
+		if (type == 2) {
+			navigationBar.onTabSelected(type);
+		}
 	}
 
 	@Override
@@ -102,13 +110,6 @@ public class MainActivity extends BaseActivity implements OnNavigationBarClickLi
 			if (!fragments[index].isAdded()) {
 				fragmentTransaction.add(R.id.content, fragments[index]);
 			}
-//			if (index == 3) {
-//				if (!YaoHuoLaApplication.isLogin(this)) {
-//					startActivity(new Intent(this, LoginActivity.class));
-//					navigationBar.onTabSelected(currentTabIndex);
-//					return;
-//				}
-//			}
 			fragmentTransaction.show(fragments[index]).commit();
 			fragments[index].setUserVisibleHint(true);
 		}
@@ -117,8 +118,14 @@ public class MainActivity extends BaseActivity implements OnNavigationBarClickLi
 	}
 
 	@Override
-	public void go(int index) {
+	public void go(int index, String content) {
 		navigationBar.onTabSelected(index);
+		if (index == 1 && !TextUtils.isEmpty(content)) {
+			Message message = new Message();
+			message.what = 1001;
+			message.obj = content;
+			handler.sendMessage(message);
+		}
 
 	}
 
@@ -170,4 +177,11 @@ public class MainActivity extends BaseActivity implements OnNavigationBarClickLi
 		}
 
 	}
+
+	private Handler handler = new Handler();
+
+	public void setHandler(Handler handler) {
+		this.handler = handler;
+	}
+
 }

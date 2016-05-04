@@ -69,8 +69,10 @@ public class FillOrdersActivity extends BaseActivity implements OnItemClickListe
 		findViewById(R.id.submitOrder).setOnClickListener(this);
 		listView = (ListView) findViewById(R.id.listView);
 		productEntities = new ArrayList<ProductEntity>();
-		if (orderEntity.getProductEntities() != null && orderEntity.getProductEntities().size() > 0) {
-			productEntities = orderEntity.getProductEntities();
+		if (orderEntity.getShoppingCartEntities() != null && orderEntity.getShoppingCartEntities().size() > 0) {
+			for (int i = 0; i < orderEntity.getShoppingCartEntities().size(); i++) {
+				productEntities.add(orderEntity.getShoppingCartEntities().get(i).getProductEntity());
+			}
 			tv_phoneNumber.setText("选择收货地址");
 			tv_total.setText("实付金额：¥" + orderEntity.getTotal());
 		}
@@ -95,7 +97,7 @@ public class FillOrdersActivity extends BaseActivity implements OnItemClickListe
 		if (TextUtils.isEmpty(token)) {
 			return;
 		}
-		new HttpTask(this, HttpTask.GET, "addresses/default/" + token, null) {
+		new HttpTask(this, HttpTask.GET, "v1/addresses/default/" + token, null) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;
@@ -133,7 +135,7 @@ public class FillOrdersActivity extends BaseActivity implements OnItemClickListe
 
 	@Override
 	public void onClick(View v) {
-		
+
 		Intent intent;
 		switch (v.getId()) {
 		case R.id.back:
@@ -166,7 +168,7 @@ public class FillOrdersActivity extends BaseActivity implements OnItemClickListe
 		for (int i = 0; i < productEntities.size(); i++) {
 			ProductEntity productEntity = productEntities.get(i);
 			Map<String, String> map2 = new HashMap<String, String>();
-			map2.put("unique_id", productEntity.getId2());
+			map2.put("unique_id", productEntity.getId());
 			map2.put("number", productEntity.getNumber() + "");
 			JSONObject jsonObject = new JSONObject(map2);
 			jsonArray.put(jsonObject);
@@ -180,8 +182,13 @@ public class FillOrdersActivity extends BaseActivity implements OnItemClickListe
 		map.put("receive_name", addrEntity.getName());
 		map.put("address_id", addrEntity.getId());
 		map.put("phone_num", addrEntity.getPhone());
-		new HttpTask(this, HttpTask.POST, "orders", map) {
+		new HttpTask(this, HttpTask.POST, "v1/orders", map) {
+			protected void onPreExecute() {
+				dialog.show();
+			};
+
 			protected void onPostExecute(String result) {
+				dialog.dismiss();
 				if (TextUtils.isEmpty(result)) {
 					return;
 				}
@@ -232,12 +239,12 @@ public class FillOrdersActivity extends BaseActivity implements OnItemClickListe
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Intent intent = new Intent(this, ProductDetailsActivity.class);
 		ProductEntity productEntity = (ProductEntity) parent.getItemAtPosition(position);
-		intent.putExtra("id", productEntity.getId2());
+		intent.putExtra("id", productEntity.getId());
 		startActivity(intent);
 	}
 

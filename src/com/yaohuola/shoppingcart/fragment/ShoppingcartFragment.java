@@ -15,6 +15,8 @@ import com.yaohuola.classification.activity.ProductDetailsActivity;
 import com.yaohuola.data.cache.LocalCache;
 import com.yaohuola.data.entity.OrderEntity;
 import com.yaohuola.data.entity.ProductEntity;
+import com.yaohuola.data.entity.ShoppingCartEntity;
+import com.yaohuola.interfaces.FragmentSwitchListenter;
 import com.yaohuola.shoppingcart.activity.FillOrdersActivity;
 import com.yaohuola.shoppingcart.adapter.ShoppingCartAdapter;
 import com.yaohuola.task.HttpTask;
@@ -38,7 +40,7 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 	private Context context;
 	private TextView tv_edit;
 	private ListView listView;
-	private List<ProductEntity> productEntities;
+	private List<ShoppingCartEntity> shoppingCartEntities;
 	private ShoppingCartAdapter adapter;
 	private TextView tv_allSelect;
 	private TextView tv_total;
@@ -46,6 +48,11 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 	private TextView tv_orderNowHint;
 	private View view;
 	private double sendPrice;
+	private FragmentSwitchListenter listenter;
+
+	public ShoppingcartFragment(FragmentSwitchListenter listenter) {
+		this.listenter = listenter;
+	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_shoppingcart, container, false);
@@ -64,10 +71,12 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 		tv_total = (TextView) view.findViewById(R.id.total);
 		tv_allSelect = (TextView) view.findViewById(R.id.allSelect);
 		listView = (ListView) view.findViewById(R.id.listView);
-		productEntities = new ArrayList<ProductEntity>();
-		adapter = new ShoppingCartAdapter(context, productEntities, handler);
+		shoppingCartEntities = new ArrayList<ShoppingCartEntity>();
+		adapter = new ShoppingCartAdapter(context, shoppingCartEntities, handler);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(this);
+		listView.setEmptyView(view.findViewById(R.id.shoppingCartEmptyHint));
+		view.findViewById(R.id.goHomepage).setOnClickListener(this);
 		tv_edit.setOnClickListener(this);
 		tv_allSelect.setOnClickListener(this);
 		tv_orderNow = (TextView) view.findViewById(R.id.orderNow);
@@ -88,10 +97,10 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 
 	@Override
 	public void onResume() {
+		super.onResume();
 		if (getUserVisibleHint()) {
 			handler.sendEmptyMessage(1002);
 		}
-		super.onResume();
 	}
 
 	/**
@@ -100,13 +109,13 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 	public void getData() {
 		String token = LocalCache.getInstance(context).getToken();
 		if (TextUtils.isEmpty(token)) {
-			productEntities.clear();
+			shoppingCartEntities.clear();
 			adapter.notifyDataSetChanged();
 			view.findViewById(R.id.footView).setVisibility(View.INVISIBLE);
 			tv_edit.setVisibility(View.INVISIBLE);
 			return;
 		}
-		new HttpTask(context, HttpTask.GET, "cart_items/" + token, null) {
+		new HttpTask(context, HttpTask.GET, "v2/cart_items/" + token, null) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;
@@ -119,47 +128,53 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 						if (jsonArray == null) {
 							return;
 						}
-						if (jsonArray.length() == 0) {
-							return;
-						}
-						productEntities.clear();
+						shoppingCartEntities.clear();
 						for (int i = 0; i < jsonArray.length(); i++) {
 							JSONObject jsonObject2 = jsonArray.optJSONObject(i);
 							if (jsonObject2 == null) {
 								continue;
 							}
-							JSONObject jsonObject3 = jsonObject2.optJSONObject("product");
-							if (jsonObject3 == null) {
+							String categoryName = jsonObject2.optString("category_name", "");
+							JSONArray jsonArray2 = jsonObject2.optJSONArray("list");
+							if (jsonArray2 == null) {
 								continue;
 							}
-							ProductEntity productEntity = new ProductEntity();
-							productEntity.setId(jsonObject2.optString("unique_id", ""));
-							productEntity.setId2(jsonObject3.optString("unique_id", ""));
-							int product_num = jsonObject2.optInt("product_num", 0);
-							productEntity.setNumber(product_num);
-							productEntity.setName(jsonObject3.optString("name", ""));
-							productEntity.setPic(jsonObject3.optString("image", ""));
-							productEntity.setDescription(jsonObject3.optString("desc", ""));
-							productEntity.setPrice(jsonObject3.optDouble("price", 0));
-							productEntity.setSpec(jsonObject3.optString("spec", ""));
-							int stock_num = jsonObject3.optInt("stock_num", 0);
-							productEntity.setStock_num(stock_num);
-							if (product_num > stock_num) {
-								productEntity.setSelected(false);
-							} else {
-								productEntity.setSelected(true);
+							for (int j = 0; j < jsonArray2.length(); j++) {
+								JSONObject jsonObject3 = jsonArray2.optJSONObject(j);
+								if (jsonObject3 == null) {
+									continue;
+								}
+								ShoppingCartEntity shoppingCartEntity = new ShoppingCartEntity();
+								shoppingCartEntity.setCategoryName(categoryName);
+								shoppingCartEntity.setShoppingcartId(jsonObject3.optString("unique_id", ""));
+								ProductEntity productEntity = new ProductEntity();
+								productEntity.setId(jsonObject3.optString("product_unique_id", ""));
+								int product_num = jsonObject3.optInt("product_num", 0);
+								productEntity.setNumber(product_num);
+								productEntity.setName(jsonObject3.optString("product_name", ""));
+								productEntity.setPic(jsonObject3.optString("product_image", ""));
+								productEntity.setPrice(jsonObject3.optDouble("product_price", 0));
+								productEntity.setSpec(jsonObject3.optString("product_spec", ""));
+								int stock_num = jsonObject3.optInt("product_stock_num", 0);
+								productEntity.setStock_num(stock_num);
+								if (product_num > stock_num) {
+									shoppingCartEntity.setSelected(false);
+								} else {
+									shoppingCartEntity.setSelected(true);
+								}
+								shoppingCartEntity.setSelecteIsShow(true);
+								shoppingCartEntity.setProductEntity(productEntity);
+								shoppingCartEntities.add(shoppingCartEntity);
 							}
-							productEntity.setSelecteIsShow(true);
-							productEntities.add(productEntity);
 						}
-						if (productEntities.size() > 0) {
+						if (shoppingCartEntities.size() > 0) {
 							adapter.notifyDataSetChanged();
 							tv_allSelect.setSelected(true);
 						}
 						view.findViewById(R.id.footView).setVisibility(View.VISIBLE);
 						tv_edit.setVisibility(View.VISIBLE);
 					} else {
-						productEntities.clear();
+						shoppingCartEntities.clear();
 						adapter.notifyDataSetChanged();
 					}
 				} catch (JSONException e) {
@@ -176,7 +191,7 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 
 			switch (msg.what) {
 			case 1001:
-				if (productEntities.size() == 0) {
+				if (shoppingCartEntities.size() == 0) {
 					view.findViewById(R.id.footView).setVisibility(View.INVISIBLE);
 					tv_edit.setVisibility(View.INVISIBLE);
 					return;
@@ -184,13 +199,13 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 
 				}
 				int count = 0;
-				for (int i = 0; i < productEntities.size(); i++) {
-					if (productEntities.get(i).isSelected()) {
+				for (int i = 0; i < shoppingCartEntities.size(); i++) {
+					if (shoppingCartEntities.get(i).isSelected()) {
 						count++;
 					}
 
 				}
-				if (count == productEntities.size()) {
+				if (count == shoppingCartEntities.size()) {
 					tv_allSelect.setSelected(true);
 				}
 				total = (Double) msg.obj;
@@ -246,14 +261,14 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 					DecimalFormat df = new DecimalFormat("#,##0.00");
 					String strValue = df.format(total);
 					orderEntity.setTotal(strValue);
-					final List<ProductEntity> newProductEntities = new ArrayList<ProductEntity>();
-					for (int i = 0; i < productEntities.size(); i++) {
-						ProductEntity productEntity = productEntities.get(i);
-						if (productEntity.isSelected()) {
-							newProductEntities.add(productEntity);
+					final List<ShoppingCartEntity> newShoppingCartEntites = new ArrayList<ShoppingCartEntity>();
+					for (int i = 0; i < shoppingCartEntities.size(); i++) {
+						ShoppingCartEntity shoppingCartEntity = shoppingCartEntities.get(i);
+						if (shoppingCartEntity.isSelected()) {
+							newShoppingCartEntites.add(shoppingCartEntity);
 						}
 					}
-					orderEntity.setProductEntities(newProductEntities);
+					orderEntity.setShoppingCartEntities(newShoppingCartEntites);
 					intent.putExtra("orderEntity", orderEntity);
 					startActivity(intent);
 				} else {
@@ -261,6 +276,9 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 				}
 
 			}
+			break;
+		case R.id.goHomepage:
+			listenter.go(0, null);
 			break;
 		default:
 			break;
@@ -276,17 +294,17 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("token", token);
 		JSONArray jsonArray = new JSONArray();
-		final List<ProductEntity> newProductEntities = new ArrayList<ProductEntity>();
-		for (int i = 0; i < productEntities.size(); i++) {
-			ProductEntity productEntity = productEntities.get(i);
-			if (productEntity.isSelected()) {
-				jsonArray.put(productEntity.getId());
+		final List<ShoppingCartEntity> newShoppingCartEntites = new ArrayList<ShoppingCartEntity>();
+		for (int i = 0; i < shoppingCartEntities.size(); i++) {
+			ShoppingCartEntity shoppingCartEntity = shoppingCartEntities.get(i);
+			if (shoppingCartEntity.isSelected()) {
+				jsonArray.put(shoppingCartEntity.getShoppingcartId());
 			} else {
-				newProductEntities.add(productEntity);
+				newShoppingCartEntites.add(shoppingCartEntity);
 			}
 		}
 		map.put("unique_ids", jsonArray.toString());
-		new HttpTask(context, HttpTask.DELETE, "cart_items", map) {
+		new HttpTask(context, HttpTask.DELETE, "v1/cart_items", map) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;
@@ -295,8 +313,8 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 					JSONObject jsonObject = new JSONObject(result);
 					int code = jsonObject.optInt("result", -1);
 					if (code == 0) {
-						productEntities.clear();
-						productEntities.addAll(newProductEntities);
+						shoppingCartEntities.clear();
+						shoppingCartEntities.addAll(newShoppingCartEntites);
 						adapter.notifyDataSetChanged();
 					}
 				} catch (JSONException e) {
@@ -309,8 +327,8 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 	}
 
 	private void selected(boolean selected) {
-		for (int i = 0; i < productEntities.size(); i++) {
-			productEntities.get(i).setSelected(selected);
+		for (int i = 0; i < shoppingCartEntities.size(); i++) {
+			shoppingCartEntities.get(i).setSelected(selected);
 		}
 		adapter.notifyDataSetChanged();
 	}
@@ -328,8 +346,8 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 	 * 编辑事件
 	 */
 	private void edit() {
-		for (int i = 0; i < productEntities.size(); i++) {
-			productEntities.get(i).setSelecteIsShow(true);
+		for (int i = 0; i < shoppingCartEntities.size(); i++) {
+			shoppingCartEntities.get(i).setSelecteIsShow(true);
 		}
 		tv_edit.setText("完成");
 		tv_total.setVisibility(View.INVISIBLE);
@@ -341,9 +359,9 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Intent intent = new Intent(getActivity(), ProductDetailsActivity.class);
-		ProductEntity productEntity = (ProductEntity) parent.getItemAtPosition(position);
-		intent.putExtra("id", productEntity.getId2());
+		Intent intent = new Intent(context, ProductDetailsActivity.class);
+		ShoppingCartEntity shoppingCartEntity = (ShoppingCartEntity) parent.getItemAtPosition(position);
+		intent.putExtra("id", shoppingCartEntity.getProductEntity().getId());
 		startActivity(intent);
 	}
 }
