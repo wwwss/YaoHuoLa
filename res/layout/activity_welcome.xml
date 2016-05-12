@@ -11,6 +11,6 @@
         android:layout_height="fill_parent"
         android:scaleType="fitXY"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/welcom_icon" />
+        android:src="@drawable/welcome_icon" />
 
 </RelativeLayout>

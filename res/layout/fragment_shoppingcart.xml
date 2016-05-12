@@ -19,13 +19,14 @@
             android:textSize="@dimen/text_size_slightlybigger" />
 
         <TextView
-            android:id="@+id/edit"
+            android:id="@+id/delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_nomarl"
-            android:text="@string/edit"
+            android:layout_marginLeft="10dp"
+            android:text="@string/delete"
             android:textColor="@color/text_color_dark"
             android:textSize="@dimen/text_size_normal"
             android:visibility="invisible" />

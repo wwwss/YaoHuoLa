@@ -20,6 +20,7 @@ import com.yaohuola.interfaces.FragmentSwitchListenter;
 import com.yaohuola.shoppingcart.activity.FillOrdersActivity;
 import com.yaohuola.shoppingcart.adapter.ShoppingCartAdapter;
 import com.yaohuola.task.HttpTask;
+import com.yaohuola.view.DeleteDialog;
 
 import android.content.Context;
 import android.content.Intent;
@@ -38,7 +39,7 @@ import android.widget.TextView;
 
 public class ShoppingcartFragment extends Fragment implements OnClickListener, OnItemClickListener {
 	private Context context;
-	private TextView tv_edit;
+	private DeleteDialog alertDialog;
 	private ListView listView;
 	private List<ShoppingCartEntity> shoppingCartEntities;
 	private ShoppingCartAdapter adapter;
@@ -67,7 +68,6 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 	private void initView() {
 		view = getView();
 		context = getActivity();
-		tv_edit = (TextView) view.findViewById(R.id.edit);
 		tv_total = (TextView) view.findViewById(R.id.total);
 		tv_allSelect = (TextView) view.findViewById(R.id.allSelect);
 		listView = (ListView) view.findViewById(R.id.listView);
@@ -77,7 +77,7 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 		listView.setOnItemClickListener(this);
 		listView.setEmptyView(view.findViewById(R.id.shoppingCartEmptyHint));
 		view.findViewById(R.id.goHomepage).setOnClickListener(this);
-		tv_edit.setOnClickListener(this);
+		view.findViewById(R.id.delete).setOnClickListener(this);
 		tv_allSelect.setOnClickListener(this);
 		tv_orderNow = (TextView) view.findViewById(R.id.orderNow);
 		tv_orderNowHint = (TextView) view.findViewById(R.id.orderNow_hint);
@@ -112,7 +112,7 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 			shoppingCartEntities.clear();
 			adapter.notifyDataSetChanged();
 			view.findViewById(R.id.footView).setVisibility(View.INVISIBLE);
-			tv_edit.setVisibility(View.INVISIBLE);
+			view.findViewById(R.id.delete).setVisibility(View.INVISIBLE);
 			return;
 		}
 		new HttpTask(context, HttpTask.GET, "v2/cart_items/" + token, null) {
@@ -172,7 +172,7 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 							tv_allSelect.setSelected(true);
 						}
 						view.findViewById(R.id.footView).setVisibility(View.VISIBLE);
-						tv_edit.setVisibility(View.VISIBLE);
+						view.findViewById(R.id.delete).setVisibility(View.VISIBLE);
 					} else {
 						shoppingCartEntities.clear();
 						adapter.notifyDataSetChanged();
@@ -193,20 +193,19 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 			case 1001:
 				if (shoppingCartEntities.size() == 0) {
 					view.findViewById(R.id.footView).setVisibility(View.INVISIBLE);
-					tv_edit.setVisibility(View.INVISIBLE);
+					view.findViewById(R.id.delete).setVisibility(View.INVISIBLE);
 					return;
-				} else {
-
 				}
 				int count = 0;
 				for (int i = 0; i < shoppingCartEntities.size(); i++) {
 					if (shoppingCartEntities.get(i).isSelected()) {
 						count++;
 					}
-
 				}
 				if (count == shoppingCartEntities.size()) {
 					tv_allSelect.setSelected(true);
+				} else {
+					tv_allSelect.setSelected(false);
 				}
 				total = (Double) msg.obj;
 				DecimalFormat df = new DecimalFormat("##0.00");
@@ -233,13 +232,8 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.edit:
-			if ("编辑".equals(tv_edit.getText().toString())) {
-				edit();
-			} else {
-				complete();
-			}
-
+		case R.id.delete:
+			delect();
 			break;
 		case R.id.allSelect:
 			if (tv_allSelect.isSelected()) {
@@ -251,30 +245,23 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 			}
 			break;
 		case R.id.orderNow:
-			if ("删除".equals(tv_orderNow.getText().toString())) {
-				delect();
-			} else {
-				// 去结算
-				if (total > 0) {
-					Intent intent = new Intent(context, FillOrdersActivity.class);
-					OrderEntity orderEntity = new OrderEntity();
-					DecimalFormat df = new DecimalFormat("#,##0.00");
-					String strValue = df.format(total);
-					orderEntity.setTotal(strValue);
-					final List<ShoppingCartEntity> newShoppingCartEntites = new ArrayList<ShoppingCartEntity>();
-					for (int i = 0; i < shoppingCartEntities.size(); i++) {
-						ShoppingCartEntity shoppingCartEntity = shoppingCartEntities.get(i);
-						if (shoppingCartEntity.isSelected()) {
-							newShoppingCartEntites.add(shoppingCartEntity);
-						}
+			// 去结算
+			if (total > 0) {
+				Intent intent = new Intent(context, FillOrdersActivity.class);
+				OrderEntity orderEntity = new OrderEntity();
+				DecimalFormat df = new DecimalFormat("#,##0.00");
+				String strValue = df.format(total);
+				orderEntity.setTotal(strValue);
+				final List<ShoppingCartEntity> newShoppingCartEntites = new ArrayList<ShoppingCartEntity>();
+				for (int i = 0; i < shoppingCartEntities.size(); i++) {
+					ShoppingCartEntity shoppingCartEntity = shoppingCartEntities.get(i);
+					if (shoppingCartEntity.isSelected()) {
+						newShoppingCartEntites.add(shoppingCartEntity);
 					}
-					orderEntity.setShoppingCartEntities(newShoppingCartEntites);
-					intent.putExtra("orderEntity", orderEntity);
-					startActivity(intent);
-				} else {
-
 				}
-
+				orderEntity.setShoppingCartEntities(newShoppingCartEntites);
+				intent.putExtra("orderEntity", orderEntity);
+				startActivity(intent);
 			}
 			break;
 		case R.id.goHomepage:
@@ -287,13 +274,8 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 	}
 
 	private void delect() {
-		String token = LocalCache.getInstance(context).getToken();
-		if (TextUtils.isEmpty(token)) {
-			return;
-		}
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("token", token);
-		JSONArray jsonArray = new JSONArray();
+		alertDialog = new DeleteDialog(context).builder();
+		final JSONArray jsonArray = new JSONArray();
 		final List<ShoppingCartEntity> newShoppingCartEntites = new ArrayList<ShoppingCartEntity>();
 		for (int i = 0; i < shoppingCartEntities.size(); i++) {
 			ShoppingCartEntity shoppingCartEntity = shoppingCartEntities.get(i);
@@ -303,6 +285,37 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 				newShoppingCartEntites.add(shoppingCartEntity);
 			}
 		}
+		if (jsonArray.length() == 0)
+			return;
+		alertDialog.setTitle("您确定要删除这些商品吗？").setPositiveButton("是", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				alertDialog.dismiss();
+				delete(jsonArray, newShoppingCartEntites);
+			}
+		}).setNegativeButton("否", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				alertDialog.dismiss();
+			}
+		});
+		alertDialog.show();
+	}
+
+	private void selected(boolean selected) {
+		for (int i = 0; i < shoppingCartEntities.size(); i++) {
+			shoppingCartEntities.get(i).setSelected(selected);
+		}
+		adapter.notifyDataSetChanged();
+	}
+
+	private void delete(JSONArray jsonArray, final List<ShoppingCartEntity> newShoppingCartEntites) {
+		String token = LocalCache.getInstance(context).getToken();
+		if (TextUtils.isEmpty(token)) {
+			return;
+		}
+		final Map<String, String> map = new HashMap<String, String>();
+		map.put("token", token);
 		map.put("unique_ids", jsonArray.toString());
 		new HttpTask(context, HttpTask.DELETE, "v1/cart_items", map) {
 			protected void onPostExecute(String result) {
@@ -320,41 +333,8 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-
 			};
 		}.run();
-
-	}
-
-	private void selected(boolean selected) {
-		for (int i = 0; i < shoppingCartEntities.size(); i++) {
-			shoppingCartEntities.get(i).setSelected(selected);
-		}
-		adapter.notifyDataSetChanged();
-	}
-
-	private void complete() {
-		tv_edit.setText("编辑");
-		adapter.setDelect(false);
-		tv_total.setVisibility(View.VISIBLE);
-		tv_orderNow.setText("立即下单");
-		adapter.notifyDataSetChanged();
-
-	}
-
-	/**
-	 * 编辑事件
-	 */
-	private void edit() {
-		for (int i = 0; i < shoppingCartEntities.size(); i++) {
-			shoppingCartEntities.get(i).setSelecteIsShow(true);
-		}
-		tv_edit.setText("完成");
-		tv_total.setVisibility(View.INVISIBLE);
-		tv_orderNow.setText("删除");
-		adapter.setDelect(true);
-		adapter.notifyDataSetChanged();
-
 	}
 
 	@Override

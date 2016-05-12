@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,6 +18,7 @@ import com.yaohuola.data.entity.ProductEntity;
 import com.yaohuola.data.entity.ShoppingCartEntity;
 import com.yaohuola.my.activity.LoginActivity;
 import com.yaohuola.task.HttpTask;
+import com.yaohuola.view.DeleteDialog;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -115,9 +117,51 @@ public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartEntity> {
 				if (count > 1) {
 					count--;
 					updateCartItemNumber(position, shoppingCartEntity.getShoppingcartId(), count);
+				} else {
+					final DeleteDialog alertDialog = new DeleteDialog(context).builder();
+					alertDialog.setTitle("您确定要删除这些商品吗？").setPositiveButton("是", new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							alertDialog.dismiss();
+							String token = LocalCache.getInstance(context).getToken();
+							if (TextUtils.isEmpty(token)) {
+								return;
+							}
+							Map<String, String> map = new HashMap<String, String>();
+							map.put("token", token);
+							JSONArray jsonArray = new JSONArray();
+							jsonArray.put(shoppingCartEntity.getShoppingcartId());
+							if (jsonArray.length() == 0)
+								return;
+							map.put("unique_ids", jsonArray.toString());
+							new HttpTask(context, HttpTask.DELETE, "v1/cart_items", map) {
+								protected void onPostExecute(String result) {
+									if (TextUtils.isEmpty(result)) {
+										return;
+									}
+									try {
+										JSONObject jsonObject = new JSONObject(result);
+										int code = jsonObject.optInt("result", -1);
+										if (code == 0) {
+											list.remove(position);
+											notifyDataSetChanged();
+										}
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+
+								};
+							}.run();
+						}
+					}).setNegativeButton("否", new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							alertDialog.dismiss();
+						}
+					});
+					alertDialog.show();
 				}
 			}
-
 		});
 		itemCache.tv_jia.setOnClickListener(new OnClickListener() {
 
@@ -135,11 +179,9 @@ public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartEntity> {
 
 			@Override
 			public void onClick(View v) {
-				if (!isDelect) {
-					int count = productEntity.getNumber();
-					if (count > productEntity.getStock_num()) {
-						return;
-					}
+				int count = productEntity.getNumber();
+				if (count > productEntity.getStock_num()) {
+					return;
 				}
 				if (shoppingCartEntity.isSelected()) {
 					shoppingCartEntity.setSelected(false);
