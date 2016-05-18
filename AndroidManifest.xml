@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.yaohuola"
-    android:versionCode="20160511"
-    android:versionName="2.2" >
+    android:versionCode="20160518"
+    android:versionName="2.3" >
 
     <uses-sdk
         android:minSdkVersion="8"

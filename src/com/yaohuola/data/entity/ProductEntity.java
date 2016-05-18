@@ -21,7 +21,7 @@ public class ProductEntity extends BaseEntity {
 
 	private double price;
 
-	private int number = 1;
+	private int number;
 
 	/**
 	 * 商品规格
@@ -68,8 +68,24 @@ public class ProductEntity extends BaseEntity {
 	 */
 	private String favorite_unique_id;
 	
+	/**
+	 * 单价
+	 */
 	private String unit_price;
+	
+	/**
+	 * 购物车ID
+	 */
+	private String cart_item_unique_id;
 
+
+	public String getCart_item_unique_id() {
+		return cart_item_unique_id;
+	}
+
+	public void setCart_item_unique_id(String cart_item_unique_id) {
+		this.cart_item_unique_id = cart_item_unique_id;
+	}
 
 	public String getUnit_price() {
 		return unit_price;

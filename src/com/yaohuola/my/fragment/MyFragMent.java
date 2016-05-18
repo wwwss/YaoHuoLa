@@ -26,6 +26,7 @@ import com.yaohuola.YaoHuoLaApplication;
 import com.yaohuola.data.cache.LocalCache;
 import com.yaohuola.data.entity.UserEntity;
 import com.yaohuola.my.activity.AboutUsActivity;
+import com.yaohuola.my.activity.AddrManagementActivity;
 import com.yaohuola.my.activity.CollectBabyActivity;
 import com.yaohuola.my.activity.LoginActivity;
 import com.yaohuola.my.activity.OrderListActivity;
@@ -61,11 +62,11 @@ public class MyFragMent extends Fragment implements OnClickListener {
 		view.findViewById(R.id.updateUserInfo).setOnClickListener(this);
 		view.findViewById(R.id.completedOrders).setOnClickListener(this);
 		view.findViewById(R.id.forReceivingOrders).setOnClickListener(this);
+		view.findViewById(R.id.addrManagement).setOnClickListener(this);
 		view.findViewById(R.id.collectBaby).setOnClickListener(this);
 		view.findViewById(R.id.feedback).setOnClickListener(this);
 		view.findViewById(R.id.aboutUs).setOnClickListener(this);
 		kefutell = LocalCache.getInstance(context).getKeFuTell();
-
 	}
 
 	@Override
@@ -164,6 +165,15 @@ public class MyFragMent extends Fragment implements OnClickListener {
 			}
 			intent = new Intent(context, OrderListActivity.class);
 			intent.putExtra("type", 0);
+			startActivity(intent);
+			break;
+		case R.id.addrManagement:
+			if (!YaoHuoLaApplication.isLogin(context)) {
+				intent = new Intent(context, LoginActivity.class);
+				context.startActivity(intent);
+				return;
+			}
+			intent = new Intent(context, AddrManagementActivity.class);
 			startActivity(intent);
 			break;
 		case R.id.collectBaby:

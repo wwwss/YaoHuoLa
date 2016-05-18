@@ -166,8 +166,8 @@ public class OrderDetailsActivity extends BaseActivity implements OnItemClickLis
 		tv_totalPrice.setText("共" + totalNumber + "件产品" + " " + "合计：" + totalPrice);
 		tv_orderNumber.setText("订单编号：" + order.getSn());
 		tv_createTime.setText("创建时间：" + order.getCreate_at());
-		tv_deliveryTime.setText("发货时间：" + order.getCreate_at());
-		tv_transactionTime.setText("成交时间：" + order.getCreate_at());
+		tv_deliveryTime.setText("发货时间：" + order.getDelivery_time());
+		tv_transactionTime.setText("成交时间：" + order.getComplete_time());
 		if (productEntities.size() > 0) {
 			adapter.notifyDataSetChanged();
 			ListViewUitls.setListViewHeightBasedOnChildren(listView);

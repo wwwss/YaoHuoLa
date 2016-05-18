@@ -161,6 +161,7 @@
             <RelativeLayout
                 android:id="@+id/shippingAddressManagement"
                 android:layout_width="fill_parent"
+                android:visibility="gone"
                 android:layout_height="50dp" >
 
                 <TextView

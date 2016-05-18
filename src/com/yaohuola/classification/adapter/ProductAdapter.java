@@ -14,29 +14,26 @@ import android.widget.TextView;
 
 /**
  * 
- * @author admin
- *  全部分类适配器
+ * @author admin 全部分类适配器
  */
 public class ProductAdapter extends BaseAdapter<ProductEntity> {
 	public ProductAdapter(Context context, List<ProductEntity> list) {
 		super(context, list);
 	}
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
-			convertView = LayoutInflater.from(context).inflate(
-					R.layout.adapter_product, null);
+			convertView = LayoutInflater.from(context).inflate(R.layout.adapter_product, null);
 			ItemCache itemCache = new ItemCache();
-			itemCache.tvName=(TextView) convertView.findViewById(R.id.name);
+			itemCache.tvName = (TextView) convertView.findViewById(R.id.name);
 			convertView.setTag(itemCache);
 		}
 		ItemCache itemCache = (ItemCache) convertView.getTag();
-		ProductEntity productEntity= list.get(position);
+		ProductEntity productEntity = list.get(position);
 		itemCache.tvName.setText(productEntity.getName());
 		return convertView;
 	}
-
-
 
 	private class ItemCache {
 		public TextView tvName;// 名称

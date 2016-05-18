@@ -41,16 +41,33 @@ import android.widget.Toast;
 
 public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartEntity> {
 	private Handler handler;
-	public boolean isDelect;
-	private int oldPosition;
+//	public boolean isDelect;
+	//private int oldPosition;
+	// 字母位置记录
+	private Map<String, Integer> indexMap;
 
-	public void setDelect(boolean isDelect) {
-		this.isDelect = isDelect;
-	}
+//	public void setDelect(boolean isDelect) {
+//		this.isDelect = isDelect;
+//	}
 
 	public ShoppingCartAdapter(Context context, List<ShoppingCartEntity> list, Handler handler) {
 		super(context, list);
 		this.handler = handler;
+		indexMap = new HashMap<String, Integer>();
+	}
+
+	/**
+	 * 记录导航字母位置
+	 */
+	public void recordIndex() {
+		indexMap.clear();
+		for (int i = 0; i < list.size(); i++) {
+			ShoppingCartEntity shoppingCartEntity = list.get(i);
+			if (indexMap.containsKey(shoppingCartEntity.getCategoryName())) {
+				continue;
+			}
+			indexMap.put(shoppingCartEntity.getCategoryName(), i);
+		}
 	}
 
 	@Override
@@ -65,8 +82,8 @@ public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartEntity> {
 			itemCache.tv_productDescription = (TextView) convertView.findViewById(R.id.description);
 			itemCache.tv_productNumber = (TextView) convertView.findViewById(R.id.number);
 			itemCache.tv_stockNumber = (TextView) convertView.findViewById(R.id.stockNumber);
-			itemCache.tv_jian = (TextView) convertView.findViewById(R.id.jian);
-			itemCache.tv_jia = (TextView) convertView.findViewById(R.id.jia);
+			itemCache.iv_jian = (ImageView) convertView.findViewById(R.id.jian);
+			itemCache.iv_jia = (ImageView) convertView.findViewById(R.id.jia);
 			itemCache.tv_price = (TextView) convertView.findViewById(R.id.price);
 			itemCache.llIsSelected = (LinearLayout) convertView.findViewById(R.id.llIsSelected);
 			convertView.setTag(itemCache);
@@ -74,21 +91,17 @@ public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartEntity> {
 		}
 		final ItemCache itemCache = (ItemCache) convertView.getTag();
 		final ShoppingCartEntity shoppingCartEntity = list.get(position);
-		ShoppingCartEntity oldShoppingCartEntity = new ShoppingCartEntity();
-		if (oldPosition <= list.size() - 1) {
-			oldShoppingCartEntity = list.get(oldPosition);
-		}
 		final ProductEntity productEntity = shoppingCartEntity.getProductEntity();
-		if (position == 0) {
+		// 设置头部是否显示
+		int index = indexMap.get(shoppingCartEntity.getCategoryName());
+		if (index == position) {
+			// 设置头部文字
 			itemCache.tv_categoryName.setVisibility(View.VISIBLE);
+			itemCache.tv_categoryName.setText(shoppingCartEntity.getCategoryName());
 		} else {
-			if (shoppingCartEntity.getCategoryName().equals(oldShoppingCartEntity.getCategoryName())) {
-				itemCache.tv_categoryName.setVisibility(View.GONE);
-			} else {
-				itemCache.tv_categoryName.setVisibility(View.VISIBLE);
-			}
+			// 隐藏头部信息
+			itemCache.tv_categoryName.setVisibility(View.GONE);
 		}
-		itemCache.tv_categoryName.setText(shoppingCartEntity.getCategoryName());
 		if (TextUtils.isEmpty(productEntity.getPic())) {
 			itemCache.iv_pic.setImageResource(R.drawable.default_product_icon);
 		} else {
@@ -109,7 +122,7 @@ public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartEntity> {
 		} else {
 			itemCache.iv_isSelected.setVisibility(View.INVISIBLE);
 		}
-		itemCache.tv_jian.setOnClickListener(new OnClickListener() {
+		itemCache.iv_jian.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -163,7 +176,7 @@ public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartEntity> {
 				}
 			}
 		});
-		itemCache.tv_jia.setOnClickListener(new OnClickListener() {
+		itemCache.iv_jia.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -204,7 +217,7 @@ public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartEntity> {
 		} else {
 			itemCache.tv_stockNumber.setVisibility(View.GONE);
 		}
-		oldPosition = position;
+		//oldPosition = position;
 		return convertView;
 	}
 
@@ -215,8 +228,8 @@ public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartEntity> {
 		private TextView tv_productName;
 		private TextView tv_stockNumber;
 		private TextView tv_productDescription;// 产品描述
-		private TextView tv_jian;// 减
-		private TextView tv_jia;// 加
+		private ImageView iv_jian;// 减
+		private ImageView iv_jia;// 加
 		private TextView tv_productNumber;// 数量
 		private TextView tv_price;// 价格
 		private LinearLayout llIsSelected;

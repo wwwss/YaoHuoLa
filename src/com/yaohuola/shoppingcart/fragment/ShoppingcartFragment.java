@@ -169,12 +169,14 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 						}
 						if (shoppingCartEntities.size() > 0) {
 							adapter.notifyDataSetChanged();
+							adapter.recordIndex();
 							tv_allSelect.setSelected(true);
 						}
 						view.findViewById(R.id.footView).setVisibility(View.VISIBLE);
 						view.findViewById(R.id.delete).setVisibility(View.VISIBLE);
 					} else {
 						shoppingCartEntities.clear();
+						adapter.recordIndex();
 						adapter.notifyDataSetChanged();
 					}
 				} catch (JSONException e) {

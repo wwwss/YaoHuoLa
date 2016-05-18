@@ -3,6 +3,7 @@ package com.yaohuola.homepage.adapter;
 import java.util.List;
 
 import com.android.yaohuola.R;
+import com.yaohuola.YaoHuoLaApplication;
 import com.yaohuola.adapter.BaseAdapter;
 import com.yaohuola.data.entity.ClassifyEntity;
 
@@ -34,7 +35,8 @@ public class ClassifyAdapter extends BaseAdapter<ClassifyEntity> {
 		ItemCache itemCache = (ItemCache) convertView.getTag();
 		ClassifyEntity classifyEntity = list.get(position);
 		itemCache.tvName.setText(classifyEntity.getName());
-		itemCache.ivPic.setImageResource(classifyEntity.getDrawable());
+		YaoHuoLaApplication.disPlayFromUrl(classifyEntity.getPic(), itemCache.ivPic, R.drawable.default_product_icon);
+		//itemCache.ivPic.setImageResource(classifyEntity.getDrawable());
 		return convertView;
 	}
 

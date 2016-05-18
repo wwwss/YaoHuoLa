@@ -41,8 +41,11 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_nomarl"
-        android:orientation="horizontal" >
+        android:gravity="center_vertical"
+        android:minHeight="32dp"
+        android:orientation="horizontal"
+        android:paddingRight="@dimen/margin_nomarl"
+        android:paddingLeft="@dimen/margin_nomarl" >
 
         <TextView
             android:id="@+id/price"
@@ -53,12 +56,33 @@
             android:textSize="@dimen/text_size_normal" />
 
         <ImageView
-            android:id="@+id/addToCart"
-            android:layout_width="44dp"
-            android:layout_height="33dp"
-            android:layout_gravity="bottom|right"
+            android:id="@+id/subtract"
+            android:layout_width="23dp"
+            android:layout_height="25dp"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/shopping_cart" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/subtract_icon"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
+            android:gravity="center"
+            android:minWidth="25dp"
+            android:textColor="@color/red"
+            android:textSize="@dimen/text_size_min"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/addToCart"
+            android:layout_width="23dp"
+            android:layout_height="25dp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            android:src="@drawable/add_icon" />
     </LinearLayout>
 
 </LinearLayout>

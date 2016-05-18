@@ -8,13 +8,13 @@
         android:id="@+id/categoryName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/main_bg"
         android:gravity="center_vertical"
         android:minHeight="30dp"
         android:paddingLeft="20dp"
-        android:background="@color/main_bg"
         android:textColor="@color/black"
-        android:visibility="gone"
-        android:textSize="@dimen/text_size_small" />
+        android:textSize="@dimen/text_size_small"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -81,25 +81,22 @@
                 android:textSize="@dimen/text_size_small" />
 
             <LinearLayout
-                android:layout_width="132dp"
+                android:layout_width="115dp"
                 android:layout_height="30dp"
                 android:background="@drawable/product_number_bg"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/margin_smaller"
+                android:paddingRight="@dimen/margin_smaller" >
 
-                <TextView
+                <ImageView
                     android:id="@+id/jian"
-                    android:layout_width="44dp"
-                    android:layout_height="fill_parent"
-                    android:gravity="center"
-                    android:text="－"
-                    android:textColor="@color/text_color_dark"
-                    android:textSize="@dimen/text_size_small" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="fill_parent"
-                    android:background="@color/main_bg" />
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="@dimen/margin_smaller"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/jian_icon" />
 
                 <TextView
                     android:id="@+id/number"
@@ -110,19 +107,14 @@
                     android:textColor="@color/text_color_dark"
                     android:textSize="@dimen/text_size_small" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="fill_parent"
-                    android:background="@color/main_bg" />
-
-                <TextView
+                <ImageView
                     android:id="@+id/jia"
-                    android:layout_width="44dp"
-                    android:layout_height="fill_parent"
-                    android:gravity="center"
-                    android:text="＋"
-                    android:textColor="@color/text_color_dark"
-                    android:textSize="@dimen/text_size_small" />
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="@dimen/margin_smaller"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/jia_icon" />
             </LinearLayout>
         </LinearLayout>
 

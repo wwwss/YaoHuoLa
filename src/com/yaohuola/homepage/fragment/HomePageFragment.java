@@ -14,6 +14,7 @@ import com.library.uitls.AppUtils;
 import com.library.view.SAGridView;
 import com.yaohuola.classification.activity.ProductAitivity;
 import com.yaohuola.classification.activity.ProductDetailsActivity;
+import com.yaohuola.data.cache.LocalCache;
 import com.yaohuola.data.entity.BannerEntity;
 import com.yaohuola.data.entity.ClassifyEntity;
 import com.yaohuola.data.entity.HotSaleEntity;
@@ -138,28 +139,7 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 	 * 获取数据的方法
 	 */
 	public void getData() {
-		if (classifyEntities.size() > 0) {
-			classifyEntities.clear();
-		}
-		String[] classifyIds = { "_bIhGShQHY-CSm1kIyBrtw", "MTSt3rTNVFGs75uDrOo74g", "y4knMqCpjnpi0B2yl6FdtQ",
-				"DdPjlyzHibKAjOrBPnV3_g", "Ua9mTsufkCx349GamgB5XA", "4lJQFlVp21IBh2-zRJhcUw", "TDi7vm979s3XmGqfc8vYvA",
-				"kB3rUT9sWbtOPAp8RqbhDQ" };
-		int[] picArray = { R.drawable.nuts_icon, R.drawable.dry_cargo_icon, R.drawable.cereal_icon,
-				R.drawable.flowering_tea_icon, R.drawable.snacks_icon, R.drawable.milk_icon, R.drawable.candy_icon,
-				R.drawable.biscuit_icon };
-		String[] nameArray = { "坚果", "干货", "杂粮", "花茶", "零食", "牛奶", "糖果", "饼干" };
-		for (int i = 0; i < picArray.length; i++) {
-			ClassifyEntity classifyEntity = new ClassifyEntity();
-			classifyEntity.setDrawable(picArray[i]);
-			classifyEntity.setName(nameArray[i]);
-			classifyEntity.setId(classifyIds[i]);
-			classifyEntities.add(classifyEntity);
-		}
-		if (classifyEntities.size() > 0) {
-			classifyAdapter.notifyDataSetChanged();
-		}
 		new HttpTask(context, HttpTask.GET, "v1/adverts/advert", null) {
-			@SuppressWarnings("null")
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;
@@ -170,7 +150,7 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 					if (code == 0) {
 						List<BannerEntity> imageList = new ArrayList<BannerEntity>();
 						JSONArray bannerArray = jsonObject.optJSONArray("adverts");
-						if (bannerArray == null && bannerArray.length() == 0) {
+						if (bannerArray == null || bannerArray.length() == 0) {
 							return;
 						}
 						for (int i = 0; i < bannerArray.length(); i++) {
@@ -185,7 +165,27 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 							banner.setTitle(bannerObj.optString("title", ""));
 							imageList.add(banner);
 						}
-						slideShowView.setData(imageList);
+						if (imageList.size()>0) {
+							slideShowView.setData(imageList);
+						}
+						JSONArray jsonArray = jsonObject.optJSONArray("categories");
+						if (jsonArray == null || jsonArray.length() == 0) {
+							return;
+						}
+						for (int i = 0; i < jsonArray.length(); i++) {
+							JSONObject jsonObject2 = jsonArray.optJSONObject(i);
+							if (jsonObject2 == null) {
+								continue;
+							}
+							ClassifyEntity classifyEntity = new ClassifyEntity();
+							classifyEntity.setPic(jsonObject2.optString("image", ""));
+							classifyEntity.setName(jsonObject2.optString("name", ""));
+							classifyEntity.setId(jsonObject2.optString("unique_id", ""));
+							classifyEntities.add(classifyEntity);
+						}
+						if (classifyEntities.size()>0) {
+							classifyAdapter.notifyDataSetChanged();
+						}
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -204,6 +204,10 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 	private void getPopularsData() {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("page_num", pageNum + "");
+		String token = LocalCache.getInstance(context).getToken();
+		if (!TextUtils.isEmpty(token)) {
+			map.put("token", token);
+		}
 		new HttpTask(context, HttpTask.GET, "v1/adverts/hot_products", map) {
 			@SuppressWarnings("null")
 			protected void onPostExecute(String result) {
@@ -217,10 +221,10 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 					if (code == 0) {
 						total_pages = jsonObject.optInt("total_pages", 1);
 						JSONArray jsonArray = jsonObject.optJSONArray("populars");
-
 						if (jsonArray == null && jsonArray.length() == 0) {
 							return;
 						}
+						hotSaleEntities.clear();
 						for (int i = 0; i < jsonArray.length(); i++) {
 							JSONObject jsonObject2 = jsonArray.optJSONObject(i);
 							if (jsonObject2 == null) {
@@ -234,6 +238,8 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 							hotSaleEntity.setPrice(jsonObject2.optDouble("price", 0));
 							hotSaleEntity.setSpec(jsonObject2.optString("spec", ""));
 							hotSaleEntity.setStock_num(jsonObject2.optInt("stock_num", 0));
+							hotSaleEntity.setCart_item_unique_id(jsonObject2.optString("cart_item_unique_id", ""));
+							hotSaleEntity.setNumber(jsonObject2.optInt("number", 0));
 							hotSaleEntities.add(hotSaleEntity);
 						}
 						if (hotSaleEntities.size() > 0) {
@@ -278,6 +284,8 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 		// 判断显示才加载滚动banner
 		if (getUserVisibleHint()) {
 			handler.sendEmptyMessage(1002);
+			pageNum=1;
+			getPopularsData();
 		} else {
 			handler.sendEmptyMessage(1003);
 		}
