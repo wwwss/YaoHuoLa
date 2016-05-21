@@ -1,8 +1,12 @@
 package com.yaohuola.data.cache;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.text.TextUtils;
 
 /**
  * 功能：本地缓存，保存用户账号，电话等信息<br>
@@ -127,6 +131,34 @@ public class LocalCache {
 	public void setSendPrice(float sendPrice) {
 		Editor editor = sp.edit();
 		editor.putFloat(SENDPRICE, sendPrice);
+		editor.commit();
+	}
+
+	public void setJSONArray(String key, JSONArray jsonArray) {
+		Editor editor = sp.edit();
+		editor.remove(key);
+		editor.putString(key, jsonArray.toString());
+		editor.commit();
+	}
+
+	public JSONArray getJSONArray(String key) {
+		String string = sp.getString(key, null);
+		if (TextUtils.isEmpty(string)) {
+			return null;
+		}
+		JSONArray jsonArray = null;
+		try {
+			jsonArray = new JSONArray(string);
+			return jsonArray;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return jsonArray;
+	}
+
+	public void clear(String key) {
+		Editor editor = sp.edit();
+		editor.remove(key);
 		editor.commit();
 	}
 	// /**

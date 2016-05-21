@@ -9,34 +9,28 @@ import org.json.JSONObject;
 
 import com.android.yaohuola.R;
 import com.yaohuola.activity.MainActivity;
+import com.yaohuola.activity.SearchActivity;
 import com.yaohuola.classification.adapter.AllClassifyAdapter;
 import com.yaohuola.classification.adapter.SmallClassifyAdapter;
 import com.yaohuola.data.entity.ClassifyEntity;
 import com.yaohuola.data.entity.ProductEntity;
 import com.yaohuola.data.entity.SmallClassifyEntity;
 import com.yaohuola.task.HttpTask;
-import com.yaohuola.task.SearchTask;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 /**
  * 
@@ -51,7 +45,6 @@ public class ClassificationFragment extends Fragment implements OnItemClickListe
 	private List<SmallClassifyEntity> smallClassifyEntities;
 	private SmallClassifyAdapter smallClassifyAdapter;
 	private Context context;
-	private EditText etSearch;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,7 +60,6 @@ public class ClassificationFragment extends Fragment implements OnItemClickListe
 	private void initView() {
 		View view = getView();
 		context = getActivity();
-		etSearch = (EditText) view.findViewById(R.id.edit);
 		allClassificationListView = (ListView) view.findViewById(R.id.allClassifyListView);
 		classifyEntities = new ArrayList<ClassifyEntity>();
 		allClassifyAdapter = new AllClassifyAdapter(context, classifyEntities);
@@ -77,42 +69,10 @@ public class ClassificationFragment extends Fragment implements OnItemClickListe
 		smallClassifyEntities = new ArrayList<SmallClassifyEntity>();
 		smallClassifyAdapter = new SmallClassifyAdapter(context, smallClassifyEntities);
 		smallclassifyListView.setAdapter(smallClassifyAdapter);
-		etSearch.setOnEditorActionListener(new OnEditorActionListener() {
-
-			@Override
-			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
-				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-
-					InputMethodManager imm = (InputMethodManager) v.getContext()
-							.getSystemService(Context.INPUT_METHOD_SERVICE);
-					if (imm.isActive()) {
-						imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
-					}
-					String keyWord = etSearch.getText().toString();
-					if (TextUtils.isEmpty(keyWord)) {
-						Toast.makeText(context, "搜索内容不能为空", Toast.LENGTH_SHORT).show();
-						return false;
-					}
-					SearchTask.search(context, "v1/products/search_name", keyWord, 0);
-					return true;
-				}
-				return false;
-			}
-
-		});
-		view.findViewById(R.id.seach).setOnClickListener(this);
+		view.findViewById(R.id.rlSearch).setOnClickListener(this);
 		// 获取数据
 		getData();
 	}
-
-	// @Override
-	// public void onResume() {
-	// if (getUserVisibleHint()) {
-	// getData();
-	// }
-	// super.onResume();
-	// }
 
 	/**
 	 * 获取数据
@@ -272,13 +232,8 @@ public class ClassificationFragment extends Fragment implements OnItemClickListe
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.seach:
-			String keyWord = etSearch.getText().toString();
-			if (TextUtils.isEmpty(keyWord)) {
-				Toast.makeText(context, "搜索内容不能为空", Toast.LENGTH_SHORT).show();
-				return;
-			}
-			SearchTask.search(context, "v1/products/search_name", keyWord, 0);
+		case R.id.rlSearch:
+			startActivity(new Intent(context,SearchActivity.class));
 			break;
 
 		default:

@@ -21,6 +21,7 @@
             android:src="@drawable/yaohuola_icon" />
 
         <RelativeLayout
+             android:id="@+id/rlSearch"
             android:layout_width="0dp"
             android:layout_height="33dp"
             android:layout_marginRight="@dimen/margin_large"

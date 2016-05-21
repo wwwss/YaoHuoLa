@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import com.android.yaohuola.R;
 import com.library.uitls.AppUtils;
 import com.library.view.SAGridView;
+import com.yaohuola.activity.SearchActivity;
 import com.yaohuola.classification.activity.ProductAitivity;
 import com.yaohuola.classification.activity.ProductDetailsActivity;
 import com.yaohuola.data.cache.LocalCache;
@@ -24,7 +25,6 @@ import com.yaohuola.homepage.adapter.ClassifyAdapter;
 import com.yaohuola.homepage.adapter.HotSaleAdapter;
 import com.yaohuola.interfaces.FragmentSwitchListenter;
 import com.yaohuola.task.HttpTask;
-import com.yaohuola.task.SearchTask;
 import com.yaohuola.view.SlideShowView;
 
 import android.app.Activity;
@@ -34,23 +34,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 /**
  * 
@@ -65,7 +58,7 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 	private HotSaleAdapter hotSaleAdapter;
 	private List<HotSaleEntity> hotSaleEntities;
 	private Context context;
-	private EditText etSearch;
+//	private EditText etSearch;
 	private ScrollView scrollView;
 	private RelativeLayout footview;
 	private View view;
@@ -89,7 +82,7 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 	private void initView() {
 		view = getView();
 		context = getActivity();
-		etSearch = (EditText) view.findViewById(R.id.edit);
+//		etSearch = (EditText) view.findViewById(R.id.edit);
 		slideShowView = (SlideShowView) view.findViewById(R.id.slideshowView);
 		classifyGridView = (SAGridView) view.findViewById(R.id.classifyGridView);
 		classifyEntities = new ArrayList<ClassifyEntity>();
@@ -101,38 +94,38 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 		hotSaleAdapter = new HotSaleAdapter(getActivity(), hotSaleEntities);
 		hotSaleGridView.setAdapter(hotSaleAdapter);
 		hotSaleGridView.setOnItemClickListener(this);
-		etSearch.setOnEditorActionListener(new OnEditorActionListener() {
-
-			@Override
-			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
-				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-
-					InputMethodManager imm = (InputMethodManager) v.getContext()
-							.getSystemService(Context.INPUT_METHOD_SERVICE);
-					if (imm.isActive()) {
-						imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
-					}
-					String keyWord = etSearch.getText().toString();
-					if (TextUtils.isEmpty(keyWord)) {
-						Toast.makeText(context, "搜索内容不能为空", Toast.LENGTH_SHORT).show();
-						return false;
-					}
-					SearchTask.search(context, "v1/products/search_name", keyWord, 0);
-					return true;
-				}
-				return false;
-			}
-
-		});
 		scrollView = (ScrollView) view.findViewById(R.id.scrollView);
 		scrollView.setOnTouchListener(this);
 		footview = (RelativeLayout) view.findViewById(R.id.footview);
-		view.findViewById(R.id.seach).setOnClickListener(this);
+		view.findViewById(R.id.rlSearch).setOnClickListener(this);
 		// 获取Banner数据
 		getData();
 		// 获取热门产品数据
 		getPopularsData();
+//		etSearch.setOnEditorActionListener(new OnEditorActionListener() {
+//
+//			@Override
+//			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//
+//				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+//
+//					InputMethodManager imm = (InputMethodManager) v.getContext()
+//							.getSystemService(Context.INPUT_METHOD_SERVICE);
+//					if (imm.isActive()) {
+//						imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+//					}
+//					String keyWord = etSearch.getText().toString();
+//					if (TextUtils.isEmpty(keyWord)) {
+//						Toast.makeText(context, "搜索内容不能为空", Toast.LENGTH_SHORT).show();
+//						return false;
+//					}
+//					SearchTask.search(context, "v1/products/search_name", keyWord, 0);
+//					return true;
+//				}
+//				return false;
+//			}
+//
+//		});
 	}
 
 	/**
@@ -224,7 +217,9 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 						if (jsonArray == null && jsonArray.length() == 0) {
 							return;
 						}
-						hotSaleEntities.clear();
+						if (pageNum==1) {
+							hotSaleEntities.clear();
+						}
 						for (int i = 0; i < jsonArray.length(); i++) {
 							JSONObject jsonObject2 = jsonArray.optJSONObject(i);
 							if (jsonObject2 == null) {
@@ -303,13 +298,14 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.seach:
-			String keyWord = etSearch.getText().toString();
-			if (TextUtils.isEmpty(keyWord)) {
-				Toast.makeText(context, "搜索内容不能为空", Toast.LENGTH_SHORT).show();
-				return;
-			}
-			SearchTask.search(context, "v1/products/search_name", keyWord, 0);
+		case R.id.rlSearch:
+//			String keyWord = etSearch.getText().toString();
+//			if (TextUtils.isEmpty(keyWord)) {
+//				Toast.makeText(context, "搜索内容不能为空", Toast.LENGTH_SHORT).show();
+//				return;
+//			}
+//			SearchTask.search(context, "v1/products/search_name", keyWord, 0);
+			startActivity(new Intent(context,SearchActivity.class));
 			break;
 
 		default:

@@ -27,9 +27,8 @@ public class YaoHuoLaApplication extends LibraryApplaction {
 			imageView.setImageResource(drawable);
 			return;
 		}
-		@SuppressWarnings("deprecation")
-		DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).showImageOnLoading(drawable) // 设置图片不缓存于内存中
-				.showImageForEmptyUri(drawable).cacheOnDisc(true).showImageOnFail(drawable)
+		DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).showImageOnLoading(drawable).cacheOnDisk(true) // 设置图片不缓存于内存中
+				.showImageForEmptyUri(drawable).resetViewBeforeLoading(true).showImageOnFail(drawable)
 				.bitmapConfig(Bitmap.Config.RGB_565) // 设置图片的质量
 				.imageScaleType(ImageScaleType.IN_SAMPLE_INT) // 设置图片的缩放类型，该方法可以有效减少内存的占用
 				.build();

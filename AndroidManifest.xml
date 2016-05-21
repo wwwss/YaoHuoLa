@@ -31,6 +31,10 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
+    <!-- 语音搜索所需要的权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:name="com.yaohuola.YaoHuoLaApplication"
         android:allowBackup="true"
@@ -117,8 +121,18 @@
             android:name="com.library.activity.NoNetActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 收藏页面 -->
         <activity
             android:name="com.yaohuola.my.activity.CollectBabyActivity"
+            android:screenOrientation="portrait" />
+        <!-- 搜索页面 -->
+        <activity
+            android:name="com.yaohuola.activity.SearchActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 搜索结果页面 -->
+        <activity
+            android:name="com.yaohuola.activity.SearchResultsAitivity"
             android:screenOrientation="portrait" />
         <!-- 配置友盟key -->
         <meta-data

@@ -10,7 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.library.uitls.AppUtils;
-import com.yaohuola.classification.activity.ProductAitivity;
+import com.yaohuola.activity.SearchResultsAitivity;
 import com.yaohuola.data.entity.ProductEntity;
 import com.yaohuola.data.entity.SmallClassifyEntity;
 
@@ -27,14 +27,14 @@ public class SearchTask {
 	 * @param searchType
 	 *            0是首页搜索 1是搜索框搜索
 	 */
-	public static void search(Context context, String func, final String keyWord, final int searchType) {
+	public static void search(Context context, final String keyWord) {
 		if (AppUtils.isFastClick()) {
 			return;
 		}
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("key_word", keyWord);
 		map.put("page_num", "1");
-		new HttpTask(context, HttpTask.POST, func, map) {
+		new HttpTask(context, HttpTask.POST, "v1/products/search_name", map) {
 			protected void onPreExecute() {
 				dialog.show();
 			};
@@ -72,12 +72,9 @@ public class SearchTask {
 							productEntities.add(productEntity);
 						}
 						smallClassifyEntity.setProductEntities(productEntities);
-						Intent intent = new Intent(context, ProductAitivity.class);
+						Intent intent = new Intent(context, SearchResultsAitivity.class);
 						intent.putExtra("smallClassifyEntity", smallClassifyEntity);
-						intent.putExtra("title", keyWord);
-						intent.putExtra("index", -1);
-						intent.putExtra("type", 2);
-						intent.putExtra("searchType", searchType);
+						intent.putExtra("searchContent", keyWord);
 						context.startActivity(intent);
 					}
 				} catch (JSONException e) {
@@ -87,4 +84,6 @@ public class SearchTask {
 		}.run();
 
 	}
+
+	
 }
