@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height" >
+
+        <LinearLayout
+            android:id="@+id/back"
+            android:layout_width="44dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/back_icon" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/searchInput"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@+id/search"
+            android:layout_toRightOf="@+id/back"
+            android:background="@drawable/search_bg2"
+            android:hint="@string/search_hint2"
+            android:imeOptions="actionSearch"
+            android:minHeight="33dp"
+            android:paddingLeft="20dp"
+            android:singleLine="true"
+            android:textColor="@color/grey"
+            android:textColorHint="@color/grey"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_nomarl"
+            android:layout_marginRight="@dimen/margin_nomarl"
+            android:gravity="center_vertical"
+            android:padding="@dimen/margin_small"
+            android:text="@string/search"
+            android:textColor="@color/red"
+            android:textSize="@dimen/text_size_small" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/margin_nomarl"
+                    android:text="@string/history_search"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/text_size_small" />
+
+                <ListView
+                    android:id="@+id/historySearchListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:divider="@color/main_bg"
+                    android:dividerHeight="@dimen/margin_smaller"
+                    android:listSelector="#00000000"
+                    android:scrollbars="none" />
+
+                <TextView
+                    android:id="@+id/clearSearchHistory"
+                    android:layout_width="150dp"
+                    android:layout_height="33dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/go_homepage_bg"
+                    android:gravity="center"
+                    android:text="@string/clear_search_history"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/text_size_small"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:paddingTop="20dp"
+                android:textColor="@color/text_color_dark"
+                android:textSize="@dimen/text_size_normal"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#efefef"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="3" >
+
+        <LinearLayout
+            android:id="@+id/microphone"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="2"
+            android:background="@drawable/search_footview_bg"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop"
+                android:src="@drawable/microphone_black_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="7dp"
+                android:text="@string/microphone_hint"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_small" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
