@@ -46,20 +46,18 @@
             android:paddingRight="@dimen/margin_nomarl"
             android:text="@string/classification"
             android:textColor="@color/text_color_dark"
-            android:visibility="gone"
-            android:textSize="@dimen/text_size_normal" />
+            android:textSize="@dimen/text_size_normal"
+            android:visibility="gone" />
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_height="fill_parent" >
 
         <GridView
             android:id="@+id/productGridView"
             android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="fill_parent"
             android:cacheColorHint="#00000000"
             android:fadeScrollbars="true"
             android:horizontalSpacing="5dp"
@@ -69,10 +67,22 @@
             android:scrollbars="none"
             android:verticalSpacing="5dp" />
 
+        <ImageView
+            android:id="@+id/shopping_cart"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="15dp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            android:src="@drawable/shopping_cart_floating_icon" />
+
         <RelativeLayout
             android:id="@+id/footview"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/productGridView"
             android:visibility="gone" >
 
             <TextView
@@ -105,6 +115,6 @@
                     android:textSize="18sp" />
             </LinearLayout>
         </RelativeLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

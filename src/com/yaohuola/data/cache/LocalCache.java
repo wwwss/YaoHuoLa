@@ -26,6 +26,7 @@ public class LocalCache {
 	private final String TOKEN = "token";
 	private final String KEFUTELL = "KeFuTell";
 	private final String SENDPRICE = "SendPrice";
+	private final String CARTTOTALNUM = "CartTotalNum";
 
 	private LocalCache(Context context) {
 		sp = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
@@ -55,6 +56,16 @@ public class LocalCache {
 		editor.remove(KEFUTELL);
 		editor.remove(SENDPRICE);
 		editor.commit();
+	}
+
+	public void setCartTotalNum(int cartTotalNum) {
+		Editor editor = sp.edit();
+		editor.putInt(CARTTOTALNUM, cartTotalNum);
+		editor.commit();
+	}
+
+	public int getCartTotalNum() {
+		return sp.getInt(CARTTOTALNUM, -1);
 	}
 
 	/**

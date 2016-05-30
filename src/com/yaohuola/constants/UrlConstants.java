@@ -6,20 +6,20 @@ public interface UrlConstants {
 	// */
 	// String SERVER = "http://103.21.117.21/";
 
-	/**
-	 * 公网服务器地址
-	 */
-	String SERVER = "http://yaohuo.la/";
-
-//	 /**
-//	 * 测试服务器地址
-//	 */
-//	 String SERVER = "http://192.168.0.113:3000/";
+	// /**
+	// * 公网服务器地址
+	// */
+	// String SERVER = "http://yaohuo.la/";
 
 	// /**
 	// * 测试服务器地址
 	// */
-	// String SERVER = "http://192.168.1.116:3000/";
+	// String SERVER = "http://192.168.0.113:3000/";
+
+	/**
+	 * 测试服务器地址
+	 */
+	String SERVER = "http://192.168.3.20:3000/";
 
 	/**
 	 * 公网服务器接口地址

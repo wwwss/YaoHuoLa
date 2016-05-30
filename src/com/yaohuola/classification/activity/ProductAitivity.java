@@ -11,9 +11,11 @@ import org.json.JSONObject;
 
 import com.android.yaohuola.R;
 import com.library.activity.BaseActivity;
+import com.yaohuola.activity.MainActivity;
 import com.yaohuola.classification.adapter.ProductGridViewAdapter;
+import com.yaohuola.data.cache.LocalCache;
 import com.yaohuola.data.entity.ProductEntity;
-import com.yaohuola.data.entity.SmallClassifyEntity;
+import com.yaohuola.interfaces.AddShoppingCartListener;
 import com.yaohuola.interfaces.AutoLoadListener;
 import com.yaohuola.interfaces.AutoLoadListener.AutoLoadCallBack;
 import com.yaohuola.task.HttpTask;
@@ -21,9 +23,12 @@ import com.yaohuola.task.HttpTask;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,20 +36,20 @@ import android.widget.TextView;
  * 
  * @author admin 产品页面
  */
-public class ProductAitivity extends BaseActivity implements OnItemClickListener, AutoLoadCallBack {
+public class ProductAitivity extends BaseActivity
+		implements OnItemClickListener, AutoLoadCallBack, AddShoppingCartListener {
 
 	private GridView productGridView;// 产品
 	private ProductGridViewAdapter productGridViewAdapter;
 	private List<ProductEntity> productEntities;
-	private SmallClassifyEntity smallClassifyEntity;
-	private int index;
 	private TextView tv_title;
 	private TextView tv_Classify;
 	private RelativeLayout footview;
 	private int type;
-	private int searchType;
 	private String title;
-	private String classifyId;
+	private String id;
+	private ImageView iv_shopping_cart;
+	private int total_pages;
 
 	@Override
 	public void setContentView() {
@@ -54,41 +59,33 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 
 	@Override
 	public void initView() {
+		type = getIntent().getIntExtra("type", -1);
+		id = getIntent().getStringExtra("id");
+		title = getIntent().getStringExtra("title");
+		tv_title = (TextView) findViewById(R.id.title);
+		findViewById(R.id.back).setOnClickListener(this);
+		tv_Classify = (TextView) findViewById(R.id.classify);
+		tv_Classify.setOnClickListener(this);
 		productGridView = (GridView) findViewById(R.id.productGridView);
 		productEntities = new ArrayList<ProductEntity>();
-		productGridViewAdapter = new ProductGridViewAdapter(this, productEntities);
+		productGridViewAdapter = new ProductGridViewAdapter(this, productEntities, this);
 		productGridView.setAdapter(productGridViewAdapter);
 		productGridView.setOnItemClickListener(this);
-		findViewById(R.id.back).setOnClickListener(this);
-		tv_title = (TextView) findViewById(R.id.title);
-		tv_Classify = (TextView) findViewById(R.id.classify);
-		smallClassifyEntity = (SmallClassifyEntity) getIntent().getSerializableExtra("smallClassifyEntity");
-		index = getIntent().getIntExtra("index", 0);
-		type = getIntent().getIntExtra("type", -1);
-		searchType = getIntent().getIntExtra("searchType", -1);
-		if (smallClassifyEntity == null) {
-			return;
-		}
-		if (index == -1) {
-			title = getIntent().getStringExtra("title");
-			tv_title.setText(title);
-			productEntities.addAll(smallClassifyEntity.getProductEntities());
-			productGridViewAdapter.notifyDataSetChanged();
-		} else {
-			getData();
-			tv_title.setText(smallClassifyEntity.getProductEntities().get(index).getName());
-		}
-		if (searchType == 1) {
-			classifyId=getIntent().getStringExtra("classifyId");
-			tv_Classify.setVisibility(View.VISIBLE);
-			tv_Classify.setOnClickListener(this);
-		} else {
-			tv_Classify.setVisibility(View.GONE);
-		}
+		iv_shopping_cart = (ImageView) findViewById(R.id.shopping_cart);
+		iv_shopping_cart.setOnClickListener(this);
 		footview = (RelativeLayout) findViewById(R.id.footview);
 		// 添加自动翻页的事件
 		AutoLoadListener autoLoadListener = new AutoLoadListener(this);
 		productGridView.setOnScrollListener(autoLoadListener);
+		if (!TextUtils.isEmpty(id) && !TextUtils.isEmpty(title)) {
+			tv_title.setText(title);
+			if (type == 2) {
+				tv_Classify.setVisibility(View.VISIBLE);
+			} else {
+				tv_Classify.setVisibility(View.GONE);
+			}
+			getData();
+		}
 
 	}
 
@@ -98,35 +95,32 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 	 * @param requestType请求类型
 	 */
 	private void getData() {
-		if (TextUtils.isEmpty(title) && smallClassifyEntity == null) {
-			hideFootView();
-			return;
-		}
 		String funcName = null;
-		int requestType = -1;
-		Map<String, String> map = null;
+		int HttpType = -1;
+		Map<String, String> map = new HashMap<String, String>();
+		String token = LocalCache.getInstance(this).getToken();
+		if (!TextUtils.isEmpty(token)) {
+			map.put("token", token);
+		}
 		switch (type) {
 		case 0:
-			map = new HashMap<String, String>();
+			HttpType = HttpTask.GET;
 			map.put("page_num", pageNum + "");
-			funcName = "v1/detail_categories/" + smallClassifyEntity.getProductEntities().get(index).getId();
-			requestType = HttpTask.GET;
+			funcName = "v1/detail_categories/" + id;
 			break;
 		case 1:
-			map = new HashMap<String, String>();
+			HttpType = HttpTask.GET;
 			map.put("page_num", pageNum + "");
-			funcName = "v1/products/sub_category/" + smallClassifyEntity.getId();
-			requestType = HttpTask.GET;
+			funcName = "v1/products/sub_category/" + id;
 			break;
 		case 2:
-			map = new HashMap<String, String>();
-			map.put("page_num", pageNum + "");
+			HttpType = HttpTask.POST;
 			map.put("key_word", title);
+			map.put("page_num", pageNum + "");
 			funcName = "v1/products/search";
-			requestType = HttpTask.POST;
 			break;
 		}
-		new HttpTask(this, requestType, funcName, map) {
+		new HttpTask(this, HttpType, funcName, map) {
 			protected void onPostExecute(String result) {
 				hideFootView();
 				if (TextUtils.isEmpty(result)) {
@@ -136,7 +130,7 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 					JSONObject jsonObject = new JSONObject(result);
 					int code = jsonObject.optInt("result", -1);
 					if (code == 0) {
-						smallClassifyEntity.setTotal_pages(jsonObject.optInt("total_pages", 1));
+						total_pages = (jsonObject.optInt("total_pages", 1));
 						JSONArray jsonArray = jsonObject.optJSONArray("products");
 						if (jsonArray == null) {
 							return;
@@ -154,6 +148,8 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 							productEntity.setPrice(jsonObject2.optDouble("price", 0));
 							productEntity.setSpec(jsonObject2.optString("spec", ""));
 							productEntity.setStock_num(jsonObject2.optInt("stock_num", 0));
+							productEntity.setNumber(jsonObject2.optInt("number", 0));
+							productEntity.setCart_item_unique_id(jsonObject2.optString("cart_item_unique_id", ""));
 							productEntities.add(productEntity);
 						}
 						if (productEntities.size() > 0) {
@@ -170,14 +166,22 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 
 	@Override
 	public void onClick(View v) {
+		Intent intent;
 		switch (v.getId()) {
 		case R.id.back:
 			finish();
 			break;
 		case R.id.classify:
-			Intent intent=new Intent();
-			intent.putExtra("classifyId", classifyId);
+			intent = new Intent();
+			intent.putExtra("classifyId", id);
 			setResult(RESULT_OK, intent);
+			finish();
+			break;
+		case R.id.shopping_cart:
+			intent = new Intent(this, MainActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+			intent.putExtra("type", 2);
+			startActivity(intent);
 			finish();
 			break;
 		default:
@@ -211,7 +215,7 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 	public void execute() {
 		if (!IsLoading) {
 			pageNum++;
-			if (pageNum <= smallClassifyEntity.getTotal_pages()) {
+			if (pageNum <= total_pages) {
 				IsLoading = true;
 				footview.setVisibility(View.VISIBLE);
 				getData();
@@ -219,7 +223,13 @@ public class ProductAitivity extends BaseActivity implements OnItemClickListener
 		}
 
 	}
-	
 
+	@Override
+	public void addSucceed(int number) {
+		Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+		shake.reset();
+		shake.setFillAfter(true);
+		iv_shopping_cart.setAnimation(shake);
+	}
 
 }

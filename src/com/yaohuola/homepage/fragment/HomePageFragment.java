@@ -19,8 +19,6 @@ import com.yaohuola.data.cache.LocalCache;
 import com.yaohuola.data.entity.BannerEntity;
 import com.yaohuola.data.entity.ClassifyEntity;
 import com.yaohuola.data.entity.HotSaleEntity;
-import com.yaohuola.data.entity.ProductEntity;
-import com.yaohuola.data.entity.SmallClassifyEntity;
 import com.yaohuola.homepage.adapter.ClassifyAdapter;
 import com.yaohuola.homepage.adapter.HotSaleAdapter;
 import com.yaohuola.interfaces.FragmentSwitchListenter;
@@ -58,7 +56,6 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 	private HotSaleAdapter hotSaleAdapter;
 	private List<HotSaleEntity> hotSaleEntities;
 	private Context context;
-//	private EditText etSearch;
 	private ScrollView scrollView;
 	private RelativeLayout footview;
 	private View view;
@@ -82,7 +79,7 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 	private void initView() {
 		view = getView();
 		context = getActivity();
-//		etSearch = (EditText) view.findViewById(R.id.edit);
+		// etSearch = (EditText) view.findViewById(R.id.edit);
 		slideShowView = (SlideShowView) view.findViewById(R.id.slideshowView);
 		classifyGridView = (SAGridView) view.findViewById(R.id.classifyGridView);
 		classifyEntities = new ArrayList<ClassifyEntity>();
@@ -102,30 +99,6 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 		getData();
 		// 获取热门产品数据
 		getPopularsData();
-//		etSearch.setOnEditorActionListener(new OnEditorActionListener() {
-//
-//			@Override
-//			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//
-//				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-//
-//					InputMethodManager imm = (InputMethodManager) v.getContext()
-//							.getSystemService(Context.INPUT_METHOD_SERVICE);
-//					if (imm.isActive()) {
-//						imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
-//					}
-//					String keyWord = etSearch.getText().toString();
-//					if (TextUtils.isEmpty(keyWord)) {
-//						Toast.makeText(context, "搜索内容不能为空", Toast.LENGTH_SHORT).show();
-//						return false;
-//					}
-//					SearchTask.search(context, "v1/products/search_name", keyWord, 0);
-//					return true;
-//				}
-//				return false;
-//			}
-//
-//		});
 	}
 
 	/**
@@ -158,7 +131,7 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 							banner.setTitle(bannerObj.optString("title", ""));
 							imageList.add(banner);
 						}
-						if (imageList.size()>0) {
+						if (imageList.size() > 0) {
 							slideShowView.setData(imageList);
 						}
 						JSONArray jsonArray = jsonObject.optJSONArray("categories");
@@ -176,7 +149,7 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 							classifyEntity.setId(jsonObject2.optString("unique_id", ""));
 							classifyEntities.add(classifyEntity);
 						}
-						if (classifyEntities.size()>0) {
+						if (classifyEntities.size() > 0) {
 							classifyAdapter.notifyDataSetChanged();
 						}
 					}
@@ -217,7 +190,7 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 						if (jsonArray == null && jsonArray.length() == 0) {
 							return;
 						}
-						if (pageNum==1) {
+						if (pageNum == 1) {
 							hotSaleEntities.clear();
 						}
 						for (int i = 0; i < jsonArray.length(); i++) {
@@ -279,7 +252,7 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 		// 判断显示才加载滚动banner
 		if (getUserVisibleHint()) {
 			handler.sendEmptyMessage(1002);
-			pageNum=1;
+			pageNum = 1;
 			getPopularsData();
 		} else {
 			handler.sendEmptyMessage(1003);
@@ -299,13 +272,7 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.rlSearch:
-//			String keyWord = etSearch.getText().toString();
-//			if (TextUtils.isEmpty(keyWord)) {
-//				Toast.makeText(context, "搜索内容不能为空", Toast.LENGTH_SHORT).show();
-//				return;
-//			}
-//			SearchTask.search(context, "v1/products/search_name", keyWord, 0);
-			startActivity(new Intent(context,SearchActivity.class));
+			startActivity(new Intent(context, SearchActivity.class));
 			break;
 
 		default:
@@ -319,7 +286,7 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 		case R.id.classifyGridView:
 			ClassifyEntity classifyEntity = (ClassifyEntity) parent.getItemAtPosition(position);
 			if (!TextUtils.isEmpty(classifyEntity.getName())) {
-				search(classifyEntity.getName(), 1, classifyEntity.getId());
+				search(classifyEntity.getName(), classifyEntity.getId());
 			}
 			break;
 		case R.id.hotSaleGridView:
@@ -365,13 +332,13 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 	 * @param searchType
 	 * 
 	 */
-	public void search(final String keyWord, final int searchType, final String classifyId) {
+	public void search(final String searchContent, final String classifyId) {
 		if (AppUtils.isFastClick()) {
 			return;
 		}
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("key_word", keyWord);
-		map.put("page_num", "1");
+		map.put("page_num", 1 + "");
+		map.put("key_word", searchContent);
 		new HttpTask(context, HttpTask.POST, "v1/products/search", map) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
@@ -381,37 +348,10 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 					JSONObject jsonObject = new JSONObject(result);
 					int code = jsonObject.optInt("result", -1);
 					if (code == 0) {
-						JSONArray jsonArray = jsonObject.optJSONArray("products");
-						if (jsonArray == null) {
-							return;
-						}
-						SmallClassifyEntity smallClassifyEntity = new SmallClassifyEntity();
-						smallClassifyEntity.setTitle(keyWord);
-						smallClassifyEntity.setTotal_pages(jsonObject.optInt("total_pages", 1));
-						List<ProductEntity> productEntities = new ArrayList<ProductEntity>();
-						for (int i = 0; i < jsonArray.length(); i++) {
-							JSONObject jsonObject2 = jsonArray.optJSONObject(i);
-							if (jsonObject2 == null) {
-								continue;
-							}
-							ProductEntity productEntity = new ProductEntity();
-							productEntity.setId(jsonObject2.optString("unique_id", ""));
-							productEntity.setName(jsonObject2.optString("name", ""));
-							productEntity.setPic(jsonObject2.optString("image", ""));
-							productEntity.setDescription(jsonObject2.optString("desc", ""));
-							productEntity.setPrice(jsonObject2.optDouble("price", 0));
-							productEntity.setSpec(jsonObject2.optString("spec", ""));
-							productEntity.setStock_num(jsonObject2.optInt("stock_num", 0));
-							productEntities.add(productEntity);
-						}
-						smallClassifyEntity.setProductEntities(productEntities);
 						Intent intent = new Intent(context, ProductAitivity.class);
-						intent.putExtra("smallClassifyEntity", smallClassifyEntity);
-						intent.putExtra("title", keyWord);
-						intent.putExtra("index", -1);
 						intent.putExtra("type", 2);
-						intent.putExtra("classifyId", classifyId);
-						intent.putExtra("searchType", searchType);
+						intent.putExtra("title", searchContent);
+						intent.putExtra("id", classifyId);
 						startActivityForResult(intent, 1001);
 					}
 				} catch (JSONException e) {
@@ -435,5 +375,4 @@ public class HomePageFragment extends Fragment implements OnClickListener, OnIte
 
 		}
 	}
-
 }

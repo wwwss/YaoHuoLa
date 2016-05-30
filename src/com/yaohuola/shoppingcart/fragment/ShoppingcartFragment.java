@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.android.yaohuola.R;
+import com.library.uitls.SmartLog;
 import com.yaohuola.classification.activity.ProductDetailsActivity;
 import com.yaohuola.data.cache.LocalCache;
 import com.yaohuola.data.entity.OrderEntity;
@@ -115,11 +116,13 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 			view.findViewById(R.id.delete).setVisibility(View.INVISIBLE);
 			return;
 		}
+
 		new HttpTask(context, HttpTask.GET, "v2/cart_items/" + token, null) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
 					return;
 				}
+				int cart_total_num = 0;
 				try {
 					JSONObject jsonObject = new JSONObject(result);
 					int code = jsonObject.optInt("result", -1);
@@ -135,6 +138,8 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 								continue;
 							}
 							String categoryName = jsonObject2.optString("category_name", "");
+							cart_total_num = jsonObject.optInt("cart_total_num", -1);
+							LocalCache.getInstance(context).setCartTotalNum(cart_total_num);
 							JSONArray jsonArray2 = jsonObject2.optJSONArray("list");
 							if (jsonArray2 == null) {
 								continue;
@@ -171,10 +176,12 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 							adapter.notifyDataSetChanged();
 							adapter.recordIndex();
 							tv_allSelect.setSelected(true);
+							listenter.go(-1, cart_total_num + "");
 						}
 						view.findViewById(R.id.footView).setVisibility(View.VISIBLE);
 						view.findViewById(R.id.delete).setVisibility(View.VISIBLE);
 					} else {
+						listenter.go(-1, "0");
 						shoppingCartEntities.clear();
 						adapter.recordIndex();
 						adapter.notifyDataSetChanged();
@@ -193,6 +200,12 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 
 			switch (msg.what) {
 			case 1001:
+				int cart_total_num = LocalCache.getInstance(context).getCartTotalNum();
+				if (cart_total_num > 0) {
+					listenter.go(-1,cart_total_num + "");
+				} else {
+					listenter.go(-1, "0");
+				}
 				if (shoppingCartEntities.size() == 0) {
 					view.findViewById(R.id.footView).setVisibility(View.INVISIBLE);
 					view.findViewById(R.id.delete).setVisibility(View.INVISIBLE);
@@ -235,7 +248,7 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.delete:
-			delect();
+			delete();
 			break;
 		case R.id.allSelect:
 			if (tv_allSelect.isSelected()) {
@@ -275,7 +288,7 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 
 	}
 
-	private void delect() {
+	private void delete() {
 		alertDialog = new DeleteDialog(context).builder();
 		final JSONArray jsonArray = new JSONArray();
 		final List<ShoppingCartEntity> newShoppingCartEntites = new ArrayList<ShoppingCartEntity>();
@@ -319,6 +332,7 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 		final Map<String, String> map = new HashMap<String, String>();
 		map.put("token", token);
 		map.put("unique_ids", jsonArray.toString());
+
 		new HttpTask(context, HttpTask.DELETE, "v1/cart_items", map) {
 			protected void onPostExecute(String result) {
 				if (TextUtils.isEmpty(result)) {
@@ -327,9 +341,17 @@ public class ShoppingcartFragment extends Fragment implements OnClickListener, O
 				try {
 					JSONObject jsonObject = new JSONObject(result);
 					int code = jsonObject.optInt("result", -1);
+					int cart_total_num = jsonObject.optInt("cart_total_num", -1);
 					if (code == 0) {
 						shoppingCartEntities.clear();
 						shoppingCartEntities.addAll(newShoppingCartEntites);
+						LocalCache.getInstance(context).setCartTotalNum(cart_total_num);
+						if (cart_total_num > 0) {
+							listenter.go(-1,cart_total_num + "");
+						} else {
+							SmartLog.i("------------------", "aaaaaaaaaaaaaaaaaaaaaa");
+							listenter.go(-1, "0");
+						}
 						adapter.notifyDataSetChanged();
 					}
 				} catch (JSONException e) {

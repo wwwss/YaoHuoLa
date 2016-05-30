@@ -21,23 +21,23 @@
             android:src="@drawable/yaohuola_icon" />
 
         <RelativeLayout
-             android:id="@+id/rlSearch"
+            android:id="@+id/rlSearch"
             android:layout_width="0dp"
             android:layout_height="33dp"
             android:layout_marginRight="@dimen/margin_large"
             android:layout_weight="1"
             android:background="@drawable/search_bg" >
 
-            <EditText
+            <TextView
                 android:id="@+id/edit"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_margin="@dimen/margin_smaller"
                 android:background="@null"
-                android:hint="@string/search_hint"
-                android:imeOptions="actionSearch"
+                android:gravity="center_vertical"
                 android:paddingLeft="@dimen/margin_large"
                 android:singleLine="true"
+                android:text="@string/search_hint"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="@dimen/text_size_normal" />

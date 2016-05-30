@@ -13,6 +13,7 @@ import com.yaohuola.YaoHuoLaApplication;
 import com.yaohuola.adapter.BaseAdapter;
 import com.yaohuola.data.cache.LocalCache;
 import com.yaohuola.data.entity.ProductEntity;
+import com.yaohuola.interfaces.AddShoppingCartListener;
 import com.yaohuola.my.activity.LoginActivity;
 import com.yaohuola.task.HttpTask;
 
@@ -25,12 +26,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ProductGridViewAdapter extends BaseAdapter<ProductEntity> {
 
-	public ProductGridViewAdapter(Context context, List<ProductEntity> list) {
+	private AddShoppingCartListener listener;
+
+	public ProductGridViewAdapter(Context context, List<ProductEntity> list, AddShoppingCartListener listener) {
 		super(context, list);
+		this.listener = listener;
 	}
 
 	@Override
@@ -134,16 +137,11 @@ public class ProductGridViewAdapter extends BaseAdapter<ProductEntity> {
 				try {
 					JSONObject jsonObject = new JSONObject(result);
 					int code = jsonObject.optInt("result", -1);
+					int cart_total_num = jsonObject.optInt("cart_total_num", -1);
 					if (code == 0) {
 						productEntity.setNumber(1);
 						productEntity.setCart_item_unique_id(jsonObject.optString("unique_id", ""));
-						Toast.makeText(context, "加入购物车成功", Toast.LENGTH_SHORT).show();
-						updateItem(productEntity, itemCache);
-					} else if (code == 3) {
-						Toast.makeText(context, "库存不足", Toast.LENGTH_SHORT).show();
-					} else {
-						Toast.makeText(context, "加入购物车失败", Toast.LENGTH_SHORT).show();
-
+						updateItem(productEntity, itemCache,cart_total_num);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -153,7 +151,7 @@ public class ProductGridViewAdapter extends BaseAdapter<ProductEntity> {
 	}
 
 	/**
-	 * 加入购物车的方法
+	 * 修改购物车产品数量的方法
 	 */
 	private void updateCartItemNumber(final int product_num, final ProductEntity productEntity,
 			final ItemCache itemCache) {
@@ -174,13 +172,10 @@ public class ProductGridViewAdapter extends BaseAdapter<ProductEntity> {
 				try {
 					JSONObject jsonObject = new JSONObject(result);
 					int code = jsonObject.optInt("result", -1);
+					int cart_total_num = jsonObject.optInt("cart_total_num", -1);
 					if (code == 0) {
 						productEntity.setNumber(product_num);
-						updateItem(productEntity, itemCache);
-					} else if (code == 3) {
-						Toast.makeText(context, "库存不足", Toast.LENGTH_SHORT).show();
-					} else {
-						Toast.makeText(context, "修改数量失败", Toast.LENGTH_SHORT).show();
+						updateItem(productEntity, itemCache,cart_total_num);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -211,9 +206,10 @@ public class ProductGridViewAdapter extends BaseAdapter<ProductEntity> {
 				try {
 					JSONObject jsonObject = new JSONObject(result);
 					int code = jsonObject.optInt("result", -1);
+					int cart_total_num = jsonObject.optInt("cart_total_num", -1);
 					if (code == 0) {
 						productEntity.setNumber(0);
-						updateItem(productEntity, itemCache);
+						updateItem(productEntity, itemCache,cart_total_num);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -226,7 +222,12 @@ public class ProductGridViewAdapter extends BaseAdapter<ProductEntity> {
 	/**
 	 * 刷新item
 	 */
-	private void updateItem(ProductEntity productEntity, ItemCache itemCache) {
+	private void updateItem(ProductEntity productEntity, ItemCache itemCache,int cart_total_num) {
+		int old_cart_total_num=LocalCache.getInstance(context).getCartTotalNum();
+		if (cart_total_num>old_cart_total_num) {
+			listener.addSucceed(productEntity.getNumber());
+		}
+		LocalCache.getInstance(context).setCartTotalNum(cart_total_num);
 		if (productEntity.getNumber() > 0) {
 			itemCache.tvNumber.setText(productEntity.getNumber() + "");
 			itemCache.tvNumber.setVisibility(View.VISIBLE);
@@ -235,5 +236,6 @@ public class ProductGridViewAdapter extends BaseAdapter<ProductEntity> {
 			itemCache.tvNumber.setVisibility(View.GONE);
 			itemCache.ivSubtract.setVisibility(View.GONE);
 		}
+		
 	}
 }

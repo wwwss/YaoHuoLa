@@ -37,7 +37,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartEntity> {
 	private Handler handler;
@@ -155,7 +154,9 @@ public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartEntity> {
 									try {
 										JSONObject jsonObject = new JSONObject(result);
 										int code = jsonObject.optInt("result", -1);
+										int cart_total_num = jsonObject.optInt("cart_total_num", -1);
 										if (code == 0) {
+											LocalCache.getInstance(context).setCartTotalNum(cart_total_num);
 											list.remove(position);
 											notifyDataSetChanged();
 										}
@@ -255,10 +256,9 @@ public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartEntity> {
 	}
 
 	/**
-	 * 加入购物车的方法
+	 * 修改购物车产品数量方法
 	 */
 	private void updateCartItemNumber(final int position, String unique_id, final int product_num) {
-
 		String token = LocalCache.getInstance(context).getToken();
 		if (TextUtils.isEmpty(token)) {
 			context.startActivity(new Intent(context, LoginActivity.class));
@@ -276,14 +276,12 @@ public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartEntity> {
 				try {
 					JSONObject jsonObject = new JSONObject(result);
 					int code = jsonObject.optInt("result", -1);
+					int cart_total_num = jsonObject.optInt("cart_total_num", -1);
 					if (code == 0) {
+						LocalCache.getInstance(context).setCartTotalNum(cart_total_num);
 						list.get(position).getProductEntity().setNumber(product_num);
 						notifyDataSetChanged();
-					} else if (code == 3) {
-						Toast.makeText(context, "库存不足", Toast.LENGTH_SHORT).show();
-					} else {
-						Toast.makeText(context, "修改数量失败", Toast.LENGTH_SHORT).show();
-					}
+					}  
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}

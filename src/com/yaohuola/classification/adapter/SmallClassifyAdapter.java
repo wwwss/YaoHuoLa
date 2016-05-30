@@ -1,26 +1,17 @@
 package com.yaohuola.classification.adapter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.android.yaohuola.R;
-import com.library.uitls.AppUtils;
+import com.library.uitls.SmartLog;
 import com.library.view.SAGridView;
 import com.yaohuola.adapter.BaseAdapter;
 import com.yaohuola.classification.activity.ProductAitivity;
 import com.yaohuola.data.entity.ProductEntity;
 import com.yaohuola.data.entity.SmallClassifyEntity;
-import com.yaohuola.task.HttpTask;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -60,11 +51,11 @@ public class SmallClassifyAdapter extends BaseAdapter<SmallClassifyEntity> {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+				ProductEntity productEntity = smallClassifyEntity.getProductEntities().get(position);
 				Intent intent = new Intent(context, ProductAitivity.class);
-				intent.putExtra("smallClassifyEntity", smallClassifyEntity);
-				intent.putExtra("index", position);
+				intent.putExtra("id", productEntity.getId());
 				intent.putExtra("type", 0);
+				intent.putExtra("title", productEntity.getName());
 				context.startActivity(intent);
 			}
 		});
@@ -72,10 +63,17 @@ public class SmallClassifyAdapter extends BaseAdapter<SmallClassifyEntity> {
 
 			@Override
 			public void onClick(View v) {
-				if (AppUtils.isFastClick()) {
-					return;
-				}
-				getSmallClassify(smallClassifyEntity.getId(), smallClassifyEntity.getTitle());
+				Intent intent = new Intent(context, ProductAitivity.class);
+				intent.putExtra("id", smallClassifyEntity.getId());
+				intent.putExtra("type", 1);
+				intent.putExtra("title", smallClassifyEntity.getTitle());
+				SmartLog.i("-----------------", smallClassifyEntity.getId()+smallClassifyEntity.getName());
+				context.startActivity(intent);
+				// if (AppUtils.isFastClick()) {
+				// return;
+				// }
+				// getSmallClassify(smallClassifyEntity.getId(),
+				// smallClassifyEntity.getTitle());
 			}
 		});
 
@@ -89,59 +87,60 @@ public class SmallClassifyAdapter extends BaseAdapter<SmallClassifyEntity> {
 
 	}
 
-	/**
-	 * 全部分类
-	 */
-	public void getSmallClassify(final String unique_id, final String title) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("page_num", "1");
-		new HttpTask(context, HttpTask.GET, "v1/products/sub_category/" + unique_id, map) {
-			protected void onPostExecute(String result) {
-				if (TextUtils.isEmpty(result)) {
-					return;
-				}
-				try {
-					JSONObject jsonObject = new JSONObject(result);
-					int code = jsonObject.optInt("result", -1);
-					if (code == 0) {
-						JSONArray jsonArray = jsonObject.optJSONArray("products");
-						if (jsonArray == null) {
-							return;
-						}
-						SmallClassifyEntity smallClassifyEntity = new SmallClassifyEntity();
-						smallClassifyEntity.setTitle(title);
-						smallClassifyEntity.setId(unique_id);
-						smallClassifyEntity.setTotal_pages(jsonObject.optInt("total_pages", 1));
-						List<ProductEntity> productEntities = new ArrayList<ProductEntity>();
-						for (int i = 0; i < jsonArray.length(); i++) {
-							JSONObject jsonObject2 = jsonArray.optJSONObject(i);
-							if (jsonObject2 == null) {
-								continue;
-							}
-							ProductEntity productEntity = new ProductEntity();
-							productEntity.setId(jsonObject2.optString("unique_id", ""));
-							productEntity.setName(jsonObject2.optString("name", ""));
-							productEntity.setPic(jsonObject2.optString("image", ""));
-							productEntity.setDescription(jsonObject2.optString("desc", ""));
-							productEntity.setPrice(jsonObject2.optDouble("price", 0));
-							productEntity.setSpec(jsonObject2.optString("spec", ""));
-							productEntity.setStock_num(jsonObject2.optInt("stock_num", 0));
-							productEntities.add(productEntity);
-						}
-						smallClassifyEntity.setProductEntities(productEntities);
-						Intent intent = new Intent(context, ProductAitivity.class);
-						intent.putExtra("smallClassifyEntity", smallClassifyEntity);
-						intent.putExtra("title", title);
-						intent.putExtra("index", -1);
-						intent.putExtra("type", 1);
-						context.startActivity(intent);
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			};
-		}.run();
-
-	}
+//	/**
+//	 * 全部分类
+//	 */
+//	public void getSmallClassify(final String unique_id, final String title) {
+//		Map<String, String> map = new HashMap<String, String>();
+//		map.put("page_num", "1");
+//		new HttpTask(context, HttpTask.GET, "v1/products/sub_category/" + unique_id, map) {
+//			protected void onPostExecute(String result) {
+//				if (TextUtils.isEmpty(result)) {
+//					return;
+//				}
+//				try {
+//					JSONObject jsonObject = new JSONObject(result);
+//					int code = jsonObject.optInt("result", -1);
+//					if (code == 0) {
+//						JSONArray jsonArray = jsonObject.optJSONArray("products");
+//						if (jsonArray == null) {
+//							return;
+//						}
+//						SmallClassifyEntity smallClassifyEntity = new SmallClassifyEntity();
+//						smallClassifyEntity.setTitle(title);
+//						smallClassifyEntity.setId(unique_id);
+//						smallClassifyEntity.setTotal_pages(jsonObject.optInt("total_pages", 1));
+//						List<ProductEntity> productEntities = new ArrayList<ProductEntity>();
+//						for (int i = 0; i < jsonArray.length(); i++) {
+//							JSONObject jsonObject2 = jsonArray.optJSONObject(i);
+//							if (jsonObject2 == null) {
+//								continue;
+//							}
+//							ProductEntity productEntity = new ProductEntity();
+//							productEntity.setId(jsonObject2.optString("unique_id", ""));
+//							productEntity.setName(jsonObject2.optString("name", ""));
+//							productEntity.setPic(jsonObject2.optString("image", ""));
+//							productEntity.setDescription(jsonObject2.optString("desc", ""));
+//							productEntity.setPrice(jsonObject2.optDouble("price", 0));
+//							productEntity.setSpec(jsonObject2.optString("spec", ""));
+//							productEntity.setStock_num(jsonObject2.optInt("stock_num", 0));
+//							productEntity.setNumber(jsonObject2.optInt("number", 0));
+//							productEntities.add(productEntity);
+//						}
+//						smallClassifyEntity.setProductEntities(productEntities);
+//						Intent intent = new Intent(context, ProductAitivity.class);
+//						intent.putExtra("smallClassifyEntity", smallClassifyEntity);
+//						intent.putExtra("title", title);
+//						intent.putExtra("index", -1);
+//						intent.putExtra("type", 1);
+//						context.startActivity(intent);
+//					}
+//				} catch (JSONException e) {
+//					e.printStackTrace();
+//				}
+//			};
+//		}.run();
+//
+//	}
 
 }

@@ -130,12 +130,14 @@ public class OrderListAdapter extends BaseAdapter<OrderEntity> {
 					int code = jsonObject.optInt("result", -1);
 					if (code == 0) {
 						Toast.makeText(context, "加入购物车成功", Toast.LENGTH_SHORT).show();
-					} else if (code == 3) {
-						Toast.makeText(context, "库存不足", Toast.LENGTH_SHORT).show();
-					} else {
-						Toast.makeText(context, "加入购物车失败", Toast.LENGTH_SHORT).show();
-
 					}
+					// else if (code == 3) {
+					// Toast.makeText(context, "库存不足",
+					// Toast.LENGTH_SHORT).show();
+					// } else {
+					// Toast.makeText(context, "加入购物车失败",
+					// Toast.LENGTH_SHORT).show();
+					// }
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
